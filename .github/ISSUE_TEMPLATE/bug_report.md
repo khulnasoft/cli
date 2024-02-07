@@ -28,10 +28,10 @@ Rerun the failing command with `--create-ticket` flag (preferred).
  - Ticket ID: [or provide the information manually below]
  - OS: [e.g. Ubuntu]
  - Version of CLI: [e.g. v1.60.0]
- - Versions of services: [from `supabase services` command]
+ - Versions of services: [from `khulnasoft services` command]
 
 **Additional context**
 If applicable, add any other context about the problem here.
  - Browser [e.g. chrome, safari]
- - Version of supabase-js [e.g. v2.22.0]
+ - Version of khulnasoft-js [e.g. v2.22.0]
  - Version of Node.js [e.g. v16.20.0]

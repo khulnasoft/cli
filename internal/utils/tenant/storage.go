@@ -15,7 +15,7 @@ func GetStorageVersion(ctx context.Context, projectRef string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	url := fmt.Sprintf("https://%s/storage/v1/version", utils.GetSupabaseHost(projectRef))
+	url := fmt.Sprintf("https://%s/storage/v1/version", utils.GetKhulnasoftHost(projectRef))
 	data, err := GetTextResponse(ctx, url, apiKey.Anon)
 	if err != nil {
 		return "", err

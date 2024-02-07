@@ -22,7 +22,7 @@ func Run(ctx context.Context, name, region string, fsys afero.Fs) error {
 		name = gitBranch
 	}
 
-	resp, err := utils.GetSupabase().CreateBranchWithResponse(ctx, ref, api.CreateBranchJSONRequestBody{
+	resp, err := utils.GetKhulnasoft().CreateBranchWithResponse(ctx, ref, api.CreateBranchJSONRequestBody{
 		BranchName: name,
 		GitBranch:  &gitBranch,
 		Region:     &region,

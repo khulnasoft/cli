@@ -21,7 +21,7 @@ var (
 	linkCmd = &cobra.Command{
 		GroupID: groupLocalDev,
 		Use:     "link",
-		Short:   "Link to a Supabase project",
+		Short:   "Link to a Khulnasoft project",
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if !term.IsTerminal(int(os.Stdin.Fd())) {
 				return cmd.MarkFlagRequired("project-ref")
@@ -52,14 +52,14 @@ var (
 
 func init() {
 	flags := linkCmd.Flags()
-	flags.StringVar(&projectRef, "project-ref", "", "Project ref of the Supabase project.")
+	flags.StringVar(&projectRef, "project-ref", "", "Project ref of the Khulnasoft project.")
 	flags.StringVarP(&dbPassword, "password", "p", "", "Password to your remote Postgres database.")
 	cobra.CheckErr(viper.BindPFlag("DB_PASSWORD", flags.Lookup("password")))
 	rootCmd.AddCommand(linkCmd)
 }
 
 func PromptProjectRef(ctx context.Context, title string) error {
-	resp, err := utils.GetSupabase().GetProjectsWithResponse(ctx)
+	resp, err := utils.GetKhulnasoft().GetProjectsWithResponse(ctx)
 	if err != nil {
 		return err
 	}

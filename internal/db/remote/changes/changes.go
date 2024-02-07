@@ -32,7 +32,7 @@ func Run(ctx context.Context, schema []string, config pgconn.Config, fsys afero.
 }
 
 func run(p utils.Program, ctx context.Context, schema []string, config pgconn.Config, fsys afero.Fs) (err error) {
-	// 1. Assert `supabase/migrations` and `schema_migrations` are in sync.
+	// 1. Assert `khulnasoft/migrations` and `schema_migrations` are in sync.
 	{
 		p.Send(utils.StatusMsg("Connecting to remote database..."))
 		conn, err := utils.ConnectRemotePostgres(ctx, config)

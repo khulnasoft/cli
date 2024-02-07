@@ -10,7 +10,7 @@ import (
 )
 
 func Run(ctx context.Context, branchId string) error {
-	resp, err := utils.GetSupabase().GetBranchDetailsWithResponse(ctx, branchId)
+	resp, err := utils.GetKhulnasoft().GetBranchDetailsWithResponse(ctx, branchId)
 	if err != nil {
 		return errors.Errorf("failed to retrieve preview branch: %w", err)
 	}

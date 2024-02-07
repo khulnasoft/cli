@@ -54,7 +54,7 @@ func Run(ctx context.Context, dryRun, ignoreVersionMismatch bool, includeRoles, 
 			return err
 		}
 	}
-	fmt.Println("Finished " + utils.Aqua("supabase db push") + ".")
+	fmt.Println("Finished " + utils.Aqua("khulnasoft db push") + ".")
 	return nil
 }
 

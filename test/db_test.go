@@ -77,7 +77,7 @@ func (suite *DBTestSuite) SetupTest() {
 		c.JSON(http.StatusOK, gin.H{})
 	}
 
-	// create supabase dir
+	// create khulnasoft dir
 	suite.cmd = clicmd.GetRootCmd()
 	init, _, err := suite.cmd.Find([]string{"init"})
 	if err != nil {
@@ -85,12 +85,12 @@ func (suite *DBTestSuite) SetupTest() {
 	}
 	err = init.RunE(init, []string{})
 	if err != nil {
-		suite.Fail("failed to init supabase cli")
+		suite.Fail("failed to init khulnasoft cli")
 	}
 
-	err = os.Mkdir("supabase/.branches", os.FileMode(0755))
+	err = os.Mkdir("khulnasoft/.branches", os.FileMode(0755))
 	if err != nil {
-		suite.Fail("failed to create supabase/.branches directory")
+		suite.Fail("failed to create khulnasoft/.branches directory")
 	}
 }
 
@@ -132,7 +132,7 @@ func (suite *DBTestSuite) constructParams() []gin.Params {
 		ids = append(ids, gin.Params{
 			gin.Param{
 				Key:   "id",
-				Value: "supabase_db_" + filepath.Base(suite.tempDir),
+				Value: "khulnasoft_db_" + filepath.Base(suite.tempDir),
 			},
 		})
 

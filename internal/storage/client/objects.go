@@ -44,7 +44,7 @@ type ObjectMetadata struct {
 }
 
 func ListStorageObjects(ctx context.Context, projectRef, bucket, prefix string, page int) ([]ObjectResponse, error) {
-	url := fmt.Sprintf("https://%s/storage/v1/object/list/%s", utils.GetSupabaseHost(projectRef), bucket)
+	url := fmt.Sprintf("https://%s/storage/v1/object/list/%s", utils.GetKhulnasoftHost(projectRef), bucket)
 	apiKey, err := tenant.GetApiKeys(ctx, projectRef)
 	if err != nil {
 		return nil, err
@@ -79,7 +79,7 @@ func UploadStorageObject(ctx context.Context, projectRef, remotePath, localPath 
 	for _, apply := range opts {
 		apply(fo)
 	}
-	// Use default value of storage-js: https://github.com/supabase/storage-js/blob/main/src/packages/StorageFileApi.ts#L22
+	// Use default value of storage-js: https://github.com/khulnasoft/storage-js/blob/main/src/packages/StorageFileApi.ts#L22
 	if len(fo.CacheControl) == 0 {
 		fo.CacheControl = "max-age=3600"
 	}
@@ -102,7 +102,7 @@ func UploadStorageObject(ctx context.Context, projectRef, remotePath, localPath 
 		return err
 	}
 	remotePath = strings.TrimPrefix(remotePath, "/")
-	url := fmt.Sprintf("https://%s/storage/v1/object/%s", utils.GetSupabaseHost(projectRef), remotePath)
+	url := fmt.Sprintf("https://%s/storage/v1/object/%s", utils.GetKhulnasoftHost(projectRef), remotePath)
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, f)
 	if err != nil {
 		return errors.Errorf("failed to initialise http request: %w", err)
@@ -132,7 +132,7 @@ func DownloadStorageObject(ctx context.Context, projectRef, remotePath, localPat
 		return err
 	}
 	remotePath = strings.TrimPrefix(remotePath, "/")
-	url := fmt.Sprintf("https://%s/storage/v1/object/%s", utils.GetSupabaseHost(projectRef), remotePath)
+	url := fmt.Sprintf("https://%s/storage/v1/object/%s", utils.GetKhulnasoftHost(projectRef), remotePath)
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
 		return errors.Errorf("failed to initialise http request: %w", err)
@@ -172,7 +172,7 @@ type MoveObjectRequest struct {
 type MoveObjectResponse = DeleteBucketResponse
 
 func MoveStorageObject(ctx context.Context, projectRef, bucketId, srcPath, dstPath string) (*MoveObjectResponse, error) {
-	url := fmt.Sprintf("https://%s/storage/v1/object/move", utils.GetSupabaseHost(projectRef))
+	url := fmt.Sprintf("https://%s/storage/v1/object/move", utils.GetKhulnasoftHost(projectRef))
 	apiKey, err := tenant.GetApiKeys(ctx, projectRef)
 	if err != nil {
 		return nil, err
@@ -192,7 +192,7 @@ type CopyObjectResponse struct {
 }
 
 func CopyStorageObject(ctx context.Context, projectRef, bucketId, srcPath, dstPath string) (*CopyObjectResponse, error) {
-	url := fmt.Sprintf("https://%s/storage/v1/object/copy", utils.GetSupabaseHost(projectRef))
+	url := fmt.Sprintf("https://%s/storage/v1/object/copy", utils.GetKhulnasoftHost(projectRef))
 	apiKey, err := tenant.GetApiKeys(ctx, projectRef)
 	if err != nil {
 		return nil, err
@@ -223,7 +223,7 @@ type DeleteObjectsResponse struct {
 }
 
 func DeleteStorageObjects(ctx context.Context, projectRef, bucket string, prefixes []string) ([]DeleteObjectsResponse, error) {
-	url := fmt.Sprintf("https://%s/storage/v1/object/%s", utils.GetSupabaseHost(projectRef), bucket)
+	url := fmt.Sprintf("https://%s/storage/v1/object/%s", utils.GetKhulnasoftHost(projectRef), bucket)
 	apiKey, err := tenant.GetApiKeys(ctx, projectRef)
 	if err != nil {
 		return nil, err

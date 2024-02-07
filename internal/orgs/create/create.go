@@ -10,7 +10,7 @@ import (
 )
 
 func Run(ctx context.Context, name string) error {
-	resp, err := utils.GetSupabase().CreateOrganizationWithResponse(ctx, api.CreateOrganizationJSONRequestBody{Name: name})
+	resp, err := utils.GetKhulnasoft().CreateOrganizationWithResponse(ctx, api.CreateOrganizationJSONRequestBody{Name: name})
 	if err != nil {
 		return errors.Errorf("failed to create organization: %w", err)
 	}

@@ -40,8 +40,8 @@ var (
 	VectorId      string
 	PoolerId      string
 
-	DbAliases          = []string{"db", "db.supabase.internal"}
-	KongAliases        = []string{"kong", "api.supabase.internal"}
+	DbAliases          = []string{"db", "db.khulnasoft.internal"}
+	KongAliases        = []string{"kong", "api.khulnasoft.internal"}
 	GotrueAliases      = []string{"auth"}
 	InbucketAliases    = []string{"inbucket"}
 	RealtimeAliases    = []string{"realtime"}
@@ -69,7 +69,7 @@ var (
 )
 
 func GetId(name string) string {
-	return "supabase_" + name + "_" + Config.ProjectId
+	return "khulnasoft_" + name + "_" + Config.ProjectId
 }
 
 func UpdateDockerIds() {
@@ -146,7 +146,7 @@ func (c CustomClaims) NewToken() *jwt.Token {
 		c.ExpiresAt = jwt.NewNumericDate(time.Unix(defaultJwtExpiry, 0))
 	}
 	if len(c.Issuer) == 0 {
-		c.Issuer = "supabase-demo"
+		c.Issuer = "khulnasoft-demo"
 	}
 	return jwt.NewWithClaims(jwt.SigningMethodHS256, c)
 }
@@ -220,7 +220,7 @@ var Config = config{
 // If you are adding new user defined secrets, such as OAuth provider secret, the default value in
 // init_config.toml should be an env var substitution. For example,
 //
-// > secret = "env(SUPABASE_AUTH_EXTERNAL_APPLE_SECRET)"
+// > secret = "env(KHULNASOFT_AUTH_EXTERNAL_APPLE_SECRET)"
 //
 // If you are adding an internal config or secret that doesn't need to be overridden by the user,
 // exclude the field from toml serialization. For example,
@@ -230,7 +230,7 @@ var Config = config{
 //	}
 //
 // Use `mapstructure:"anon_key"` tag only if you want inject values from a predictable environment
-// variable, such as SUPABASE_AUTH_ANON_KEY.
+// variable, such as KHULNASOFT_AUTH_ANON_KEY.
 //
 // Default values for internal configs should be added to `var Config` initializer.
 type (
@@ -439,7 +439,7 @@ func LoadConfigFS(fsys afero.Fs) error {
 	}
 	// Load user defined config
 	if metadata, err := toml.DecodeFS(afero.NewIOFS(fsys), ConfigPath, &Config); err != nil {
-		CmdSuggestion = fmt.Sprintf("Have you set up the project with %s?", Aqua("supabase init"))
+		CmdSuggestion = fmt.Sprintf("Have you set up the project with %s?", Aqua("khulnasoft init"))
 		cwd, osErr := os.Getwd()
 		if osErr != nil {
 			cwd = "current directory"
@@ -502,7 +502,7 @@ func LoadConfigFS(fsys afero.Fs) error {
 		case 0:
 			return errors.New("Missing required field in config: db.major_version")
 		case 12:
-			return errors.New("Postgres version 12.x is unsupported. To use the CLI, either start a new project or follow project migration steps here: https://supabase.com/docs/guides/database#migrating-between-projects.")
+			return errors.New("Postgres version 12.x is unsupported. To use the CLI, either start a new project or follow project migration steps here: https://khulnasoft.com/docs/guides/database#migrating-between-projects.")
 		case 13:
 			Config.Db.Image = Pg13Image
 			InitialSchemaSql = InitialSchemaPg13Sql
@@ -511,7 +511,7 @@ func LoadConfigFS(fsys afero.Fs) error {
 			InitialSchemaSql = InitialSchemaPg14Sql
 		case 15:
 			if len(Config.Experimental.OrioleDBVersion) > 0 {
-				Config.Db.Image = "supabase/postgres:orioledb-" + Config.Experimental.OrioleDBVersion
+				Config.Db.Image = "khulnasoft/postgres:orioledb-" + Config.Experimental.OrioleDBVersion
 				var err error
 				if Config.Experimental.S3Host, err = maybeLoadEnv(Config.Experimental.S3Host); err != nil {
 					return err

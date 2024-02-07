@@ -1,6 +1,6 @@
 {
   "deno.enablePaths": [
-    "supabase/functions"
+    "khulnasoft/functions"
   ],
   "deno.lint": true,
   "deno.unstable": true,

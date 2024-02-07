@@ -13,7 +13,7 @@ func Run(ctx context.Context, projectRef string, fsys afero.Fs) error {
 	// 1. Sanity checks.
 	// 2. get ssl enforcement config
 	{
-		resp, err := utils.GetSupabase().GetSslEnforcementConfigWithResponse(ctx, projectRef)
+		resp, err := utils.GetKhulnasoft().GetSslEnforcementConfigWithResponse(ctx, projectRef)
 		if err != nil {
 			return errors.Errorf("failed to retrieve SSL enforcement config: %w", err)
 		}

@@ -20,7 +20,7 @@ type InitTestSuite struct {
 
 // test functions
 func (suite *InitTestSuite) TestInit() {
-	// init supabase
+	// init khulnasoft
 	init, _, err := suite.cmd.Find([]string{"init"})
 	require.NoError(suite.T(), err)
 	require.NoError(suite.T(), init.RunE(init, []string{}))

@@ -14,7 +14,7 @@ import (
 var (
 	AccessTokenPattern = regexp.MustCompile(`^sbp_[a-f0-9]{40}$`)
 	ErrInvalidToken    = errors.New("Invalid access token format. Must be like `sbp_0102...1920`.")
-	ErrMissingToken    = errors.Errorf("Access token not provided. Supply an access token by running %s or setting the SUPABASE_ACCESS_TOKEN environment variable.", Aqua("supabase login"))
+	ErrMissingToken    = errors.Errorf("Access token not provided. Supply an access token by running %s or setting the KHULNASOFT_ACCESS_TOKEN environment variable.", Aqua("khulnasoft login"))
 	ErrNotLoggedIn     = errors.New("You were not logged in, nothing to do.")
 )
 
@@ -37,7 +37,7 @@ func LoadAccessTokenFS(fsys afero.Fs) (string, error) {
 
 func loadAccessToken(fsys afero.Fs) (string, error) {
 	// Env takes precedence
-	if accessToken := os.Getenv("SUPABASE_ACCESS_TOKEN"); accessToken != "" {
+	if accessToken := os.Getenv("KHULNASOFT_ACCESS_TOKEN"); accessToken != "" {
 		return accessToken, nil
 	}
 	// Load from native credentials store
@@ -126,5 +126,5 @@ func getAccessTokenPath() (string, error) {
 		return "", errors.Errorf("failed to get $HOME directory: %w", err)
 	}
 	// TODO: fallback to workdir
-	return filepath.Join(home, ".supabase", AccessTokenKey), nil
+	return filepath.Join(home, ".khulnasoft", AccessTokenKey), nil
 }

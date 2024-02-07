@@ -89,7 +89,7 @@ func TestGenLinkedCommand(t *testing.T) {
 		require.NoError(t, afero.WriteFile(fsys, utils.ProjectRefPath, []byte(projectId), 0644))
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 		// Flush pending mocks after test execution
 		defer gock.OffAll()
 		gock.New(utils.DefaultApiHost).
@@ -134,7 +134,7 @@ func TestGenLinkedCommand(t *testing.T) {
 		require.NoError(t, afero.WriteFile(fsys, utils.ProjectRefPath, []byte(projectId), 0644))
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 		// Flush pending mocks after test execution
 		defer gock.OffAll()
 		gock.New(utils.DefaultApiHost).
@@ -156,7 +156,7 @@ func TestGenProjectIdCommand(t *testing.T) {
 		projectId := apitest.RandomProjectRef()
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 		// Flush pending mocks after test execution
 		defer gock.OffAll()
 		gock.New(utils.DefaultApiHost).
@@ -185,7 +185,7 @@ func TestGenProjectIdCommand(t *testing.T) {
 		projectId := apitest.RandomProjectRef()
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 		// Flush pending mocks after test execution
 		defer gock.OffAll()
 		gock.New(utils.DefaultApiHost).

@@ -38,7 +38,7 @@ var (
 			return _init.Run(fsys, createVscodeSettings, useOrioleDB)
 		},
 		PostRun: func(cmd *cobra.Command, args []string) {
-			fmt.Println("Finished " + utils.Aqua("supabase init") + ".")
+			fmt.Println("Finished " + utils.Aqua("khulnasoft init") + ".")
 		},
 	}
 )

@@ -152,14 +152,14 @@ func bundleFunction(ctx context.Context, slug, dockerEntrypointPath, importMapPa
 }
 
 func deployFunction(ctx context.Context, projectRef, slug, entrypointUrl, importMapUrl string, verifyJWT bool, functionBody io.Reader) error {
-	resp, err := utils.GetSupabase().GetFunctionWithResponse(ctx, projectRef, slug)
+	resp, err := utils.GetKhulnasoft().GetFunctionWithResponse(ctx, projectRef, slug)
 	if err != nil {
 		return errors.Errorf("failed to retrieve function: %w", err)
 	}
 
 	switch resp.StatusCode() {
 	case http.StatusNotFound: // Function doesn't exist yet, so do a POST
-		resp, err := utils.GetSupabase().CreateFunctionWithBodyWithResponse(ctx, projectRef, &api.CreateFunctionParams{
+		resp, err := utils.GetKhulnasoft().CreateFunctionWithBodyWithResponse(ctx, projectRef, &api.CreateFunctionParams{
 			Slug:           &slug,
 			Name:           &slug,
 			VerifyJwt:      &verifyJWT,
@@ -170,10 +170,10 @@ func deployFunction(ctx context.Context, projectRef, slug, entrypointUrl, import
 			return errors.Errorf("failed to create function: %w", err)
 		}
 		if resp.JSON201 == nil {
-			return errors.New("Failed to create a new Function on the Supabase project: " + string(resp.Body))
+			return errors.New("Failed to create a new Function on the Khulnasoft project: " + string(resp.Body))
 		}
 	case http.StatusOK: // Function already exists, so do a PATCH
-		resp, err := utils.GetSupabase().UpdateFunctionWithBodyWithResponse(ctx, projectRef, slug, &api.UpdateFunctionParams{
+		resp, err := utils.GetKhulnasoft().UpdateFunctionWithBodyWithResponse(ctx, projectRef, slug, &api.UpdateFunctionParams{
 			VerifyJwt:      &verifyJWT,
 			ImportMapPath:  &importMapUrl,
 			EntrypointPath: &entrypointUrl,
@@ -182,14 +182,14 @@ func deployFunction(ctx context.Context, projectRef, slug, entrypointUrl, import
 			return errors.Errorf("failed to update function: %w", err)
 		}
 		if resp.JSON200 == nil {
-			return errors.New("Failed to update an existing Function's body on the Supabase project: " + string(resp.Body))
+			return errors.New("Failed to update an existing Function's body on the Khulnasoft project: " + string(resp.Body))
 		}
 	default:
 		return errors.New("Unexpected error deploying Function: " + string(resp.Body))
 	}
 
 	fmt.Println("Deployed Function " + utils.Aqua(slug) + " on project " + utils.Aqua(projectRef))
-	url := fmt.Sprintf("%s/project/%v/functions/%v/details", utils.GetSupabaseDashboardURL(), projectRef, slug)
+	url := fmt.Sprintf("%s/project/%v/functions/%v/details", utils.GetKhulnasoftDashboardURL(), projectRef, slug)
 	fmt.Println("You can inspect your deployment in the Dashboard: " + url)
 	return nil
 }

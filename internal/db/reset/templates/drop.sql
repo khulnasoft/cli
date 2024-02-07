@@ -5,7 +5,7 @@ begin
   for rec in
     select *
     from pg_extension p
-    where p.extname not in ('pg_graphql', 'pg_net', 'pg_stat_statements', 'pgcrypto', 'pgjwt', 'pgsodium', 'plpgsql', 'supabase_vault', 'uuid-ossp')
+    where p.extname not in ('pg_graphql', 'pg_net', 'pg_stat_statements', 'pgcrypto', 'pgjwt', 'pgsodium', 'plpgsql', 'khulnasoft_vault', 'uuid-ossp')
   loop
     execute format('drop extension if exists %I cascade', rec.extname);
   end loop;

@@ -16,7 +16,7 @@ export PGDATABASE="$PGDATABASE"
 #   - do not create or alter reserved roles as they are blocked by supautils
 #   - explicitly allow altering safe attributes, ie. statement_timeout, pgrst.*
 #   - discard role attributes that require superuser, ie. nosuperuser, noreplication
-#   - do not alter membership grants by supabase_admin role
+#   - do not alter membership grants by khulnasoft_admin role
 pg_dumpall \
     --roles-only \
     --quote-all-identifier \

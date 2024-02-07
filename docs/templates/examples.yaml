@@ -1,79 +1,79 @@
-supabase-init:
+khulnasoft-init:
   - id: basic-usage
     name: Basic usage
-    code: supabase init
-    response: Finished supabase init.
+    code: khulnasoft init
+    response: Finished khulnasoft init.
   - id: from-workdir
     name: Initialize from an existing directory
-    code: supabase init --workdir .
-    response: Finished supabase init.
-supabase-login:
+    code: khulnasoft init --workdir .
+    response: Finished khulnasoft init.
+khulnasoft-login:
   - id: basic-usage
     name: Basic usage
-    code: supabase login
+    code: khulnasoft login
     response: |
-      You can generate an access token from https://supabase.com/dashboard/account/tokens
+      You can generate an access token from https://khulnasoft.com/dashboard/account/tokens
       Enter your access token: sbp_****************************************
-      Finished supabase login.
-supabase-link:
+      Finished khulnasoft login.
+khulnasoft-link:
   - id: basic-usage
     name: Basic usage
-    code: supabase link --project-ref ********************
+    code: khulnasoft link --project-ref ********************
     response: |
       Enter your database password (or leave blank to skip): ********
-      Finished supabase link.
+      Finished khulnasoft link.
   - id: without-password
     name: Link without database password
-    code: supabase link --project-ref ******************** <<< ""
+    code: khulnasoft link --project-ref ******************** <<< ""
     response: |
       Enter your database password (or leave blank to skip):
-      Finished supabase link.
+      Finished khulnasoft link.
   - id: using-alternate-dns
     name: Link using DNS-over-HTTPS resolver
-    code: supabase link --project-ref ******************** --dns-resolver https
+    code: khulnasoft link --project-ref ******************** --dns-resolver https
     response: |
       Enter your database password (or leave blank to skip):
-      Finished supabase link.
-supabase-start:
+      Finished khulnasoft link.
+khulnasoft-start:
   - id: basic-usage
     name: Basic usage
-    code: supabase start
+    code: khulnasoft start
     response: |
-      Creating custom roles supabase/roles.sql...
+      Creating custom roles khulnasoft/roles.sql...
       Applying migration 20220810154536_employee.sql...
-      Seeding data supabase/seed.sql...
-      Started supabase local development setup.
+      Seeding data khulnasoft/seed.sql...
+      Started khulnasoft local development setup.
   - id: without-studio
     name: Start containers without studio and imgproxy
-    code: supabase start -x studio,imgproxy
+    code: khulnasoft start -x studio,imgproxy
     response: |
-      Excluding container: supabase/studio:20221214-4eecc99
+      Excluding container: khulnasoft/studio:20221214-4eecc99
       Excluding container: darthsim/imgproxy:v3.8.0
-      Started supabase local development setup.
+      Started khulnasoft local development setup.
   - id: ignore-health-check
     name: Ignore service health checks
-    code: supabase start --ignore-health-check
+    code: khulnasoft start --ignore-health-check
     response: |
-      service not healthy: [supabase_storage_cli]
-      Started supabase local development setup.
-supabase-stop:
+      service not healthy: [khulnasoft_storage_cli]
+      Started khulnasoft local development setup.
+khulnasoft-stop:
   - id: basic-usage
     name: Basic usage
-    code: supabase stop
+    code: khulnasoft stop
     response: |
-      Stopped supabase local development setup.
+      Stopped khulnasoft local development setup.
       Local data are backed up to docker volume.
   - id: clean-up
     name: Clean up local data after stopping
-    code: supabase stop --no-backup
+    code: khulnasoft stop --no-backup
     response: |
-      Stopped supabase local development setup.
-supabase-status:
+      Stopped khulnasoft local development setup.
+khulnasoft-status:
   - id: basic-usage
     name: Basic usage
-    code: supabase status
+    code: khulnasoft status
     response: |2
-      supabase local development setup is running.
+      khulnasoft local development setup is running.
 
                API URL: http://127.0.0.1:54321
            GraphQL URL: http://127.0.0.1:54321/graphql/v1
@@ -85,7 +85,7 @@ supabase-status:
       service_role key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU
   - id: output-env
     name: Format status as environment variables
-    code: supabase status -o env
+    code: khulnasoft status -o env
     response: |
       ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0"
       API_URL="http://127.0.0.1:54321"
@@ -97,18 +97,18 @@ supabase-status:
       STUDIO_URL="http://127.0.0.1:54323"
   - id: output-custom-name
     name: Customize the names of exported variables
-    code: supabase status -o env --override-name auth.anon_key=SUPABASE_ANON_KEY --override-name auth.service_role_key=SUPABASE_SERVICE_KEY
+    code: khulnasoft status -o env --override-name auth.anon_key=KHULNASOFT_ANON_KEY --override-name auth.service_role_key=KHULNASOFT_SERVICE_KEY
     response: |
-      Stopped services: [supabase_inbucket_cli supabase_rest_cli supabase_studio_cli]
-      SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0"
+      Stopped services: [khulnasoft_inbucket_cli khulnasoft_rest_cli khulnasoft_studio_cli]
+      KHULNASOFT_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0"
       DB_URL="postgresql://postgres:postgres@127.0.0.1:54322/postgres"
       GRAPHQL_URL="http://127.0.0.1:54321/graphql/v1"
       JWT_SECRET="super-secret-jwt-token-with-at-least-32-characters-long"
-      SUPABASE_SERVICE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU"
-supabase-migration-list:
+      KHULNASOFT_SERVICE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU"
+khulnasoft-migration-list:
   - id: basic-usage
     name: Basic usage
-    code: supabase migration list
+    code: khulnasoft migration list
     response: |2
             LOCAL      │     REMOTE     │     TIME (UTC)
       ─────────────────┼────────────────┼──────────────────────
@@ -117,97 +117,97 @@ supabase-migration-list:
         20230222032233 │                │ 2023-02-22 03:22:33
   - id: with-db-url
     name: Connect to self-hosted database
-    code: supabase migration list --db-url 'postgres://postgres[:percent_encoded_password]@127.0.0.1[:port]/postgres'
+    code: khulnasoft migration list --db-url 'postgres://postgres[:percent_encoded_password]@127.0.0.1[:port]/postgres'
     response: |2
             LOCAL      │     REMOTE     │     TIME (UTC)
       ─────────────────┼────────────────┼──────────────────────
         20230103054303 │ 20230103054303 │ 2023-01-03 05:43:03
         20230103093141 │ 20230103093141 │ 2023-01-03 09:31:41
-supabase-migration-new:
+khulnasoft-migration-new:
   - id: basic-usage
     name: Basic usage
-    code: supabase migration new schema_test
+    code: khulnasoft migration new schema_test
     response: |
-      Created new migration at supabase/migrations/20230306095710_schema_test.sql.
+      Created new migration at khulnasoft/migrations/20230306095710_schema_test.sql.
   - id: pipe-stdin
     name: With statements piped from stdin
-    code: echo "create schema if not exists test;" | supabase migration new schema_test
+    code: echo "create schema if not exists test;" | khulnasoft migration new schema_test
     response: |
-      Created new migration at supabase/migrations/20230306095710_schema_test.sql.
-supabase-migration-repair:
+      Created new migration at khulnasoft/migrations/20230306095710_schema_test.sql.
+khulnasoft-migration-repair:
   - id: basic-usage
     name: Mark a migration as reverted
-    code: supabase migration repair 20230103054303 --status reverted
+    code: khulnasoft migration repair 20230103054303 --status reverted
     response: |
       Repaired migration history: 20230103054303 => reverted
   - id: mark-applied
     name: Mark a migration as applied
-    code: supabase migration repair 20230222032233 --status applied
+    code: khulnasoft migration repair 20230222032233 --status applied
     response: |
       Repaired migration history: 20230222032233 => applied
-supabase-db-diff:
+khulnasoft-db-diff:
   - id: basic-usage
     name: Basic usage
-    code: supabase db diff -f my_table
+    code: khulnasoft db diff -f my_table
     response: |
       Connecting to local database...
       Creating shadow database...
       Applying migration 20230425064254_remote_commit.sql...
       Diffing schemas: auth,extensions,public,storage
-      Finished supabase db diff on branch main.
+      Finished khulnasoft db diff on branch main.
 
       No schema changes found
   - id: linked-project
     name: Against linked project
-    code: supabase db diff -f my_table --linked
+    code: khulnasoft db diff -f my_table --linked
     response: |
       Connecting to local database...
       Creating shadow database...
       Diffing schemas: auth,extensions,public,storage
-      Finished supabase db diff on branch main.
+      Finished khulnasoft db diff on branch main.
 
       WARNING: The diff tool is not foolproof, so you may need to manually rearrange and modify the generated migration.
-      Run supabase db reset to verify that the new migration does not generate errors.
+      Run khulnasoft db reset to verify that the new migration does not generate errors.
   - id: specific-schema
     name: For a specific schema
-    code: supabase db diff -f my_table --schema auth
+    code: khulnasoft db diff -f my_table --schema auth
     response: |
       Connecting to local database...
       Creating shadow database...
       Diffing schemas: auth
-      Finished supabase db diff on branch main.
+      Finished khulnasoft db diff on branch main.
 
       No schema changes found
-supabase-db-dump:
+khulnasoft-db-dump:
   - id: basic-usage
     name: Basic usage
-    code: supabase db dump -f supabase/schema.sql
+    code: khulnasoft db dump -f khulnasoft/schema.sql
     response: |
       Dumping schemas from remote database...
-      Dumped schema to supabase/schema.sql.
+      Dumped schema to khulnasoft/schema.sql.
   - id: role-only
     name: Role only
-    code: supabase db dump -f supabase/roles.sql --role-only
+    code: khulnasoft db dump -f khulnasoft/roles.sql --role-only
     response: |
       Dumping roles from remote database...
-      Dumped schema to supabase/roles.sql.
+      Dumped schema to khulnasoft/roles.sql.
   - id: data-only
     name: Data only
-    code: supabase db dump -f supabase/seed.sql --data-only
+    code: khulnasoft db dump -f khulnasoft/seed.sql --data-only
     response: |
       Dumping data from remote database...
-      Dumped schema to supabase/seed.sql.
-supabase-db-lint:
+      Dumped schema to khulnasoft/seed.sql.
+khulnasoft-db-lint:
   - id: basic-usage
     name: Basic usage
-    code: supabase db lint
+    code: khulnasoft db lint
     response: |
       Linting schema: public
 
       No schema errors found
   - id: schema-warnings
     name: Warnings for a specific schema
-    code: supabase db lint --level warning --schema storage
+    code: khulnasoft db lint --level warning --schema storage
     response: |
       Linting schema: storage
       [
@@ -222,59 +222,59 @@ supabase-db-lint:
           ]
         }
       ]
-supabase-db-push:
+khulnasoft-db-push:
   - id: basic-usage
     name: Basic usage
-    code: supabase db push
+    code: khulnasoft db push
     response: |
       Linked project is up to date.
   - id: self-hosted
     name: Self hosted
-    code: supabase db push --db-url "postgres://user:pass@127.0.0.1:5432/postgres"
+    code: khulnasoft db push --db-url "postgres://user:pass@127.0.0.1:5432/postgres"
     response: |
       Pushing migration 20230410135622_create_employees_table.sql...
-      Finished supabase db push.
+      Finished khulnasoft db push.
   - id: dry-run
     name: Dry run
-    code: supabase db push --dry-run
+    code: khulnasoft db push --dry-run
     response: |
       DRY RUN: migrations will *not* be pushed to the database.
       Would push migration 20230410135622_create_employees_table.sql...
       Would push migration 20230425064254_my_table.sql...
-      Finished supabase db push.
-supabase-db-reset:
+      Finished khulnasoft db push.
+khulnasoft-db-reset:
   - id: basic-usage
     name: Basic usage
-    code: supabase db reset
+    code: khulnasoft db reset
     response: |
       Resetting database...
       Initializing schema...
       Applying migration 20220810154537_create_employees_table.sql...
-      Seeding data supabase/seed.sql...
-      Finished supabase db reset on branch main.
-supabase-test-db:
+      Seeding data khulnasoft/seed.sql...
+      Finished khulnasoft db reset on branch main.
+khulnasoft-test-db:
   - id: basic-usage
     name: Basic usage
-    code: supabase test db
+    code: khulnasoft test db
     response: |
-      /tmp/supabase/tests/nested/order_test.pg .. ok
-      /tmp/supabase/tests/pet_test.sql .......... ok
+      /tmp/khulnasoft/tests/nested/order_test.pg .. ok
+      /tmp/khulnasoft/tests/pet_test.sql .......... ok
       All tests successful.
       Files=2, Tests=2,  6 wallclock secs ( 0.03 usr  0.01 sys +  0.05 cusr  0.02 csys =  0.11 CPU)
       Result: PASS
 # TODO: use actual cli response for sso commands
-supabase-sso-show:
+khulnasoft-sso-show:
   - id: basic-usage
     name: Show information
     code: |-
-      supabase sso show 6df4d73f-bf21-405f-a084-b11adf19fea5 \
+      khulnasoft sso show 6df4d73f-bf21-405f-a084-b11adf19fea5 \
         --project-ref abcdefghijklmnopqrst
     response: |-
       Information about the identity provider in pretty output.
   - id: metadata-output
     name: Get raw SAML 2.0 Metadata XML
     code: |-
-      supabase sso show 6df4d73f-bf21-405f-a084-b11adf19fea5 \
+      khulnasoft sso show 6df4d73f-bf21-405f-a084-b11adf19fea5 \
         --project-ref abcdefghijklmnopqrst \
         --metadata
     response: |-
@@ -282,11 +282,11 @@ supabase-sso-show:
       version used in the authentication project, and if using a SAML 2.0
       Metadata URL it may change depending on the caching information
       contained within the metadata.
-supabase-sso-update:
+khulnasoft-sso-update:
   - id: basic-usage
     name: Replace domains
     code: |-
-      supabase sso update 6df4d73f-bf21-405f-a084-b11adf19fea5 \
+      khulnasoft sso update 6df4d73f-bf21-405f-a084-b11adf19fea5 \
         --project-ref abcdefghijklmnopqrst \
         --domains new-company.com,new-company.net
     response: |-
@@ -294,7 +294,7 @@ supabase-sso-update:
   - id: add-domains
     name: Add an additional domain
     code: |-
-      supabase sso update 6df4d73f-bf21-405f-a084-b11adf19fea5 \
+      khulnasoft sso update 6df4d73f-bf21-405f-a084-b11adf19fea5 \
         --project-ref abcdefghijklmnopqrst \
         --add-domains company.net
     response: |-
@@ -302,25 +302,25 @@ supabase-sso-update:
   - id: remove-domains
     name: Remove a domain
     code: |-
-      supabase sso update 6df4d73f-bf21-405f-a084-b11adf19fea5 \
+      khulnasoft sso update 6df4d73f-bf21-405f-a084-b11adf19fea5 \
         --project-ref abcdefghijklmnopqrst \
         --remove-domains company.org
     response: |-
       Information about the updated provider.
-supabase-sso-remove:
+khulnasoft-sso-remove:
   - id: basic-usage
     name: Remove a provider
     code: |-
-      supabase sso remove 6df4d73f-bf21-405f-a084-b11adf19fea5 \
+      khulnasoft sso remove 6df4d73f-bf21-405f-a084-b11adf19fea5 \
         --project-ref abcdefghijklmnopqrst
     response: |-
       Information about the removed identity provider. It's a good idea to
       save this in case you need it later on.
-supabase-sso-add:
+khulnasoft-sso-add:
   - id: basic-usage
     name: Add with Metadata URL
     code: |-
-      supabase sso add \
+      khulnasoft sso add \
         --project-ref abcdefgijklmnopqrst \
         --type saml \
         --metadata-url 'https://...' \
@@ -332,7 +332,7 @@ supabase-sso-add:
   - id: with-xml
     name: Add with Metadata File
     code: |-
-      supabase sso add \
+      khulnasoft sso add \
         --project-ref abcdefgijklmnopqrst \
         --type saml \
         --metadata-file /path/to/metadata/file.xml \
@@ -341,8 +341,8 @@ supabase-sso-add:
       Information about the added identity provider. You can use
       company.com as the domain name on the frontend side to initiate a SSO
       request to the identity provider.
-supabase-sso-info:
+khulnasoft-sso-info:
   - id: basic-usage
     name: Show project information
-    code: supabase sso info --project-ref abcdefghijklmnopqrst
+    code: khulnasoft sso info --project-ref abcdefghijklmnopqrst
     response: Information about your project's SAML 2.0 configuration.

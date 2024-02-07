@@ -16,8 +16,8 @@ import (
 )
 
 const (
-	SUPABASE_OWNER = "supabase"
-	SUPABASE_REPO  = "supabase"
+	KHULNASOFT_OWNER = "khulnasoft"
+	KHULNASOFT_REPO  = "khulnasoft"
 )
 
 func main() {
@@ -48,12 +48,12 @@ func updateRefDoc(ctx context.Context, path string, stdin io.Reader) error {
 	client := shared.NewGtihubClient(ctx)
 	branch := "cli/ref-doc"
 	master := "master"
-	if err := shared.CreateGitBranch(ctx, client, SUPABASE_OWNER, SUPABASE_REPO, branch, master); err != nil {
+	if err := shared.CreateGitBranch(ctx, client, KHULNASOFT_OWNER, KHULNASOFT_REPO, branch, master); err != nil {
 		return err
 	}
 	// Get original file
 	opts := github.RepositoryContentGetOptions{Ref: "heads/" + branch}
-	file, _, _, err := client.Repositories.GetContents(ctx, SUPABASE_OWNER, SUPABASE_REPO, path, &opts)
+	file, _, _, err := client.Repositories.GetContents(ctx, KHULNASOFT_OWNER, KHULNASOFT_REPO, path, &opts)
 	if err != nil {
 		return err
 	}
@@ -73,7 +73,7 @@ func updateRefDoc(ctx context.Context, path string, stdin io.Reader) error {
 		SHA:     file.SHA,
 		Branch:  &branch,
 	}
-	resp, _, err := client.Repositories.UpdateFile(ctx, SUPABASE_OWNER, SUPABASE_REPO, path, &commit)
+	resp, _, err := client.Repositories.UpdateFile(ctx, KHULNASOFT_OWNER, KHULNASOFT_REPO, path, &commit)
 	if err != nil {
 		return err
 	}
@@ -84,5 +84,5 @@ func updateRefDoc(ctx context.Context, path string, stdin io.Reader) error {
 		Head:  &branch,
 		Base:  &master,
 	}
-	return shared.CreatePullRequest(ctx, client, SUPABASE_OWNER, SUPABASE_REPO, pr)
+	return shared.CreatePullRequest(ctx, client, KHULNASOFT_OWNER, KHULNASOFT_REPO, pr)
 }

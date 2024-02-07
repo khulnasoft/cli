@@ -14,8 +14,8 @@ var (
 	vanityCmd = &cobra.Command{
 		GroupID: groupManagementAPI,
 		Use:     "vanity-subdomains",
-		Short:   "Manage vanity subdomains for Supabase projects",
-		Long: `Manage vanity subdomains for Supabase projects.
+		Short:   "Manage vanity subdomains for Khulnasoft projects",
+		Long: `Manage vanity subdomains for Khulnasoft projects.
 
 Usage of vanity subdomains and custom domains is mutually exclusive.`,
 	}
@@ -25,10 +25,10 @@ Usage of vanity subdomains and custom domains is mutually exclusive.`,
 	vanityActivateCmd = &cobra.Command{
 		Use:   "activate",
 		Short: "Activate a vanity subdomain",
-		Long: `Activate a vanity subdomain for your Supabase project.
+		Long: `Activate a vanity subdomain for your Khulnasoft project.
 
-This reconfigures your Supabase project to respond to requests on your vanity subdomain.
-After the vanity subdomain is activated, your project's auth services will no longer function on the {project-ref}.{supabase-domain} hostname.
+This reconfigures your Khulnasoft project to respond to requests on your vanity subdomain.
+After the vanity subdomain is activated, your project's auth services will no longer function on the {project-ref}.{khulnasoft-domain} hostname.
 `,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return activate.Run(cmd.Context(), flags.ProjectRef, desiredSubdomain, afero.NewOsFs())
@@ -62,9 +62,9 @@ After the vanity subdomain is activated, your project's auth services will no lo
 )
 
 func init() {
-	vanityCmd.PersistentFlags().StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Supabase project.")
-	vanityActivateCmd.Flags().StringVar(&desiredSubdomain, "desired-subdomain", "", "The desired vanity subdomain to use for your Supabase project.")
-	vanityCheckCmd.Flags().StringVar(&desiredSubdomain, "desired-subdomain", "", "The desired vanity subdomain to use for your Supabase project.")
+	vanityCmd.PersistentFlags().StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Khulnasoft project.")
+	vanityActivateCmd.Flags().StringVar(&desiredSubdomain, "desired-subdomain", "", "The desired vanity subdomain to use for your Khulnasoft project.")
+	vanityCheckCmd.Flags().StringVar(&desiredSubdomain, "desired-subdomain", "", "The desired vanity subdomain to use for your Khulnasoft project.")
 	vanityCmd.AddCommand(vanityGetCmd)
 	vanityCmd.AddCommand(vanityCheckCmd)
 	vanityCmd.AddCommand(vanityActivateCmd)

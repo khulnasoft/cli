@@ -28,18 +28,18 @@ func NewJWTToken(ref, role string, expiry time.Time) *jwt.Token {
 		role,
 		jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(expiry),
-			Issuer:    "supabase",
+			Issuer:    "khulnasoft",
 		},
 	}
 	return jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 }
 
 type CustomName struct {
-	DbHost         string `env:"db.host,default=NEXT_PUBLIC_SUPABASE_URL"`
-	DbPassword     string `env:"db.password,default=SUPABASE_DB_PASSWORD"`
-	JWTSecret      string `env:"db.password,default=SUPABASE_AUTH_JWT_SECRET"`
-	AnonKey        string `env:"auth.anon_key,default=SUPABASE_AUTH_ANON_KEY"`
-	ServiceRoleKey string `env:"auth.service_role_key,default=SUPABASE_AUTH_SERVICE_ROLE_KEY"`
+	DbHost         string `env:"db.host,default=NEXT_PUBLIC_KHULNASOFT_URL"`
+	DbPassword     string `env:"db.password,default=KHULNASOFT_DB_PASSWORD"`
+	JWTSecret      string `env:"db.password,default=KHULNASOFT_AUTH_JWT_SECRET"`
+	AnonKey        string `env:"auth.anon_key,default=KHULNASOFT_AUTH_ANON_KEY"`
+	ServiceRoleKey string `env:"auth.service_role_key,default=KHULNASOFT_AUTH_SERVICE_ROLE_KEY"`
 }
 
 func Run(ctx context.Context, projectRef, format string, names CustomName, fsys afero.Fs) error {
@@ -58,7 +58,7 @@ func Run(ctx context.Context, projectRef, format string, names CustomName, fsys 
 
 func GenerateSecrets(ctx context.Context, projectRef, branch string, fsys afero.Fs) error {
 	// Load JWT secret from api
-	resp, err := utils.GetSupabase().GetPostgRESTConfigWithResponse(ctx, projectRef)
+	resp, err := utils.GetKhulnasoft().GetPostgRESTConfigWithResponse(ctx, projectRef)
 	if err != nil {
 		return errors.Errorf("failed to get postgrest config: %w", err)
 	}

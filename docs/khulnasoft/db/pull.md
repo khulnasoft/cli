@@ -1,8 +1,8 @@
-# supabase-db-pull
+# khulnasoft-db-pull
 
-Pulls schema changes from a remote database. A new migration file will be created under `supabase/migrations` directory.
+Pulls schema changes from a remote database. A new migration file will be created under `khulnasoft/migrations` directory.
 
-Requires your local project to be linked to a remote database by running `supabase link`. For self-hosted databases, you can pass in the connection parameters using `--db-url` flag.
+Requires your local project to be linked to a remote database by running `khulnasoft link`. For self-hosted databases, you can pass in the connection parameters using `--db-url` flag.
 
 Optionally, a new row can be inserted into the migration history table to reflect the current state of the remote database.
 

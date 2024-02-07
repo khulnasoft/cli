@@ -53,7 +53,7 @@ func TestProjectRoot(t *testing.T) {
 		cwd, err := os.Getwd()
 		require.NoError(t, err)
 		// Setup in-memory fs
-		fsys := &MockFs{DenyPath: filepath.Join(cwd, "supabase")}
+		fsys := &MockFs{DenyPath: filepath.Join(cwd, "khulnasoft")}
 		// Run test
 		path, err := GetProjectRoot(fsys)
 		// Check error

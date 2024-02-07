@@ -24,7 +24,7 @@ func (suite *DBTestSuite) TestBranchCreate() {
 	}
 
 	// check if branch dir exists
-	_, err = os.Stat("supabase/.branches/" + branch)
+	_, err = os.Stat("khulnasoft/.branches/" + branch)
 	require.NoError(suite.T(), err)
 
 	// check if all exec calls were made to docker api

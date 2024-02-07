@@ -38,7 +38,7 @@ The subcommands help you view the current bans, and unblock IPs if desired.`,
 )
 
 func init() {
-	bansCmd.PersistentFlags().StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Supabase project.")
+	bansCmd.PersistentFlags().StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Khulnasoft project.")
 	bansCmd.AddCommand(bansGetCmd)
 	bansRemoveCmd.Flags().StringSliceVar(&dbIpsToUnban, "db-unban-ip", []string{}, "IP to allow DB connections from.")
 	bansCmd.AddCommand(bansRemoveCmd)

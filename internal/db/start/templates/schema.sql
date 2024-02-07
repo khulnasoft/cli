@@ -7,10 +7,10 @@ ALTER DATABASE postgres SET "app.settings.jwt_exp" TO :'jwt_exp';
 
 ALTER USER authenticator WITH PASSWORD :'pgpass';
 ALTER USER pgbouncer WITH PASSWORD :'pgpass';
-ALTER USER supabase_auth_admin WITH PASSWORD :'pgpass';
-ALTER USER supabase_storage_admin WITH PASSWORD :'pgpass';
-ALTER USER supabase_replication_admin WITH PASSWORD :'pgpass';
-ALTER USER supabase_read_only_user WITH PASSWORD :'pgpass';
+ALTER USER khulnasoft_auth_admin WITH PASSWORD :'pgpass';
+ALTER USER khulnasoft_storage_admin WITH PASSWORD :'pgpass';
+ALTER USER khulnasoft_replication_admin WITH PASSWORD :'pgpass';
+ALTER USER khulnasoft_read_only_user WITH PASSWORD :'pgpass';
 
 create schema if not exists _realtime;
 alter schema _realtime owner to postgres;
@@ -23,36 +23,36 @@ BEGIN;
 -- Create pg_net extension
 CREATE EXTENSION IF NOT EXISTS pg_net SCHEMA extensions;
 
--- Create supabase_functions schema
-CREATE SCHEMA supabase_functions AUTHORIZATION supabase_admin;
+-- Create khulnasoft_functions schema
+CREATE SCHEMA khulnasoft_functions AUTHORIZATION khulnasoft_admin;
 
-GRANT USAGE ON SCHEMA supabase_functions TO postgres, anon, authenticated, service_role;
-ALTER DEFAULT PRIVILEGES IN SCHEMA supabase_functions GRANT ALL ON TABLES TO postgres, anon, authenticated, service_role;
-ALTER DEFAULT PRIVILEGES IN SCHEMA supabase_functions GRANT ALL ON FUNCTIONS TO postgres, anon, authenticated, service_role;
-ALTER DEFAULT PRIVILEGES IN SCHEMA supabase_functions GRANT ALL ON SEQUENCES TO postgres, anon, authenticated, service_role;
+GRANT USAGE ON SCHEMA khulnasoft_functions TO postgres, anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES IN SCHEMA khulnasoft_functions GRANT ALL ON TABLES TO postgres, anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES IN SCHEMA khulnasoft_functions GRANT ALL ON FUNCTIONS TO postgres, anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES IN SCHEMA khulnasoft_functions GRANT ALL ON SEQUENCES TO postgres, anon, authenticated, service_role;
 
--- supabase_functions.migrations definition
-CREATE TABLE supabase_functions.migrations (
+-- khulnasoft_functions.migrations definition
+CREATE TABLE khulnasoft_functions.migrations (
   version text PRIMARY KEY,
   inserted_at timestamptz NOT NULL DEFAULT NOW()
 );
 
--- Initial supabase_functions migration
-INSERT INTO supabase_functions.migrations (version) VALUES ('initial');
+-- Initial khulnasoft_functions migration
+INSERT INTO khulnasoft_functions.migrations (version) VALUES ('initial');
 
--- supabase_functions.hooks definition
-CREATE TABLE supabase_functions.hooks (
+-- khulnasoft_functions.hooks definition
+CREATE TABLE khulnasoft_functions.hooks (
   id bigserial PRIMARY KEY,
   hook_table_id integer NOT NULL,
   hook_name text NOT NULL,
   created_at timestamptz NOT NULL DEFAULT NOW(),
   request_id bigint
 );
-CREATE INDEX supabase_functions_hooks_request_id_idx ON supabase_functions.hooks USING btree (request_id);
-CREATE INDEX supabase_functions_hooks_h_table_id_h_name_idx ON supabase_functions.hooks USING btree (hook_table_id, hook_name);
-COMMENT ON TABLE supabase_functions.hooks IS 'Supabase Functions Hooks: Audit trail for triggered hooks.';
+CREATE INDEX khulnasoft_functions_hooks_request_id_idx ON khulnasoft_functions.hooks USING btree (request_id);
+CREATE INDEX khulnasoft_functions_hooks_h_table_id_h_name_idx ON khulnasoft_functions.hooks USING btree (hook_table_id, hook_name);
+COMMENT ON TABLE khulnasoft_functions.hooks IS 'Khulnasoft Functions Hooks: Audit trail for triggered hooks.';
 
-CREATE FUNCTION supabase_functions.http_request()
+CREATE FUNCTION khulnasoft_functions.http_request()
   RETURNS trigger
   LANGUAGE plpgsql
   AS $function$
@@ -119,7 +119,7 @@ CREATE FUNCTION supabase_functions.http_request()
         RAISE EXCEPTION 'method argument % is invalid', method;
     END CASE;
 
-    INSERT INTO supabase_functions.hooks
+    INSERT INTO khulnasoft_functions.hooks
       (hook_table_id, hook_name, request_id)
     VALUES
       (TG_RELID, TG_NAME, request_id);
@@ -128,43 +128,43 @@ CREATE FUNCTION supabase_functions.http_request()
   END
 $function$;
 
--- Supabase super admin
+-- Khulnasoft super admin
 DO
 $$
 BEGIN
   IF NOT EXISTS (
     SELECT 1
     FROM pg_roles
-    WHERE rolname = 'supabase_functions_admin'
+    WHERE rolname = 'khulnasoft_functions_admin'
   )
   THEN
-    CREATE USER supabase_functions_admin NOINHERIT CREATEROLE LOGIN NOREPLICATION;
+    CREATE USER khulnasoft_functions_admin NOINHERIT CREATEROLE LOGIN NOREPLICATION;
   END IF;
 END
 $$;
 
-GRANT ALL PRIVILEGES ON SCHEMA supabase_functions TO supabase_functions_admin;
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA supabase_functions TO supabase_functions_admin;
-GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA supabase_functions TO supabase_functions_admin;
-ALTER USER supabase_functions_admin SET search_path = "supabase_functions";
-ALTER table "supabase_functions".migrations OWNER TO supabase_functions_admin;
-ALTER table "supabase_functions".hooks OWNER TO supabase_functions_admin;
-ALTER function "supabase_functions".http_request() OWNER TO supabase_functions_admin;
-GRANT supabase_functions_admin TO postgres;
+GRANT ALL PRIVILEGES ON SCHEMA khulnasoft_functions TO khulnasoft_functions_admin;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA khulnasoft_functions TO khulnasoft_functions_admin;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA khulnasoft_functions TO khulnasoft_functions_admin;
+ALTER USER khulnasoft_functions_admin SET search_path = "khulnasoft_functions";
+ALTER table "khulnasoft_functions".migrations OWNER TO khulnasoft_functions_admin;
+ALTER table "khulnasoft_functions".hooks OWNER TO khulnasoft_functions_admin;
+ALTER function "khulnasoft_functions".http_request() OWNER TO khulnasoft_functions_admin;
+GRANT khulnasoft_functions_admin TO postgres;
 
--- Remove unused supabase_pg_net_admin role
+-- Remove unused khulnasoft_pg_net_admin role
 DO
 $$
 BEGIN
   IF EXISTS (
     SELECT 1
     FROM pg_roles
-    WHERE rolname = 'supabase_pg_net_admin'
+    WHERE rolname = 'khulnasoft_pg_net_admin'
   )
   THEN
-    REASSIGN OWNED BY supabase_pg_net_admin TO supabase_admin;
-    DROP OWNED BY supabase_pg_net_admin;
-    DROP ROLE supabase_pg_net_admin;
+    REASSIGN OWNED BY khulnasoft_pg_net_admin TO khulnasoft_admin;
+    DROP OWNED BY khulnasoft_pg_net_admin;
+    DROP ROLE khulnasoft_pg_net_admin;
   END IF;
 END
 $$;
@@ -179,7 +179,7 @@ BEGIN
     WHERE extname = 'pg_net'
   )
   THEN
-    GRANT USAGE ON SCHEMA net TO supabase_functions_admin, postgres, anon, authenticated, service_role;
+    GRANT USAGE ON SCHEMA net TO khulnasoft_functions_admin, postgres, anon, authenticated, service_role;
 
     ALTER function net.http_get(url text, params jsonb, headers jsonb, timeout_milliseconds integer) SECURITY DEFINER;
     ALTER function net.http_post(url text, body jsonb, params jsonb, headers jsonb, timeout_milliseconds integer) SECURITY DEFINER;
@@ -190,8 +190,8 @@ BEGIN
     REVOKE ALL ON FUNCTION net.http_get(url text, params jsonb, headers jsonb, timeout_milliseconds integer) FROM PUBLIC;
     REVOKE ALL ON FUNCTION net.http_post(url text, body jsonb, params jsonb, headers jsonb, timeout_milliseconds integer) FROM PUBLIC;
 
-    GRANT EXECUTE ON FUNCTION net.http_get(url text, params jsonb, headers jsonb, timeout_milliseconds integer) TO supabase_functions_admin, postgres, anon, authenticated, service_role;
-    GRANT EXECUTE ON FUNCTION net.http_post(url text, body jsonb, params jsonb, headers jsonb, timeout_milliseconds integer) TO supabase_functions_admin, postgres, anon, authenticated, service_role;
+    GRANT EXECUTE ON FUNCTION net.http_get(url text, params jsonb, headers jsonb, timeout_milliseconds integer) TO khulnasoft_functions_admin, postgres, anon, authenticated, service_role;
+    GRANT EXECUTE ON FUNCTION net.http_post(url text, body jsonb, params jsonb, headers jsonb, timeout_milliseconds integer) TO khulnasoft_functions_admin, postgres, anon, authenticated, service_role;
   END IF;
 END
 $$;
@@ -210,7 +210,7 @@ BEGIN
     WHERE ext.extname = 'pg_net'
   )
   THEN
-    GRANT USAGE ON SCHEMA net TO supabase_functions_admin, postgres, anon, authenticated, service_role;
+    GRANT USAGE ON SCHEMA net TO khulnasoft_functions_admin, postgres, anon, authenticated, service_role;
 
     ALTER function net.http_get(url text, params jsonb, headers jsonb, timeout_milliseconds integer) SECURITY DEFINER;
     ALTER function net.http_post(url text, body jsonb, params jsonb, headers jsonb, timeout_milliseconds integer) SECURITY DEFINER;
@@ -221,8 +221,8 @@ BEGIN
     REVOKE ALL ON FUNCTION net.http_get(url text, params jsonb, headers jsonb, timeout_milliseconds integer) FROM PUBLIC;
     REVOKE ALL ON FUNCTION net.http_post(url text, body jsonb, params jsonb, headers jsonb, timeout_milliseconds integer) FROM PUBLIC;
 
-    GRANT EXECUTE ON FUNCTION net.http_get(url text, params jsonb, headers jsonb, timeout_milliseconds integer) TO supabase_functions_admin, postgres, anon, authenticated, service_role;
-    GRANT EXECUTE ON FUNCTION net.http_post(url text, body jsonb, params jsonb, headers jsonb, timeout_milliseconds integer) TO supabase_functions_admin, postgres, anon, authenticated, service_role;
+    GRANT EXECUTE ON FUNCTION net.http_get(url text, params jsonb, headers jsonb, timeout_milliseconds integer) TO khulnasoft_functions_admin, postgres, anon, authenticated, service_role;
+    GRANT EXECUTE ON FUNCTION net.http_post(url text, body jsonb, params jsonb, headers jsonb, timeout_milliseconds integer) TO khulnasoft_functions_admin, postgres, anon, authenticated, service_role;
   END IF;
 END;
 $$;
@@ -242,11 +242,11 @@ BEGIN
 END
 $$;
 
-INSERT INTO supabase_functions.migrations (version) VALUES ('20210809183423_update_grants');
+INSERT INTO khulnasoft_functions.migrations (version) VALUES ('20210809183423_update_grants');
 
-ALTER function supabase_functions.http_request() SECURITY DEFINER;
-ALTER function supabase_functions.http_request() SET search_path = supabase_functions;
-REVOKE ALL ON FUNCTION supabase_functions.http_request() FROM PUBLIC;
-GRANT EXECUTE ON FUNCTION supabase_functions.http_request() TO postgres, anon, authenticated, service_role;
+ALTER function khulnasoft_functions.http_request() SECURITY DEFINER;
+ALTER function khulnasoft_functions.http_request() SET search_path = khulnasoft_functions;
+REVOKE ALL ON FUNCTION khulnasoft_functions.http_request() FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION khulnasoft_functions.http_request() TO postgres, anon, authenticated, service_role;
 
 COMMIT;

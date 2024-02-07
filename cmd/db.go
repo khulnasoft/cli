@@ -148,7 +148,7 @@ var (
 			return pull.Run(cmd.Context(), schema, flags.DbConfig, name, afero.NewOsFs())
 		},
 		PostRun: func(cmd *cobra.Command, args []string) {
-			fmt.Println("Finished " + utils.Aqua("supabase db pull") + ".")
+			fmt.Println("Finished " + utils.Aqua("khulnasoft db pull") + ".")
 		},
 	}
 

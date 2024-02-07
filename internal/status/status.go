@@ -76,7 +76,7 @@ func Run(ctx context.Context, names CustomName, format string, fsys afero.Fs) er
 		fmt.Fprintln(os.Stderr, "Stopped services:", stopped)
 	}
 	if format == utils.OutputPretty {
-		fmt.Fprintf(os.Stderr, "%s local development setup is running.\n\n", utils.Aqua("supabase"))
+		fmt.Fprintf(os.Stderr, "%s local development setup is running.\n\n", utils.Aqua("khulnasoft"))
 		PrettyPrint(os.Stdout, stopped...)
 		return nil
 	}

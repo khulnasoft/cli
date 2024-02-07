@@ -20,7 +20,7 @@ import (
 )
 
 var (
-	ErrMissingToken = errors.Errorf("Cannot use automatic login flow inside non-TTY environments. Please provide %s flag or set the %s environment variable.", utils.Aqua("--token"), utils.Aqua("SUPABASE_ACCESS_TOKEN"))
+	ErrMissingToken = errors.Errorf("Cannot use automatic login flow inside non-TTY environments. Please provide %s flag or set the %s environment variable.", utils.Aqua("--token"), utils.Aqua("KHULNASOFT_ACCESS_TOKEN"))
 )
 
 func generateTokenName() (string, error) {
@@ -61,7 +61,7 @@ var (
 					return errors.Errorf("cannot parse 'token' flag: %w", err)
 				}
 				params.Token = token
-			} else if token := os.Getenv("SUPABASE_ACCESS_TOKEN"); token != "" {
+			} else if token := os.Getenv("KHULNASOFT_ACCESS_TOKEN"); token != "" {
 				params.Token = token
 			}
 

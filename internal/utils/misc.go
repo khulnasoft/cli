@@ -22,26 +22,26 @@ var (
 )
 
 const (
-	Pg13Image = "supabase/postgres:13.3.0"
-	Pg14Image = "supabase/postgres:14.1.0.89"
-	Pg15Image = "supabase/postgres:15.1.0.147"
+	Pg13Image = "khulnasoft/postgres:13.3.0"
+	Pg14Image = "khulnasoft/postgres:14.1.0.89"
+	Pg15Image = "khulnasoft/postgres:15.1.0.147"
 	// Append to ServiceImages when adding new dependencies below
 	KongImage        = "library/kong:2.8.1"
 	InbucketImage    = "inbucket/inbucket:3.0.3"
 	PostgrestImage   = "postgrest/postgrest:v12.0.1"
-	DifferImage      = "supabase/pgadmin-schema-diff:cli-0.0.5"
-	MigraImage       = "supabase/migra:3.0.1663481299"
-	PgmetaImage      = "supabase/postgres-meta:v0.75.0"
-	StudioImage      = "supabase/studio:20240205-b145c86"
+	DifferImage      = "khulnasoft/pgadmin-schema-diff:cli-0.0.5"
+	MigraImage       = "khulnasoft/migra:3.0.1663481299"
+	PgmetaImage      = "khulnasoft/postgres-meta:v0.75.0"
+	StudioImage      = "khulnasoft/studio:20240205-b145c86"
 	ImageProxyImage  = "darthsim/imgproxy:v3.8.0"
-	EdgeRuntimeImage = "supabase/edge-runtime:v1.33.5"
+	EdgeRuntimeImage = "khulnasoft/edge-runtime:v1.33.5"
 	VectorImage      = "timberio/vector:0.28.1-alpine"
 	PgbouncerImage   = "bitnami/pgbouncer:1.20.1-debian-11-r39"
-	PgProveImage     = "supabase/pg_prove:3.36"
-	GotrueImage      = "supabase/gotrue:v2.132.3"
-	RealtimeImage    = "supabase/realtime:v2.25.50"
-	StorageImage     = "supabase/storage-api:v0.46.4"
-	LogflareImage    = "supabase/logflare:1.4.0"
+	PgProveImage     = "khulnasoft/pg_prove:3.36"
+	GotrueImage      = "khulnasoft/gotrue:v2.132.3"
+	RealtimeImage    = "khulnasoft/realtime:v2.25.50"
+	StorageImage     = "khulnasoft/storage-api:v0.46.4"
+	LogflareImage    = "khulnasoft/logflare:1.4.0"
 	// Should be kept in-sync with EdgeRuntimeImage
 	DenoVersion = "1.30.3"
 )
@@ -97,7 +97,7 @@ var (
 
 	ProjectRefPattern  = regexp.MustCompile(`^[a-z]{20}$`)
 	UUIDPattern        = regexp.MustCompile(`^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$`)
-	ProjectHostPattern = regexp.MustCompile(`^(db\.)([a-z]{20})\.supabase\.(co|red)$`)
+	ProjectHostPattern = regexp.MustCompile(`^(db\.)([a-z]{20})\.khulnasoft\.(co|red)$`)
 	MigrateFilePattern = regexp.MustCompile(`^([0-9]+)_(.*)\.sql$`)
 	BranchNamePattern  = regexp.MustCompile(`[[:word:]-]+`)
 	FuncSlugPattern    = regexp.MustCompile(`^[A-Za-z][A-Za-z0-9_-]*$`)
@@ -131,8 +131,8 @@ var (
 		"_realtime",
 		"storage",
 		"_analytics",
-		"supabase_functions",
-		"supabase_migrations",
+		"khulnasoft_functions",
+		"khulnasoft_migrations",
 	}, SystemSchemas...)
 	ReservedRoles = []string{
 		"anon",
@@ -142,12 +142,12 @@ var (
 		"pgbouncer",
 		"postgres",
 		"service_role",
-		"supabase_admin",
-		"supabase_auth_admin",
-		"supabase_functions_admin",
-		"supabase_read_only_user",
-		"supabase_replication_admin",
-		"supabase_storage_admin",
+		"khulnasoft_admin",
+		"khulnasoft_auth_admin",
+		"khulnasoft_functions_admin",
+		"khulnasoft_read_only_user",
+		"khulnasoft_replication_admin",
+		"khulnasoft_storage_admin",
 		// Managed by extensions
 		"pgsodium_keyholder",
 		"pgsodium_keyiduser",
@@ -155,7 +155,7 @@ var (
 		"pgtle_admin",
 	}
 	AllowedConfigs = []string{
-		// Ref: https://github.com/supabase/postgres/blob/develop/ansible/files/postgresql_config/supautils.conf.j2#L10
+		// Ref: https://github.com/khulnasoft/postgres/blob/develop/ansible/files/postgresql_config/supautils.conf.j2#L10
 		"pgaudit.*",
 		"pgrst.*",
 		"session_replication_role",
@@ -163,10 +163,10 @@ var (
 		"track_io_timing",
 	}
 
-	SupabaseDirPath       = "supabase"
-	ConfigPath            = filepath.Join(SupabaseDirPath, "config.toml")
-	GitIgnorePath         = filepath.Join(SupabaseDirPath, ".gitignore")
-	TempDir               = filepath.Join(SupabaseDirPath, ".temp")
+	KhulnasoftDirPath       = "khulnasoft"
+	ConfigPath            = filepath.Join(KhulnasoftDirPath, "config.toml")
+	GitIgnorePath         = filepath.Join(KhulnasoftDirPath, ".gitignore")
+	TempDir               = filepath.Join(KhulnasoftDirPath, ".temp")
 	ImportMapsDir         = filepath.Join(TempDir, "import_maps")
 	ProjectRefPath        = filepath.Join(TempDir, "project-ref")
 	PoolerUrlPath         = filepath.Join(TempDir, "pooler-url")
@@ -174,19 +174,19 @@ var (
 	GotrueVersionPath     = filepath.Join(TempDir, "gotrue-version")
 	RestVersionPath       = filepath.Join(TempDir, "rest-version")
 	StorageVersionPath    = filepath.Join(TempDir, "storage-version")
-	CurrBranchPath        = filepath.Join(SupabaseDirPath, ".branches", "_current_branch")
-	MigrationsDir         = filepath.Join(SupabaseDirPath, "migrations")
-	FunctionsDir          = filepath.Join(SupabaseDirPath, "functions")
+	CurrBranchPath        = filepath.Join(KhulnasoftDirPath, ".branches", "_current_branch")
+	MigrationsDir         = filepath.Join(KhulnasoftDirPath, "migrations")
+	FunctionsDir          = filepath.Join(KhulnasoftDirPath, "functions")
 	FallbackImportMapPath = filepath.Join(FunctionsDir, "import_map.json")
 	FallbackEnvFilePath   = filepath.Join(FunctionsDir, ".env")
-	DbTestsDir            = filepath.Join(SupabaseDirPath, "tests")
-	SeedDataPath          = filepath.Join(SupabaseDirPath, "seed.sql")
-	CustomRolesPath       = filepath.Join(SupabaseDirPath, "roles.sql")
+	DbTestsDir            = filepath.Join(KhulnasoftDirPath, "tests")
+	SeedDataPath          = filepath.Join(KhulnasoftDirPath, "seed.sql")
+	CustomRolesPath       = filepath.Join(KhulnasoftDirPath, "roles.sql")
 
-	ErrNotLinked   = errors.Errorf("Cannot find project ref. Have you run %s?", Aqua("supabase link"))
+	ErrNotLinked   = errors.Errorf("Cannot find project ref. Have you run %s?", Aqua("khulnasoft link"))
 	ErrInvalidRef  = errors.New("Invalid project ref format. Must be like `abcdefghijklmnopqrst`.")
 	ErrInvalidSlug = errors.New("Invalid Function name. Must start with at least one letter, and only include alphanumeric characters, underscores, and hyphens. (^[A-Za-z][A-Za-z0-9_-]*$)")
-	ErrNotRunning  = errors.Errorf("%s is not running.", Aqua("supabase start"))
+	ErrNotRunning  = errors.Errorf("%s is not running.", Aqua("khulnasoft start"))
 )
 
 func GetCurrentTimestamp() string {
@@ -203,7 +203,7 @@ func GetCurrentBranchFS(fsys afero.Fs) (string, error) {
 	return string(branch), nil
 }
 
-func AssertSupabaseDbIsRunning() error {
+func AssertKhulnasoftDbIsRunning() error {
 	if _, err := Docker.ContainerInspect(context.Background(), DbId); err != nil {
 		if client.IsErrNotFound(err) {
 			return errors.New(ErrNotRunning)
@@ -222,7 +222,7 @@ func IsGitRepo() bool {
 	return err == nil
 }
 
-// If the `os.Getwd()` is within a supabase project, this will return
+// If the `os.Getwd()` is within a khulnasoft project, this will return
 // the root of the given project as the current working directory.
 // Otherwise, the `os.Getwd()` is kept as is.
 func GetProjectRoot(fsys afero.Fs) (string, error) {
@@ -274,9 +274,9 @@ func WriteFile(path string, contents []byte, fsys afero.Fs) error {
 	return nil
 }
 
-func AssertSupabaseCliIsSetUpFS(fsys afero.Fs) error {
+func AssertKhulnasoftCliIsSetUpFS(fsys afero.Fs) error {
 	if _, err := fsys.Stat(ConfigPath); errors.Is(err, os.ErrNotExist) {
-		return errors.Errorf("Cannot find %s in the current directory. Have you set up the project with %s?", Bold(ConfigPath), Aqua("supabase init"))
+		return errors.Errorf("Cannot find %s in the current directory. Have you set up the project with %s?", Bold(ConfigPath), Aqua("khulnasoft init"))
 	} else if err != nil {
 		return errors.Errorf("failed to read config file: %w", err)
 	}

@@ -25,10 +25,10 @@ func TestServeCommand(t *testing.T) {
 		require.NoError(t, apitest.MockDocker(utils.Docker))
 		defer gock.OffAll()
 		gock.New(utils.Docker.DaemonHost()).
-			Get("/v" + utils.Docker.ClientVersion() + "/containers/supabase_db_test/json").
+			Get("/v" + utils.Docker.ClientVersion() + "/containers/khulnasoft_db_test/json").
 			Reply(http.StatusOK).
 			JSON(types.ContainerJSON{})
-		containerId := "supabase_edge_runtime_test"
+		containerId := "khulnasoft_edge_runtime_test"
 		gock.New(utils.Docker.DaemonHost()).
 			Delete("/v" + utils.Docker.ClientVersion() + "/containers/" + containerId).
 			Reply(http.StatusOK)
@@ -48,7 +48,7 @@ func TestServeCommand(t *testing.T) {
 		// Run test
 		err := Run(context.Background(), "", nil, "", fsys)
 		// Check error
-		assert.ErrorContains(t, err, "open supabase/config.toml: file does not exist")
+		assert.ErrorContains(t, err, "open khulnasoft/config.toml: file does not exist")
 	})
 
 	t.Run("throws error on missing db", func(t *testing.T) {
@@ -59,7 +59,7 @@ func TestServeCommand(t *testing.T) {
 		require.NoError(t, apitest.MockDocker(utils.Docker))
 		defer gock.OffAll()
 		gock.New(utils.Docker.DaemonHost()).
-			Get("/v" + utils.Docker.ClientVersion() + "/containers/supabase_db_test/json").
+			Get("/v" + utils.Docker.ClientVersion() + "/containers/khulnasoft_db_test/json").
 			Reply(http.StatusNotFound)
 		// Run test
 		err := Run(context.Background(), "", nil, "", fsys)
@@ -75,7 +75,7 @@ func TestServeCommand(t *testing.T) {
 		require.NoError(t, apitest.MockDocker(utils.Docker))
 		defer gock.OffAll()
 		gock.New(utils.Docker.DaemonHost()).
-			Get("/v" + utils.Docker.ClientVersion() + "/containers/supabase_db_test/json").
+			Get("/v" + utils.Docker.ClientVersion() + "/containers/khulnasoft_db_test/json").
 			Reply(http.StatusOK).
 			JSON(types.ContainerJSON{})
 		// Run test
@@ -93,7 +93,7 @@ func TestServeCommand(t *testing.T) {
 		require.NoError(t, apitest.MockDocker(utils.Docker))
 		defer gock.OffAll()
 		gock.New(utils.Docker.DaemonHost()).
-			Get("/v" + utils.Docker.ClientVersion() + "/containers/supabase_db_test/json").
+			Get("/v" + utils.Docker.ClientVersion() + "/containers/khulnasoft_db_test/json").
 			Reply(http.StatusOK).
 			JSON(types.ContainerJSON{})
 		// Run test

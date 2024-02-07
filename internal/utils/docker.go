@@ -60,7 +60,7 @@ func AssertDockerIsRunning(ctx context.Context) error {
 }
 
 const (
-	CliProjectLabel     = "com.supabase.cli.project"
+	CliProjectLabel     = "com.khulnasoft.cli.project"
 	composeProjectLabel = "com.docker.compose.projecta"
 )
 
@@ -182,7 +182,7 @@ func GetRegistryAuth() string {
 	return registryAuth
 }
 
-// Defaults to Supabase public ECR for faster image pull
+// Defaults to Khulnasoft public ECR for faster image pull
 const defaultRegistry = "public.ecr.aws"
 
 func GetRegistry() string {
@@ -201,7 +201,7 @@ func GetRegistryImageUrl(imageName string) string {
 	// Configure mirror registry
 	parts := strings.Split(imageName, "/")
 	imageName = parts[len(parts)-1]
-	return registry + "/supabase/" + imageName
+	return registry + "/khulnasoft/" + imageName
 }
 
 func DockerImagePull(ctx context.Context, image string, w io.Writer) error {
@@ -448,7 +448,7 @@ func suggestDockerStop(ctx context.Context, hostPort string) string {
 			for _, p := range c.Ports {
 				if fmt.Sprintf("%s:%d", p.IP, p.PublicPort) == hostPort {
 					if project, ok := c.Labels[CliProjectLabel]; ok {
-						return "\nTry stopping the running project with " + Aqua("supabase stop --project-id "+project)
+						return "\nTry stopping the running project with " + Aqua("khulnasoft stop --project-id "+project)
 					} else {
 						name := c.ID
 						if len(c.Names) > 0 {

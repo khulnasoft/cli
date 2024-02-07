@@ -11,7 +11,7 @@ var (
 	snippetsCmd = &cobra.Command{
 		GroupID: groupManagementAPI,
 		Use:     "snippets",
-		Short:   "Manage Supabase SQL snippets",
+		Short:   "Manage Khulnasoft SQL snippets",
 	}
 
 	snippetsListCmd = &cobra.Command{

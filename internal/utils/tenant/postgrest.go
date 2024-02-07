@@ -27,7 +27,7 @@ func GetPostgrestVersion(ctx context.Context, projectRef string) (string, error)
 	if err != nil {
 		return "", err
 	}
-	url := fmt.Sprintf("https://%s/rest/v1/", utils.GetSupabaseHost(projectRef))
+	url := fmt.Sprintf("https://%s/rest/v1/", utils.GetKhulnasoftHost(projectRef))
 	data, err := GetJsonResponse[SwaggerResponse](ctx, url, apiKey.Anon)
 	if err != nil {
 		return "", err

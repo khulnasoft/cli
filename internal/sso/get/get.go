@@ -13,7 +13,7 @@ import (
 )
 
 func Run(ctx context.Context, ref, providerId, format string) error {
-	resp, err := utils.GetSupabase().GetProviderByIdWithResponse(ctx, ref, providerId)
+	resp, err := utils.GetKhulnasoft().GetProviderByIdWithResponse(ctx, ref, providerId)
 	if err != nil {
 		return err
 	}

@@ -1,0 +1,15 @@
+{
+    "version": "{{ .Version }}",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/khulnasoft/cli/releases/download/v{{ .Version }}/khulnasoft_windows_amd64.tar.gz",
+            "bin": [
+                "khulnasoft.exe"
+            ],
+            "hash": "{{ .Checksum.khulnasoft_windows_amd64 }}"
+        }
+    },
+    "homepage": "https://khulnasoft.com",
+    "license": "MIT",
+    "description": "Khulnasoft CLI"
+}

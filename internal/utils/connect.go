@@ -76,8 +76,8 @@ func GetPoolerConfig(projectRef string) *pgconn.Config {
 		return nil
 	}
 	// There is a risk of MITM attack if we simply trust the hostname specified in pooler URL.
-	if !isSupabaseDomain(poolerConfig.Host) {
-		fmt.Fprintln(logger, "Pooler hostname does not belong to Supabase domain:", poolerConfig.Host)
+	if !isKhulnasoftDomain(poolerConfig.Host) {
+		fmt.Fprintln(logger, "Pooler hostname does not belong to Khulnasoft domain:", poolerConfig.Host)
 		return nil
 	}
 	fmt.Fprintln(logger, "Using connection pooler:", poolerUrl)
@@ -91,12 +91,12 @@ func getDebugLogger() io.Writer {
 	return io.Discard
 }
 
-func isSupabaseDomain(host string) bool {
-	switch GetSupabaseAPIHost() {
-	case "https://api.supabase.green":
-		return strings.HasSuffix(host, ".supabase.green")
+func isKhulnasoftDomain(host string) bool {
+	switch GetKhulnasoftAPIHost() {
+	case "https://api.khulnasoft.green":
+		return strings.HasSuffix(host, ".khulnasoft.green")
 	default:
-		return strings.HasSuffix(host, ".supabase.com")
+		return strings.HasSuffix(host, ".khulnasoft.com")
 	}
 }
 

@@ -14,7 +14,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 	clicmd "github.com/khulnasoft/cli/cmd"
-	"github.com/khulnasoft/cli/test/mocks/supabase"
+	"github.com/khulnasoft/cli/test/mocks/khulnasoft"
 )
 
 type LoginTestSuite struct {
@@ -33,7 +33,7 @@ func (suite *LoginTestSuite) TestLink() {
 	// run command
 	login, _, err := suite.cmd.Find([]string{"login"})
 	require.NoError(suite.T(), err)
-	key := "sbp_" + gonanoid.MustGenerate(supabase.KeyAlphabet, supabase.KeyLength)
+	key := "sbp_" + gonanoid.MustGenerate(khulnasoft.KeyAlphabet, khulnasoft.KeyLength)
 
 	// change stdin to read from a file
 	content := []byte(key)
@@ -57,9 +57,9 @@ func (suite *LoginTestSuite) TestLink() {
 	// check token is saved
 	home, err := os.UserHomeDir()
 	require.NoError(suite.T(), err)
-	_, err = os.Stat(filepath.Join(home, ".supabase/access-token"))
+	_, err = os.Stat(filepath.Join(home, ".khulnasoft/access-token"))
 	require.NoError(suite.T(), err)
-	token, err := os.ReadFile(filepath.Join(home, ".supabase/access-token"))
+	token, err := os.ReadFile(filepath.Join(home, ".khulnasoft/access-token"))
 	require.NoError(suite.T(), err)
 	require.Equal(suite.T(), key, string(token))
 }
@@ -70,7 +70,7 @@ func (suite *LoginTestSuite) SetupTest() {
 	suite.cmd = clicmd.GetRootCmd()
 	suite.tempDir = NewTempDir(Logger, TempDir)
 
-	// init supabase
+	// init khulnasoft
 	init, _, err := suite.cmd.Find([]string{"init"})
 	require.NoError(suite.T(), err)
 	require.NoError(suite.T(), init.RunE(init, []string{}))

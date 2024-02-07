@@ -8,6 +8,6 @@ This command is useful to check that the amount of replication lag is as low as 
 ```
                        NAME                    │ ACTIVE │ STATE   │ REPLICATION CLIENT ADDRESS │ REPLICATION LAG GB
   ─────────────────────────────────────────────┼────────┼─────────┼────────────────────────────┼─────────────────────
-    supabase_realtime_replication_slot         │ t      │ N/A     │ N/A                        │                  0
+    khulnasoft_realtime_replication_slot         │ t      │ N/A     │ N/A                        │                  0
     datastream                                 │ t      │ catchup │ 24.201.24.106              │                 45
 ```

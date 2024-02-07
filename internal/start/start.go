@@ -35,7 +35,7 @@ func suggestUpdateCmd(serviceImages map[string]string) string {
 	for k, v := range serviceImages {
 		cmd += fmt.Sprintf("%s => %s\n", k, v)
 	}
-	cmd += fmt.Sprintf("Run %s to update them.", utils.Aqua("supabase link"))
+	cmd += fmt.Sprintf("Run %s to update them.", utils.Aqua("khulnasoft link"))
 	return cmd
 }
 
@@ -45,9 +45,9 @@ func Run(ctx context.Context, fsys afero.Fs, excludedContainers []string, ignore
 		if err := utils.LoadConfigFS(fsys); err != nil {
 			return err
 		}
-		if err := utils.AssertSupabaseDbIsRunning(); err == nil {
-			fmt.Fprintln(os.Stderr, utils.Aqua("supabase start")+" is already running.")
-			utils.CmdSuggestion = fmt.Sprintf("Run %s to show status of local Supabase containers.", utils.Aqua("supabase status"))
+		if err := utils.AssertKhulnasoftDbIsRunning(); err == nil {
+			fmt.Fprintln(os.Stderr, utils.Aqua("khulnasoft start")+" is already running.")
+			utils.CmdSuggestion = fmt.Sprintf("Run %s to show status of local Khulnasoft containers.", utils.Aqua("khulnasoft status"))
 			return nil
 		} else if !errors.Is(err, utils.ErrNotRunning) {
 			return err
@@ -89,7 +89,7 @@ func Run(ctx context.Context, fsys afero.Fs, excludedContainers []string, ignore
 		}
 	}
 
-	fmt.Fprintf(os.Stderr, "Started %s local development setup.\n\n", utils.Aqua("supabase"))
+	fmt.Fprintf(os.Stderr, "Started %s local development setup.\n\n", utils.Aqua("khulnasoft"))
 	status.PrettyPrint(os.Stdout, excludedContainers...)
 	return nil
 }
@@ -219,11 +219,11 @@ EOF
 			"DB_HOSTNAME=" + dbConfig.Host,
 			fmt.Sprintf("DB_PORT=%d", dbConfig.Port),
 			"DB_SCHEMA=_analytics",
-			"DB_USERNAME=supabase_admin",
+			"DB_USERNAME=khulnasoft_admin",
 			"DB_PASSWORD=" + dbConfig.Password,
 			"LOGFLARE_MIN_CLUSTER_SIZE=1",
 			"LOGFLARE_SINGLE_TENANT=true",
-			"LOGFLARE_SUPABASE_MODE=true",
+			"LOGFLARE_KHULNASOFT_MODE=true",
 			"LOGFLARE_API_KEY=" + utils.Config.Analytics.ApiKey,
 			"LOGFLARE_LOG_LEVEL=warn",
 			"LOGFLARE_NODE_HOST=127.0.0.1",
@@ -387,7 +387,7 @@ EOF
 			"GOTRUE_API_PORT=9999",
 
 			"GOTRUE_DB_DRIVER=postgres",
-			fmt.Sprintf("GOTRUE_DB_DATABASE_URL=postgresql://supabase_auth_admin:%s@%s:%d/%s", dbConfig.Password, dbConfig.Host, dbConfig.Port, dbConfig.Database),
+			fmt.Sprintf("GOTRUE_DB_DATABASE_URL=postgresql://khulnasoft_auth_admin:%s@%s:%d/%s", dbConfig.Password, dbConfig.Host, dbConfig.Port, dbConfig.Database),
 
 			"GOTRUE_SITE_URL=" + utils.Config.Auth.SiteUrl,
 			"GOTRUE_URI_ALLOW_LIST=" + strings.Join(utils.Config.Auth.AdditionalRedirectUrls, ","),
@@ -409,7 +409,7 @@ EOF
 			"GOTRUE_SMTP_ADMIN_EMAIL=admin@email.com",
 			"GOTRUE_SMTP_MAX_FREQUENCY=1s",
 			// TODO: To be reverted to `/auth/v1/verify` once
-			// https://github.com/supabase/supabase/issues/16100
+			// https://github.com/khulnasoft/khulnasoft/issues/16100
 			// is fixed on upstream GoTrue.
 			fmt.Sprintf("GOTRUE_MAILER_URLPATHS_INVITE=http://%s:%d/auth/v1/verify", utils.Config.Hostname, utils.Config.Api.Port),
 			fmt.Sprintf("GOTRUE_MAILER_URLPATHS_CONFIRMATION=http://%s:%d/auth/v1/verify", utils.Config.Hostname, utils.Config.Api.Port),
@@ -617,11 +617,11 @@ EOF
 					"PORT=4000",
 					"DB_HOST=" + dbConfig.Host,
 					fmt.Sprintf("DB_PORT=%d", dbConfig.Port),
-					"DB_USER=supabase_admin",
+					"DB_USER=khulnasoft_admin",
 					"DB_PASSWORD=" + dbConfig.Password,
 					"DB_NAME=" + dbConfig.Database,
 					"DB_AFTER_CONNECT_QUERY=SET search_path TO _realtime",
-					"DB_ENC_KEY=supabaserealtime",
+					"DB_ENC_KEY=khulnasoftrealtime",
 					"API_JWT_SECRET=" + utils.Config.Auth.JwtSecret,
 					"FLY_ALLOC_ID=abc123",
 					"FLY_APP_NAME=realtime",
@@ -708,12 +708,12 @@ EOF
 					"SERVICE_KEY=" + utils.Config.Auth.ServiceRoleKey,
 					"POSTGREST_URL=http://" + utils.RestId + ":3000",
 					"PGRST_JWT_SECRET=" + utils.Config.Auth.JwtSecret,
-					fmt.Sprintf("DATABASE_URL=postgresql://supabase_storage_admin:%s@%s:%d/%s", dbConfig.Password, dbConfig.Host, dbConfig.Port, dbConfig.Database),
+					fmt.Sprintf("DATABASE_URL=postgresql://khulnasoft_storage_admin:%s@%s:%d/%s", dbConfig.Password, dbConfig.Host, dbConfig.Port, dbConfig.Database),
 					fmt.Sprintf("FILE_SIZE_LIMIT=%v", utils.Config.Storage.FileSizeLimit),
 					"STORAGE_BACKEND=file",
 					"FILE_STORAGE_BACKEND_PATH=" + dockerStoragePath,
 					"TENANT_ID=stub",
-					// TODO: https://github.com/supabase/storage-api/issues/55
+					// TODO: https://github.com/khulnasoft/storage-api/issues/55
 					"REGION=stub",
 					"GLOBAL_S3_BUCKET=stub",
 					"ENABLE_IMAGE_TRANSFORMATION=true",
@@ -837,11 +837,11 @@ EOF
 				Env: []string{
 					"STUDIO_PG_META_URL=http://" + utils.PgmetaId + ":8080",
 					"POSTGRES_PASSWORD=" + dbConfig.Password,
-					"SUPABASE_URL=http://" + utils.KongId + ":8000",
-					fmt.Sprintf("SUPABASE_REST_URL=%s:%v/rest/v1/", utils.Config.Studio.ApiUrl, utils.Config.Api.Port),
-					fmt.Sprintf("SUPABASE_PUBLIC_URL=%s:%v/", utils.Config.Studio.ApiUrl, utils.Config.Api.Port),
-					"SUPABASE_ANON_KEY=" + utils.Config.Auth.AnonKey,
-					"SUPABASE_SERVICE_KEY=" + utils.Config.Auth.ServiceRoleKey,
+					"KHULNASOFT_URL=http://" + utils.KongId + ":8000",
+					fmt.Sprintf("KHULNASOFT_REST_URL=%s:%v/rest/v1/", utils.Config.Studio.ApiUrl, utils.Config.Api.Port),
+					fmt.Sprintf("KHULNASOFT_PUBLIC_URL=%s:%v/", utils.Config.Studio.ApiUrl, utils.Config.Api.Port),
+					"KHULNASOFT_ANON_KEY=" + utils.Config.Auth.AnonKey,
+					"KHULNASOFT_SERVICE_KEY=" + utils.Config.Auth.ServiceRoleKey,
 					"LOGFLARE_API_KEY=" + utils.Config.Analytics.ApiKey,
 					fmt.Sprintf("LOGFLARE_URL=http://%v:4000", utils.LogflareId),
 					fmt.Sprintf("NEXT_PUBLIC_ENABLE_LOGS=%v", utils.Config.Analytics.Enabled),
@@ -891,7 +891,7 @@ EOF
 					fmt.Sprintf("PGBOUNCER_POOL_MODE=%s", utils.Config.Db.Pooler.PoolMode),
 					fmt.Sprintf("PGBOUNCER_DEFAULT_POOL_SIZE=%d", utils.Config.Db.Pooler.DefaultPoolSize),
 					fmt.Sprintf("PGBOUNCER_MAX_CLIENT_CONN=%d", utils.Config.Db.Pooler.MaxClientConn),
-					// Default platform config: https://github.com/supabase/postgres/blob/develop/ansible/files/pgbouncer_config/pgbouncer.ini.j2
+					// Default platform config: https://github.com/khulnasoft/postgres/blob/develop/ansible/files/pgbouncer_config/pgbouncer.ini.j2
 					"PGBOUNCER_IGNORE_STARTUP_PARAMETERS=extra_float_digits",
 				},
 				Healthcheck: &container.HealthConfig{

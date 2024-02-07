@@ -35,7 +35,7 @@ func TestDeployOne(t *testing.T) {
 		project := apitest.RandomProjectRef()
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 
 		// Setup mock api
 		defer gock.OffAll()
@@ -73,7 +73,7 @@ func TestDeployOne(t *testing.T) {
 		project := apitest.RandomProjectRef()
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 		// Setup valid deno path
 		_, err := fsys.Create(utils.DenoPathOverride)
 		require.NoError(t, err)
@@ -163,7 +163,7 @@ func TestDeployAll(t *testing.T) {
 		project := apitest.RandomProjectRef()
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 
 		// Setup mock api
 		defer gock.OffAll()
@@ -238,7 +238,7 @@ func TestDeployCommand(t *testing.T) {
 		project := apitest.RandomProjectRef()
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 		// Setup valid deno path
 		_, err := fsys.Create(utils.DenoPathOverride)
 		require.NoError(t, err)
@@ -291,7 +291,7 @@ func TestDeployCommand(t *testing.T) {
 		project := apitest.RandomProjectRef()
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 		// Setup valid deno path
 		_, err = fsys.Create(utils.DenoPathOverride)
 		require.NoError(t, err)
@@ -341,14 +341,14 @@ func TestDeployCommand(t *testing.T) {
 		// Run test
 		err := Run(context.Background(), nil, "", nil, "", fsys)
 		// Check error
-		assert.ErrorContains(t, err, "No Functions specified or found in supabase/functions")
+		assert.ErrorContains(t, err, "No Functions specified or found in khulnasoft/functions")
 	})
 
 	t.Run("verify_jwt param falls back to config", func(t *testing.T) {
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
 		require.NoError(t, utils.WriteConfig(fsys, false))
-		f, err := fsys.OpenFile("supabase/config.toml", os.O_APPEND|os.O_WRONLY, 0600)
+		f, err := fsys.OpenFile("khulnasoft/config.toml", os.O_APPEND|os.O_WRONLY, 0600)
 		require.NoError(t, err)
 		_, err = f.WriteString(`
 [functions.` + slug + `]
@@ -360,7 +360,7 @@ verify_jwt = false
 		project := apitest.RandomProjectRef()
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 		// Setup valid deno path
 		_, err = fsys.Create(utils.DenoPathOverride)
 		require.NoError(t, err)
@@ -394,7 +394,7 @@ verify_jwt = false
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
 		require.NoError(t, utils.WriteConfig(fsys, false))
-		f, err := fsys.OpenFile("supabase/config.toml", os.O_APPEND|os.O_WRONLY, 0600)
+		f, err := fsys.OpenFile("khulnasoft/config.toml", os.O_APPEND|os.O_WRONLY, 0600)
 		require.NoError(t, err)
 		_, err = f.WriteString(`
 [functions.` + slug + `]
@@ -406,7 +406,7 @@ verify_jwt = false
 		project := apitest.RandomProjectRef()
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 		// Setup valid deno path
 		_, err = fsys.Create(utils.DenoPathOverride)
 		require.NoError(t, err)
@@ -444,7 +444,7 @@ func TestDeployFunction(t *testing.T) {
 	project := apitest.RandomProjectRef()
 	// Setup valid access token
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 	utils.EdgeRuntimeId = "test-edge-runtime"
 
 	t.Run("throws error on network failure", func(t *testing.T) {
@@ -498,7 +498,7 @@ func TestDeployFunction(t *testing.T) {
 		// Run test
 		err := deployFunction(context.Background(), project, slug, "", "", true, strings.NewReader("body"))
 		// Check error
-		assert.ErrorContains(t, err, "Failed to create a new Function on the Supabase project:")
+		assert.ErrorContains(t, err, "Failed to create a new Function on the Khulnasoft project:")
 	})
 
 	t.Run("throws error on update failure", func(t *testing.T) {
@@ -530,6 +530,6 @@ func TestDeployFunction(t *testing.T) {
 		// Run test
 		err := deployFunction(context.Background(), project, slug, "", "", true, strings.NewReader("body"))
 		// Check error
-		assert.ErrorContains(t, err, "Failed to update an existing Function's body on the Supabase project:")
+		assert.ErrorContains(t, err, "Failed to update an existing Function's body on the Khulnasoft project:")
 	})
 }

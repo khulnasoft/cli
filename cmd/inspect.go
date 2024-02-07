@@ -33,12 +33,12 @@ var (
 	inspectCmd = &cobra.Command{
 		GroupID: groupLocalDev,
 		Use:     "inspect",
-		Short:   "Tools to inspect your Supabase project",
+		Short:   "Tools to inspect your Khulnasoft project",
 	}
 
 	inspectDBCmd = &cobra.Command{
 		Use:   "db",
-		Short: "Tools to inspect your Supabase database",
+		Short: "Tools to inspect your Khulnasoft database",
 		PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 			ctx, _ := signal.NotifyContext(cmd.Context(), os.Interrupt)
 			cmd.SetContext(ctx)

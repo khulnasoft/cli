@@ -15,7 +15,7 @@ import (
 func Run(ctx context.Context, projectRef string, stdin *os.File) error {
 	fmt.Fprintf(os.Stderr, "Enter a new root key: ")
 	input := credentials.PromptMasked(stdin)
-	resp, err := utils.GetSupabase().UpdatePgsodiumConfigWithResponse(ctx, projectRef, api.UpdatePgsodiumConfigBody{
+	resp, err := utils.GetKhulnasoft().UpdatePgsodiumConfigWithResponse(ctx, projectRef, api.UpdatePgsodiumConfigBody{
 		RootKey: strings.TrimSpace(input),
 	})
 	if err != nil {
@@ -26,6 +26,6 @@ func Run(ctx context.Context, projectRef string, stdin *os.File) error {
 		return errors.New("Unexpected error updating project root key: " + string(resp.Body))
 	}
 
-	fmt.Println("Finished " + utils.Aqua("supabase root-key update") + ".")
+	fmt.Println("Finished " + utils.Aqua("khulnasoft root-key update") + ".")
 	return nil
 }

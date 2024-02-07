@@ -19,7 +19,7 @@ import (
 	"github.com/khulnasoft/cli/internal/utils/pgxv5"
 )
 
-const LIST_MIGRATION_VERSION = "SELECT version FROM supabase_migrations.schema_migrations ORDER BY version"
+const LIST_MIGRATION_VERSION = "SELECT version FROM khulnasoft_migrations.schema_migrations ORDER BY version"
 
 var initSchemaPattern = regexp.MustCompile(`([0-9]{14})_init\.sql`)
 

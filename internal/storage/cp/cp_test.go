@@ -41,7 +41,7 @@ func TestStorageCP(t *testing.T) {
 		require.NoError(t, afero.WriteFile(fsys, utils.ProjectRefPath, []byte(projectRef), 0644))
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 		// Setup mock api
 		defer gock.OffAll()
 		gock.New(utils.DefaultApiHost).
@@ -51,7 +51,7 @@ func TestStorageCP(t *testing.T) {
 				Name:   "service_role",
 				ApiKey: "service-key",
 			}})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Post("/storage/v1/object/private/file").
 			Reply(http.StatusOK)
 		// Run test
@@ -75,7 +75,7 @@ func TestStorageCP(t *testing.T) {
 				Name:   "service_role",
 				ApiKey: "service-key",
 			}})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Get("/storage/v1/bucket").
 			Reply(http.StatusOK).
 			JSON([]client.BucketResponse{})
@@ -93,7 +93,7 @@ func TestStorageCP(t *testing.T) {
 		require.NoError(t, afero.WriteFile(fsys, utils.ProjectRefPath, []byte(projectRef), 0644))
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 		// Setup mock api
 		defer gock.OffAll()
 		gock.New(utils.DefaultApiHost).
@@ -103,7 +103,7 @@ func TestStorageCP(t *testing.T) {
 				Name:   "service_role",
 				ApiKey: "service-key",
 			}})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Get("/storage/v1/object/private/file").
 			Reply(http.StatusOK)
 		// Run test
@@ -130,7 +130,7 @@ func TestStorageCP(t *testing.T) {
 				Name:   "service_role",
 				ApiKey: "service-key",
 			}})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Get("/storage/v1/bucket").
 			Reply(http.StatusOK).
 			JSON([]client.BucketResponse{})
@@ -185,7 +185,7 @@ func TestUploadAll(t *testing.T) {
 	projectRef := apitest.RandomProjectRef()
 	// Setup valid access token
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 
 	t.Run("uploads directory to new bucket", func(t *testing.T) {
 		// Setup in-memory fs
@@ -200,19 +200,19 @@ func TestUploadAll(t *testing.T) {
 				Name:   "service_role",
 				ApiKey: "service-key",
 			}})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Get("/storage/v1/bucket").
 			Reply(http.StatusOK).
 			JSON([]client.BucketResponse{})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Post("/storage/v1/object/tmp/readme.md").
 			Reply(http.StatusNotFound).
 			JSON(map[string]string{"error": "Bucket not found"})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Post("/storage/v1/bucket").
 			Reply(http.StatusOK).
 			JSON(client.CreateBucketResponse{Name: "tmp"})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Post("/storage/v1/object/tmp/readme.md").
 			Reply(http.StatusOK)
 		// Run test
@@ -235,15 +235,15 @@ func TestUploadAll(t *testing.T) {
 				Name:   "service_role",
 				ApiKey: "service-key",
 			}})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Get("/storage/v1/bucket").
 			Reply(http.StatusOK).
 			JSON([]client.BucketResponse{})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Post("/storage/v1/object/tmp/readme.md").
 			Reply(http.StatusNotFound).
 			JSON(map[string]string{"error": "Bucket not found"})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Post("/storage/v1/bucket").
 			Reply(http.StatusServiceUnavailable)
 		// Run test
@@ -267,16 +267,16 @@ func TestUploadAll(t *testing.T) {
 				Name:   "service_role",
 				ApiKey: "service-key",
 			}})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Post("/storage/v1/object/list/private").
 			Reply(http.StatusOK).
 			JSON([]client.ObjectResponse{{
 				Name: "dir",
 			}})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Post("/storage/v1/object/private/dir/tmp/readme.md").
 			Reply(http.StatusOK)
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Post("/storage/v1/object/private/dir/tmp/docs/api.md").
 			Reply(http.StatusOK)
 		// Run test
@@ -299,7 +299,7 @@ func TestUploadAll(t *testing.T) {
 				Name:   "service_role",
 				ApiKey: "service-key",
 			}})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Get("/storage/v1/bucket").
 			Reply(http.StatusOK).
 			JSON([]client.BucketResponse{{
@@ -308,7 +308,7 @@ func TestUploadAll(t *testing.T) {
 				CreatedAt: "2023-10-13T17:48:58.491Z",
 				UpdatedAt: "2023-10-13T17:48:58.491Z",
 			}})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Post("/storage/v1/object/private/readme.md").
 			Reply(http.StatusOK)
 		// Run test
@@ -333,11 +333,11 @@ func TestUploadAll(t *testing.T) {
 			}})
 		fileObject := mockFile
 		fileObject.Name = "file"
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Post("/storage/v1/object/list/private").
 			Reply(http.StatusOK).
 			JSON([]client.ObjectResponse{fileObject})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Post("/storage/v1/object/private/file").
 			Reply(http.StatusOK)
 		// Run test
@@ -359,7 +359,7 @@ func TestUploadAll(t *testing.T) {
 				Name:   "service_role",
 				ApiKey: "service-key",
 			}})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Get("/storage/v1/bucket").
 			Reply(http.StatusServiceUnavailable)
 		// Run test
@@ -375,7 +375,7 @@ func TestDownloadAll(t *testing.T) {
 	projectRef := apitest.RandomProjectRef()
 	// Setup valid access token
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 
 	t.Run("downloads buckets to existing directory", func(t *testing.T) {
 		// Setup in-memory fs
@@ -389,7 +389,7 @@ func TestDownloadAll(t *testing.T) {
 				Name:   "service_role",
 				ApiKey: "service-key",
 			}})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Get("/storage/v1/bucket").
 			Reply(http.StatusOK).
 			JSON([]client.BucketResponse{{
@@ -404,11 +404,11 @@ func TestDownloadAll(t *testing.T) {
 				CreatedAt: "2023-10-13T17:48:58.491Z",
 				UpdatedAt: "2023-10-13T17:48:58.491Z",
 			}})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Post("/storage/v1/object/list/private").
 			Reply(http.StatusOK).
 			JSON([]client.ObjectResponse{})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Post("/storage/v1/object/list/test").
 			Reply(http.StatusOK).
 			JSON([]client.ObjectResponse{})
@@ -437,11 +437,11 @@ func TestDownloadAll(t *testing.T) {
 				Name:   "service_role",
 				ApiKey: "service-key",
 			}})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Get("/storage/v1/object/private").
 			Reply(http.StatusNotFound).
 			JSON(map[string]string{"error": "Not Found"})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Get("/storage/v1/bucket").
 			Reply(http.StatusOK).
 			JSON([]client.BucketResponse{{
@@ -450,7 +450,7 @@ func TestDownloadAll(t *testing.T) {
 				CreatedAt: "2023-10-13T17:48:58.491Z",
 				UpdatedAt: "2023-10-13T17:48:58.491Z",
 			}})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Post("/storage/v1/object/list/private").
 			Reply(http.StatusOK).
 			JSON([]client.ObjectResponse{})
@@ -479,7 +479,7 @@ func TestDownloadAll(t *testing.T) {
 				Name:   "service_role",
 				ApiKey: "service-key",
 			}})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Post("/storage/v1/object/list/private").
 			Reply(http.StatusOK).
 			JSON([]client.ObjectResponse{})
@@ -506,7 +506,7 @@ func TestDownloadAll(t *testing.T) {
 				ApiKey: "service-key",
 			}})
 		// Lists /private/tmp directory
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Post("/storage/v1/object/list/private").
 			JSON(client.ListObjectsQuery{
 				Prefix: "tmp/",
@@ -518,13 +518,13 @@ func TestDownloadAll(t *testing.T) {
 			JSON([]client.ObjectResponse{{
 				Name: "docs",
 			}, mockFile})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Get("/storage/v1/object/private/tmp/abstract.pdf").
 			Reply(http.StatusOK)
 		// Lists /private/tmp/docs directory
 		readme := mockFile
 		readme.Name = "readme.md"
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Post("/storage/v1/object/list/private").
 			JSON(client.ListObjectsQuery{
 				Prefix: "tmp/docs/",
@@ -534,7 +534,7 @@ func TestDownloadAll(t *testing.T) {
 			}).
 			Reply(http.StatusOK).
 			JSON([]client.ObjectResponse{readme})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Get("/storage/v1/object/private/tmp/docs/readme.md").
 			Reply(http.StatusOK)
 		// Run test
@@ -562,11 +562,11 @@ func TestDownloadAll(t *testing.T) {
 				Name:   "service_role",
 				ApiKey: "service-key",
 			}})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Post("/storage/v1/object/list/private").
 			Reply(http.StatusOK).
 			JSON([]client.ObjectResponse{mockFile})
-		gock.New("https://" + utils.GetSupabaseHost(projectRef)).
+		gock.New("https://" + utils.GetKhulnasoftHost(projectRef)).
 			Get("/storage/v1/object/private/abstract.pdf").
 			Reply(http.StatusOK)
 		// Run test

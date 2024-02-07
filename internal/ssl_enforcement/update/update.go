@@ -14,7 +14,7 @@ func Run(ctx context.Context, projectRef string, enforceDbSsl bool, fsys afero.F
 	// 1. sanity checks
 	// 2. update restrictions
 	{
-		resp, err := utils.GetSupabase().UpdateSslEnforcementConfigWithResponse(ctx, projectRef, api.UpdateSslEnforcementConfigJSONRequestBody{
+		resp, err := utils.GetKhulnasoft().UpdateSslEnforcementConfigWithResponse(ctx, projectRef, api.UpdateSslEnforcementConfigJSONRequestBody{
 			RequestedConfig: api.SslEnforcements{
 				Database: enforceDbSsl,
 			},

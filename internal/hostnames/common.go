@@ -12,7 +12,7 @@ import (
 )
 
 func GetCustomHostnameConfig(ctx context.Context, projectRef string) (*api.GetCustomHostnameConfigResponse, error) {
-	resp, err := utils.GetSupabase().GetCustomHostnameConfigWithResponse(ctx, projectRef)
+	resp, err := utils.GetKhulnasoft().GetCustomHostnameConfigWithResponse(ctx, projectRef)
 	if err != nil {
 		return nil, errors.Errorf("failed to get custom hostname: %w", err)
 	}
@@ -23,7 +23,7 @@ func GetCustomHostnameConfig(ctx context.Context, projectRef string) (*api.GetCu
 }
 
 func VerifyCNAME(ctx context.Context, projectRef string, customHostname string) error {
-	expectedEndpoint := fmt.Sprintf("%s.", utils.GetSupabaseHost(projectRef))
+	expectedEndpoint := fmt.Sprintf("%s.", utils.GetKhulnasoftHost(projectRef))
 	cname, err := utils.ResolveCNAME(ctx, customHostname)
 	if err != nil {
 		return errors.Errorf("expected custom hostname '%s' to have a CNAME record pointing to your project at '%s', but it failed to resolve: %w", customHostname, expectedEndpoint, err)
@@ -91,7 +91,7 @@ func TranslateStatus(response *api.UpdateCustomHostnameResponse, includeRawOutpu
 		}
 		return appendRawOutputIfNeeded(fmt.Sprintf(`Custom hostname configuration complete, and ready for activation.
 
-Please ensure that your custom domain is set up as a CNAME record to your Supabase subdomain:
+Please ensure that your custom domain is set up as a CNAME record to your Khulnasoft subdomain:
 	%s CNAME -> %s`, response.CustomHostname, res.Result.CustomOriginServer), response, includeRawOutput), nil
 	}
 	if response.Status == api.N2Initiated {

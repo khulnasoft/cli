@@ -17,7 +17,7 @@ func Run(ctx context.Context, fsys afero.Fs) error {
 	if err != nil {
 		return err
 	}
-	resp, err := utils.GetSupabase().GetBranchesWithResponse(ctx, ref)
+	resp, err := utils.GetKhulnasoft().GetBranchesWithResponse(ctx, ref)
 	if err != nil {
 		return errors.Errorf("failed to list preview branches: %w", err)
 	}

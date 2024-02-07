@@ -1,5 +1,5 @@
-# A string used to distinguish different Supabase projects on the same host. Defaults to the
-# working directory name when running `supabase init`.
+# A string used to distinguish different Khulnasoft projects on the same host. Defaults to the
+# working directory name when running `khulnasoft init`.
 project_id = "{{ .ProjectId }}"
 
 [api]
@@ -45,7 +45,7 @@ max_header_length = 8192
 
 [studio]
 enabled = true
-# Port to use for Supabase Studio.
+# Port to use for Khulnasoft Studio.
 port = 54323
 # External URL of the API server that frontend connects to.
 api_url = "http://127.0.0.1"
@@ -96,7 +96,7 @@ enable_confirmations = false
 # Uncomment to customize email template
 [auth.email.template.invite]
 subject = "You have been invited"
-content_path = "./supabase/templates/invite.html"
+content_path = "./khulnasoft/templates/invite.html"
 
 [auth.sms]
 # Allow/disallow new user signups via SMS to your project.

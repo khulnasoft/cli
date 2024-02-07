@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 	clicmd "github.com/khulnasoft/cli/cmd"
-	"github.com/khulnasoft/cli/test/mocks/supabase"
+	"github.com/khulnasoft/cli/test/mocks/khulnasoft"
 )
 
 type MigrationTestSuite struct {
@@ -24,11 +24,11 @@ func (suite *MigrationTestSuite) TestNewMigration() {
 	// run command
 	migration, _, err := suite.cmd.Find([]string{"migration", "new"})
 	require.NoError(suite.T(), err)
-	name := gonanoid.MustGenerate(supabase.IDAlphabet, 10)
+	name := gonanoid.MustGenerate(khulnasoft.IDAlphabet, 10)
 	require.NoError(suite.T(), migration.RunE(migration, []string{name}))
 
 	// check migrations file created
-	subs, err := os.ReadDir("supabase/migrations")
+	subs, err := os.ReadDir("khulnasoft/migrations")
 	require.NoError(suite.T(), err)
 	require.Regexp(suite.T(), `[0-9]{14}_`+name+".sql", subs[0].Name())
 }
@@ -39,7 +39,7 @@ func (suite *MigrationTestSuite) SetupTest() {
 	suite.cmd = clicmd.GetRootCmd()
 	suite.tempDir = NewTempDir(Logger, TempDir)
 
-	// init supabase
+	// init khulnasoft
 	init, _, err := suite.cmd.Find([]string{"init"})
 	require.NoError(suite.T(), err)
 	require.NoError(suite.T(), init.RunE(init, []string{}))

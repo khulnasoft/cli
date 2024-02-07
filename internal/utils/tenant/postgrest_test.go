@@ -17,7 +17,7 @@ import (
 func TestPostgrestVersion(t *testing.T) {
 	projectRef := apitest.RandomProjectRef()
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 
 	t.Run("appends prefix v", func(t *testing.T) {
 		// Setup mock api
@@ -26,7 +26,7 @@ func TestPostgrestVersion(t *testing.T) {
 			Get("/v1/projects/" + projectRef + "/api-keys").
 			Reply(http.StatusOK).
 			JSON([]api.ApiKeyResponse{{Name: "anon", ApiKey: "anon-key"}})
-		gock.New(fmt.Sprintf("https://%s.supabase.co", projectRef)).
+		gock.New(fmt.Sprintf("https://%s.khulnasoft.co", projectRef)).
 			Get("/rest/v1/").
 			Reply(http.StatusOK).
 			JSON(SwaggerResponse{Info: SwaggerInfo{Version: "11.1.0"}})
@@ -44,7 +44,7 @@ func TestPostgrestVersion(t *testing.T) {
 			Get("/v1/projects/" + projectRef + "/api-keys").
 			Reply(http.StatusOK).
 			JSON([]api.ApiKeyResponse{{Name: "anon", ApiKey: "anon-key"}})
-		gock.New(fmt.Sprintf("https://%s.supabase.co", projectRef)).
+		gock.New(fmt.Sprintf("https://%s.khulnasoft.co", projectRef)).
 			Get("/rest/v1/").
 			Reply(http.StatusOK).
 			JSON(SwaggerResponse{Info: SwaggerInfo{Version: "11.2.0 (c820efb)"}})
@@ -62,7 +62,7 @@ func TestPostgrestVersion(t *testing.T) {
 			Get("/v1/projects/" + projectRef + "/api-keys").
 			Reply(http.StatusOK).
 			JSON([]api.ApiKeyResponse{{Name: "anon", ApiKey: "anon-key"}})
-		gock.New(fmt.Sprintf("https://%s.supabase.co", projectRef)).
+		gock.New(fmt.Sprintf("https://%s.khulnasoft.co", projectRef)).
 			Get("/rest/v1/").
 			ReplyError(errors.New("network error"))
 		// Run test
@@ -79,7 +79,7 @@ func TestPostgrestVersion(t *testing.T) {
 			Get("/v1/projects/" + projectRef + "/api-keys").
 			Reply(http.StatusOK).
 			JSON([]api.ApiKeyResponse{{Name: "anon", ApiKey: "anon-key"}})
-		gock.New(fmt.Sprintf("https://%s.supabase.co", projectRef)).
+		gock.New(fmt.Sprintf("https://%s.khulnasoft.co", projectRef)).
 			Get("/rest/v1/").
 			Reply(http.StatusOK).
 			JSON(SwaggerResponse{})

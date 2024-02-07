@@ -17,7 +17,7 @@ import (
 	clicmd "github.com/khulnasoft/cli/cmd"
 	"github.com/khulnasoft/cli/internal/utils"
 	"github.com/khulnasoft/cli/pkg/api"
-	"github.com/khulnasoft/cli/test/mocks/supabase"
+	"github.com/khulnasoft/cli/test/mocks/khulnasoft"
 )
 
 type LinkTestSuite struct {
@@ -38,7 +38,7 @@ func (suite *LinkTestSuite) TestLink() {
 	link.SetContext(context.Background())
 	require.NoError(suite.T(), err)
 
-	id := gonanoid.MustGenerate(supabase.IDAlphabet, supabase.IDLength)
+	id := gonanoid.MustGenerate(khulnasoft.IDAlphabet, khulnasoft.IDLength)
 	require.NoError(suite.T(), link.Flags().Set("project-ref", id))
 	require.NoError(suite.T(), link.Flags().Set("password", "postgres"))
 
@@ -49,7 +49,7 @@ func (suite *LinkTestSuite) TestLink() {
 	defer suite.mtx.RUnlock()
 	require.Contains(suite.T(), suite.ids, id)
 	require.Contains(suite.T(), suite.headers, http.Header{
-		"Authorization":   []string{fmt.Sprintf("Bearer %s", supabase.AccessToken)},
+		"Authorization":   []string{fmt.Sprintf("Bearer %s", khulnasoft.AccessToken)},
 		"Accept-Encoding": []string{"gzip"},
 		"User-Agent":      []string{"Go-http-client/1.1"},
 	})
@@ -66,7 +66,7 @@ func (suite *LinkTestSuite) SetupTest() {
 	suite.cmd = clicmd.GetRootCmd()
 	suite.tempDir = NewTempDir(Logger, TempDir)
 
-	// init supabase
+	// init khulnasoft
 	init, _, err := suite.cmd.Find([]string{"init"})
 	require.NoError(suite.T(), err)
 	require.NoError(suite.T(), init.RunE(init, []string{}))

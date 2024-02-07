@@ -25,7 +25,7 @@ func Run(branch string, fsys afero.Fs) error {
 	if err := utils.LoadConfigFS(fsys); err != nil {
 		return err
 	}
-	if err := utils.AssertSupabaseDbIsRunning(); err != nil {
+	if err := utils.AssertKhulnasoftDbIsRunning(); err != nil {
 		return err
 	}
 

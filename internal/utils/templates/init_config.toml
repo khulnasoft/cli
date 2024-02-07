@@ -1,5 +1,5 @@
-# A string used to distinguish different Supabase projects on the same host. Defaults to the
-# working directory name when running `supabase init`.
+# A string used to distinguish different Khulnasoft projects on the same host. Defaults to the
+# working directory name when running `khulnasoft init`.
 project_id = "{{ .ProjectId }}"
 
 [api]
@@ -45,7 +45,7 @@ enabled = true
 
 [studio]
 enabled = true
-# Port to use for Supabase Studio.
+# Port to use for Khulnasoft Studio.
 port = 54323
 # External URL of the API server that frontend connects to.
 api_url = "http://127.0.0.1"
@@ -96,7 +96,7 @@ enable_confirmations = false
 # Uncomment to customize email template
 # [auth.email.template.invite]
 # subject = "You have been invited"
-# content_path = "./supabase/templates/invite.html"
+# content_path = "./khulnasoft/templates/invite.html"
 
 [auth.sms]
 # Allow/disallow new user signups via SMS to your project.
@@ -122,7 +122,7 @@ enabled = false
 account_sid = ""
 message_service_sid = ""
 # DO NOT commit your Twilio auth token to git. Use environment variable substitution instead:
-auth_token = "env(SUPABASE_AUTH_SMS_TWILIO_AUTH_TOKEN)"
+auth_token = "env(KHULNASOFT_AUTH_SMS_TWILIO_AUTH_TOKEN)"
 
 # Use an external OAuth provider. The full list of providers are: `apple`, `azure`, `bitbucket`,
 # `discord`, `facebook`, `github`, `gitlab`, `google`, `keycloak`, `linkedin_oidc`, `notion`, `twitch`,
@@ -131,7 +131,7 @@ auth_token = "env(SUPABASE_AUTH_SMS_TWILIO_AUTH_TOKEN)"
 enabled = false
 client_id = ""
 # DO NOT commit your OAuth provider secret to git. Use environment variable substitution instead:
-secret = "env(SUPABASE_AUTH_EXTERNAL_APPLE_SECRET)"
+secret = "env(KHULNASOFT_AUTH_EXTERNAL_APPLE_SECRET)"
 # Overrides the default auth redirectUrl.
 redirect_uri = ""
 # Overrides the default auth provider URL. Used to support self-hosted gitlab, single-tenant Azure,

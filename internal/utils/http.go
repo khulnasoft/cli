@@ -36,7 +36,7 @@ func JsonResponse[T any](ctx context.Context, method, url string, reqBody any, r
 			return nil, err
 		}
 	}
-	req.Header.Set("User-Agent", "SupabaseCLI/"+Version)
+	req.Header.Set("User-Agent", "KhulnasoftCLI/"+Version)
 	// Sends request
 	resp, err := httpClient.Do(req)
 	if err != nil {
@@ -69,7 +69,7 @@ func TextResponse(ctx context.Context, method, url string, body io.Reader, reqEd
 			return "", err
 		}
 	}
-	req.Header.Set("User-Agent", "SupabaseCLI/"+Version)
+	req.Header.Set("User-Agent", "KhulnasoftCLI/"+Version)
 	// Sends request
 	resp, err := httpClient.Do(req)
 	if err != nil {

@@ -13,7 +13,7 @@ import (
 	"github.com/khulnasoft/cli/internal/utils/tenant"
 )
 
-var suggestLinkCommand = fmt.Sprintf("Run %s to sync your local image versions with the linked project.", utils.Aqua("supabase link"))
+var suggestLinkCommand = fmt.Sprintf("Run %s to sync your local image versions with the linked project.", utils.Aqua("khulnasoft link"))
 
 func Run(ctx context.Context, fsys afero.Fs) error {
 	_ = utils.LoadConfigFS(fsys)

@@ -15,7 +15,7 @@ var (
 	stopCmd = &cobra.Command{
 		GroupID: groupLocalDev,
 		Use:     "stop",
-		Short:   "Stop all local Supabase containers",
+		Short:   "Stop all local Khulnasoft containers",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			ctx, _ := signal.NotifyContext(cmd.Context(), os.Interrupt)
 			return stop.Run(ctx, !noBackup, projectId, afero.NewOsFs())

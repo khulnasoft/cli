@@ -1,7 +1,7 @@
-project_name: supabase
+project_name: khulnasoft
 builds:
-  - id: supabase
-    binary: supabase
+  - id: khulnasoft
+    binary: khulnasoft
     flags:
       - -trimpath
     ldflags:
@@ -33,41 +33,41 @@ changelog:
     - title: Others
       order: 999
 brews:
-  - name: supabase-beta
+  - name: khulnasoft-beta
     tap:
-      owner: supabase
+      owner: khulnasoft
       name: homebrew-tap
       token: "{{ .Env.BREWTAP_TOKEN }}"
     commit_author:
       name: Bobbie Soedirgo
       email: bobbie@soedirgo.dev
     url_template: "https://github.com/khulnasoft/cli/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
-    homepage: https://supabase.com
-    description: Supabase CLI (Beta)
+    homepage: https://khulnasoft.com
+    description: Khulnasoft CLI (Beta)
     license: MIT
     install: |
-      bin.install "supabase"
-      (bash_completion/"supabase").write `#{bin}/supabase completion bash`
-      (fish_completion/"supabase.fish").write `#{bin}/supabase completion fish`
-      (zsh_completion/"_supabase").write `#{bin}/supabase completion zsh`
+      bin.install "khulnasoft"
+      (bash_completion/"khulnasoft").write `#{bin}/khulnasoft completion bash`
+      (fish_completion/"khulnasoft.fish").write `#{bin}/khulnasoft completion fish`
+      (zsh_completion/"_khulnasoft").write `#{bin}/khulnasoft completion zsh`
 scoops:
-  - name: supabase-beta
+  - name: khulnasoft-beta
     bucket:
-      owner: supabase
+      owner: khulnasoft
       name: scoop-bucket
       token: "{{ .Env.SCOOP_TOKEN }}"
     commit_author:
       name: Bobbie Soedirgo
       email: bobbie@soedirgo.dev
     url_template: "https://github.com/khulnasoft/cli/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
-    homepage: https://supabase.com
-    description: Supabase CLI (Beta)
+    homepage: https://khulnasoft.com
+    description: Khulnasoft CLI (Beta)
     license: MIT
 nfpms:
-  - vendor: Supabase
-    description: Supabase CLI
-    maintainer: Supabase CLI
-    homepage: https://supabase.com
+  - vendor: Khulnasoft
+    description: Khulnasoft CLI
+    maintainer: Khulnasoft CLI
+    homepage: https://khulnasoft.com
     license: MIT
     formats:
       - apk

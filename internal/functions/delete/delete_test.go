@@ -19,7 +19,7 @@ func TestDeleteCommand(t *testing.T) {
 	project := apitest.RandomProjectRef()
 	// Setup valid access token
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 
 	t.Run("deletes function from project", func(t *testing.T) {
 		// Setup in-memory fs
@@ -73,7 +73,7 @@ func TestDeleteCommand(t *testing.T) {
 		// Run test
 		err := Run(context.Background(), slug, project, fsys)
 		// Check error
-		assert.ErrorContains(t, err, "Function test-func does not exist on the Supabase project.")
+		assert.ErrorContains(t, err, "Function test-func does not exist on the Khulnasoft project.")
 		assert.Empty(t, apitest.ListUnmatchedRequests())
 	})
 
@@ -88,7 +88,7 @@ func TestDeleteCommand(t *testing.T) {
 		// Run test
 		err := Run(context.Background(), slug, project, fsys)
 		// Check error
-		assert.ErrorContains(t, err, "Failed to delete Function test-func on the Supabase project:")
+		assert.ErrorContains(t, err, "Failed to delete Function test-func on the Khulnasoft project:")
 		assert.Empty(t, apitest.ListUnmatchedRequests())
 	})
 }

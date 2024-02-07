@@ -17,7 +17,7 @@ import (
 func TestGotrueVersion(t *testing.T) {
 	projectRef := apitest.RandomProjectRef()
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 
 	t.Run("gets gotrue version", func(t *testing.T) {
 		// Setup mock api
@@ -26,7 +26,7 @@ func TestGotrueVersion(t *testing.T) {
 			Get("/v1/projects/" + projectRef + "/api-keys").
 			Reply(http.StatusOK).
 			JSON([]api.ApiKeyResponse{{Name: "anon", ApiKey: "anon-key"}})
-		gock.New(fmt.Sprintf("https://%s.supabase.co", projectRef)).
+		gock.New(fmt.Sprintf("https://%s.khulnasoft.co", projectRef)).
 			Get("/auth/v1/health").
 			Reply(http.StatusOK).
 			JSON(HealthResponse{Version: "v2.92.1"})
@@ -44,7 +44,7 @@ func TestGotrueVersion(t *testing.T) {
 			Get("/v1/projects/" + projectRef + "/api-keys").
 			Reply(http.StatusOK).
 			JSON([]api.ApiKeyResponse{{Name: "anon", ApiKey: "anon-key"}})
-		gock.New(fmt.Sprintf("https://%s.supabase.co", projectRef)).
+		gock.New(fmt.Sprintf("https://%s.khulnasoft.co", projectRef)).
 			Get("/auth/v1/health").
 			ReplyError(errors.New("network error"))
 		// Run test
@@ -61,7 +61,7 @@ func TestGotrueVersion(t *testing.T) {
 			Get("/v1/projects/" + projectRef + "/api-keys").
 			Reply(http.StatusOK).
 			JSON([]api.ApiKeyResponse{{Name: "anon", ApiKey: "anon-key"}})
-		gock.New(fmt.Sprintf("https://%s.supabase.co", projectRef)).
+		gock.New(fmt.Sprintf("https://%s.khulnasoft.co", projectRef)).
 			Get("/auth/v1/health").
 			Reply(http.StatusOK).
 			JSON(HealthResponse{})

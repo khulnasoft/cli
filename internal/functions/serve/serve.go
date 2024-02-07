@@ -38,7 +38,7 @@ func Run(ctx context.Context, envFilePath string, noVerifyJWT *bool, importMapPa
 	if err := utils.LoadConfigFS(fsys); err != nil {
 		return err
 	}
-	if err := utils.AssertSupabaseDbIsRunning(); err != nil {
+	if err := utils.AssertKhulnasoftDbIsRunning(); err != nil {
 		return err
 	}
 	// 2. Remove existing container.
@@ -86,16 +86,16 @@ func ServeFunctions(ctx context.Context, envFilePath string, noVerifyJWT *bool, 
 		return err
 	}
 	env := []string{
-		"SUPABASE_URL=http://" + utils.KongAliases[0] + ":8000",
-		"SUPABASE_ANON_KEY=" + utils.Config.Auth.AnonKey,
-		"SUPABASE_SERVICE_ROLE_KEY=" + utils.Config.Auth.ServiceRoleKey,
-		"SUPABASE_DB_URL=" + dbUrl,
-		"SUPABASE_INTERNAL_JWT_SECRET=" + utils.Config.Auth.JwtSecret,
-		fmt.Sprintf("SUPABASE_INTERNAL_HOST_PORT=%d", utils.Config.Api.Port),
-		"SUPABASE_INTERNAL_FUNCTIONS_PATH=" + utils.DockerFuncDirPath,
+		"KHULNASOFT_URL=http://" + utils.KongAliases[0] + ":8000",
+		"KHULNASOFT_ANON_KEY=" + utils.Config.Auth.AnonKey,
+		"KHULNASOFT_SERVICE_ROLE_KEY=" + utils.Config.Auth.ServiceRoleKey,
+		"KHULNASOFT_DB_URL=" + dbUrl,
+		"KHULNASOFT_INTERNAL_JWT_SECRET=" + utils.Config.Auth.JwtSecret,
+		fmt.Sprintf("KHULNASOFT_INTERNAL_HOST_PORT=%d", utils.Config.Api.Port),
+		"KHULNASOFT_INTERNAL_FUNCTIONS_PATH=" + utils.DockerFuncDirPath,
 	}
 	if viper.GetBool("DEBUG") {
-		env = append(env, "SUPABASE_INTERNAL_DEBUG=true")
+		env = append(env, "KHULNASOFT_INTERNAL_DEBUG=true")
 	}
 	// 3. Parse custom import map
 	binds := []string{
@@ -134,7 +134,7 @@ func ServeFunctions(ctx context.Context, envFilePath string, noVerifyJWT *bool, 
 	if err != nil {
 		return err
 	}
-	env = append(env, "SUPABASE_INTERNAL_FUNCTIONS_CONFIG="+functionsConfigString)
+	env = append(env, "KHULNASOFT_INTERNAL_FUNCTIONS_CONFIG="+functionsConfigString)
 
 	// 4. Start container
 	fmt.Fprintln(w, "Setting up Edge Functions runtime...")
@@ -192,8 +192,8 @@ func parseEnvFile(envFilePath string, fsys afero.Fs) ([]string, error) {
 		return env, errors.Errorf("failed to parse env file: %w", err)
 	}
 	for name, value := range envMap {
-		if strings.HasPrefix(name, "SUPABASE_") {
-			return env, errors.Errorf("Invalid env name: %s. Env names cannot start with SUPABASE_.", name)
+		if strings.HasPrefix(name, "KHULNASOFT_") {
+			return env, errors.Errorf("Invalid env name: %s. Env names cannot start with KHULNASOFT_.", name)
 		}
 		env = append(env, name+"="+value)
 	}
@@ -234,7 +234,7 @@ func populatePerFunctionConfigs(binds []string, importMapPath string, noVerifyJW
 			dockerImportMapPath = dockerFlagImportMapPath
 		} else if functionConfig, ok := utils.Config.Functions[functionName]; ok && functionConfig.ImportMap != "" {
 			dockerImportMapPath = "/home/deno/import_maps/" + functionName + "/import_map.json"
-			hostImportMapPath := filepath.Join(cwd, utils.SupabaseDirPath, functionConfig.ImportMap)
+			hostImportMapPath := filepath.Join(cwd, utils.KhulnasoftDirPath, functionConfig.ImportMap)
 			modules, err := utils.BindImportMap(hostImportMapPath, dockerImportMapPath, fsys)
 			if err != nil {
 				return nil, "", err

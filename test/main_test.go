@@ -9,12 +9,12 @@ import (
 	"github.com/spf13/viper"
 	"github.com/khulnasoft/cli/internal/utils"
 	"github.com/khulnasoft/cli/test/mocks/docker"
-	"github.com/khulnasoft/cli/test/mocks/supabase"
+	"github.com/khulnasoft/cli/test/mocks/khulnasoft"
 )
 
 const (
 	DockerPort   = ":2375"
-	SupabasePort = ":2376"
+	KhulnasoftPort = ":2376"
 )
 
 var (
@@ -24,7 +24,7 @@ var (
 var (
 	Logger     *log.Logger
 	DockerMock *docker.Server
-	SupaMock   *supabase.Server
+	SupaMock   *khulnasoft.Server
 )
 
 func TestMain(m *testing.M) {
@@ -33,7 +33,7 @@ func TestMain(m *testing.M) {
 	Logger.Println("Global tests setup")
 
 	DockerMock = newDockerMock(Logger)
-	SupaMock = newSupabaseMock(Logger)
+	SupaMock = newKhulnasoftMock(Logger)
 	TempDir = NewTempDir(Logger, "")
 
 	// redirect clients to mock servers
@@ -43,8 +43,8 @@ func TestMain(m *testing.M) {
 	if err := client.WithVersion(docker.APIVersion)(utils.Docker); err != nil {
 		Logger.Fatal(err)
 	}
-	viper.Set("INTERNAL_API_HOST", "http://127.0.0.1"+SupabasePort)
-	os.Setenv("SUPABASE_ACCESS_TOKEN", supabase.AccessToken)
+	viper.Set("INTERNAL_API_HOST", "http://127.0.0.1"+KhulnasoftPort)
+	os.Setenv("KHULNASOFT_ACCESS_TOKEN", khulnasoft.AccessToken)
 	os.Setenv("HOME", TempDir)
 
 	// run tests
@@ -70,11 +70,11 @@ func newDockerMock(Logger *log.Logger) *docker.Server {
 	return dockerMock
 }
 
-func newSupabaseMock(Logger *log.Logger) *supabase.Server {
-	supaMock := supabase.NewServer()
+func newKhulnasoftMock(Logger *log.Logger) *khulnasoft.Server {
+	supaMock := khulnasoft.NewServer()
 	supaRouter := supaMock.NewRouter()
 	go func() {
-		err := supaRouter.Run(SupabasePort)
+		err := supaRouter.Run(KhulnasoftPort)
 		if err != nil {
 			Logger.Fatal(err)
 		}

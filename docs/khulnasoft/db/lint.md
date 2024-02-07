@@ -1,4 +1,4 @@
-## supabase-db-lint
+## khulnasoft-db-lint
 
 Lints local database for schema errors.
 

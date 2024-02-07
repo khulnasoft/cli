@@ -18,7 +18,7 @@ Deno.serve(async (req) => {
 
 /* To invoke locally:
 
-  1. Run `supabase start` (see: https://supabase.com/docs/reference/cli/supabase-start)
+  1. Run `khulnasoft start` (see: https://khulnasoft.com/docs/reference/cli/khulnasoft-start)
   2. Make an HTTP request:
 
   curl -i --location --request POST 'http://127.0.0.1:{{ .Port }}/functions/v1/{{ .Slug }}' \

@@ -11,7 +11,7 @@ import (
 )
 
 func Run(ctx context.Context, branchId string, body api.UpdateBranchBody, fsys afero.Fs) error {
-	resp, err := utils.GetSupabase().UpdateBranchWithResponse(ctx, branchId, body)
+	resp, err := utils.GetKhulnasoft().UpdateBranchWithResponse(ctx, branchId, body)
 	if err != nil {
 		return errors.Errorf("failed to update preview branch: %w", err)
 	}

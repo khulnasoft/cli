@@ -13,7 +13,7 @@ import (
 	"gopkg.in/h2non/gock.v1"
 )
 
-const host = "api.supabase.io"
+const host = "api.khulnasoft.io"
 
 func TestLookupIP(t *testing.T) {
 	t.Run("resolves IPv4 with CloudFlare", func(t *testing.T) {
@@ -40,15 +40,15 @@ func TestLookupIP(t *testing.T) {
 		defer gock.OffAll()
 		gock.New("https://1.1.1.1").
 			Get("/dns-query").
-			MatchParam("name", "api.supabase.com").
+			MatchParam("name", "api.khulnasoft.com").
 			MatchHeader("accept", "application/dns-json").
 			Reply(http.StatusOK).
 			JSON(&dnsResponse{Answer: []dnsAnswer{
-				{Type: 5, Data: "supabase-api.fly.dev."},
+				{Type: 5, Data: "khulnasoft-api.fly.dev."},
 				{Type: dnsIPv6Type, Data: "2606:2800:220:1:248:1893:25c8:1946"},
 			}})
 		// Run test
-		ip, err := FallbackLookupIP(context.Background(), "api.supabase.com")
+		ip, err := FallbackLookupIP(context.Background(), "api.khulnasoft.com")
 		// Validate output
 		assert.NoError(t, err)
 		assert.ElementsMatch(t, []string{"2606:2800:220:1:248:1893:25c8:1946"}, ip)
@@ -125,7 +125,7 @@ func TestLookupIP(t *testing.T) {
 		// Run test
 		ip, err := FallbackLookupIP(context.Background(), host)
 		// Validate output
-		assert.ErrorContains(t, err, "failed to locate valid IP for api.supabase.io; resolves to []utils.dnsAnswer(nil)")
+		assert.ErrorContains(t, err, "failed to locate valid IP for api.khulnasoft.io; resolves to []utils.dnsAnswer(nil)")
 		assert.Empty(t, ip)
 		assert.Empty(t, apitest.ListUnmatchedRequests())
 	})
@@ -141,12 +141,12 @@ func TestResolveCNAME(t *testing.T) {
 			MatchHeader("accept", "application/dns-json").
 			Reply(http.StatusOK).
 			JSON(&dnsResponse{Answer: []dnsAnswer{
-				{Type: cnameType, Data: "foobarbaz.supabase.co"},
+				{Type: cnameType, Data: "foobarbaz.khulnasoft.co"},
 			}})
 		// Run test
 		cname, err := ResolveCNAME(context.Background(), host)
 		// Validate output
-		assert.Equal(t, "foobarbaz.supabase.co", cname)
+		assert.Equal(t, "foobarbaz.khulnasoft.co", cname)
 		assert.Nil(t, err)
 		assert.Empty(t, apitest.ListUnmatchedRequests())
 	})
@@ -164,7 +164,7 @@ func TestResolveCNAME(t *testing.T) {
 		cname, err := ResolveCNAME(context.Background(), host)
 		// Validate output
 		assert.Empty(t, cname)
-		assert.ErrorContains(t, err, "failed to locate appropriate CNAME record for api.supabase.io")
+		assert.ErrorContains(t, err, "failed to locate appropriate CNAME record for api.khulnasoft.io")
 		assert.Empty(t, apitest.ListUnmatchedRequests())
 	})
 
@@ -183,7 +183,7 @@ func TestResolveCNAME(t *testing.T) {
 		cname, err := ResolveCNAME(context.Background(), host)
 		// Validate output
 		assert.Empty(t, cname)
-		assert.ErrorContains(t, err, "failed to locate appropriate CNAME record for api.supabase.io")
+		assert.ErrorContains(t, err, "failed to locate appropriate CNAME record for api.khulnasoft.io")
 		assert.Empty(t, apitest.ListUnmatchedRequests())
 	})
 }

@@ -17,8 +17,8 @@ import (
 )
 
 const (
-	SUPABASE_REPO  = "supabase"
-	SUPABASE_OWNER = "supabase"
+	KHULNASOFT_REPO  = "khulnasoft"
+	KHULNASOFT_OWNER = "khulnasoft"
 )
 
 func main() {
@@ -44,7 +44,7 @@ type ComposeFile struct {
 func updateSelfHosted(ctx context.Context, branch string) error {
 	client := shared.NewGtihubClient(ctx)
 	master := "master"
-	if err := shared.CreateGitBranch(ctx, client, SUPABASE_OWNER, SUPABASE_REPO, branch, master); err != nil {
+	if err := shared.CreateGitBranch(ctx, client, KHULNASOFT_OWNER, KHULNASOFT_REPO, branch, master); err != nil {
 		return err
 	}
 	stable := getStableVersions()
@@ -56,7 +56,7 @@ func updateSelfHosted(ctx context.Context, branch string) error {
 		Head:  &branch,
 		Base:  &master,
 	}
-	return shared.CreatePullRequest(ctx, client, SUPABASE_OWNER, SUPABASE_REPO, pr)
+	return shared.CreatePullRequest(ctx, client, KHULNASOFT_OWNER, KHULNASOFT_REPO, pr)
 }
 
 func getStableVersions() map[string]string {
@@ -73,7 +73,7 @@ func getStableVersions() map[string]string {
 func updateComposeVersion(ctx context.Context, client *github.Client, path, ref string, stable map[string]string) error {
 	fmt.Fprintln(os.Stderr, "Parsing file:", path)
 	opts := github.RepositoryContentGetOptions{Ref: "heads/" + ref}
-	file, _, _, err := client.Repositories.GetContents(ctx, SUPABASE_OWNER, SUPABASE_REPO, path, &opts)
+	file, _, _, err := client.Repositories.GetContents(ctx, KHULNASOFT_OWNER, KHULNASOFT_REPO, path, &opts)
 	if err != nil {
 		return err
 	}
@@ -106,7 +106,7 @@ func updateComposeVersion(ctx context.Context, client *github.Client, path, ref 
 		SHA:     file.SHA,
 		Branch:  &ref,
 	}
-	resp, _, err := client.Repositories.UpdateFile(ctx, SUPABASE_OWNER, SUPABASE_REPO, path, &commit)
+	resp, _, err := client.Repositories.UpdateFile(ctx, KHULNASOFT_OWNER, KHULNASOFT_REPO, path, &commit)
 	if err != nil {
 		return err
 	}

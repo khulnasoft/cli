@@ -14,7 +14,7 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/spf13/viper"
-	supabase "github.com/khulnasoft/cli/pkg/api"
+	khulnasoft "github.com/khulnasoft/cli/pkg/api"
 )
 
 const (
@@ -24,7 +24,7 @@ const (
 
 var (
 	clientOnce sync.Once
-	apiClient  *supabase.ClientWithResponses
+	apiClient  *khulnasoft.ClientWithResponses
 
 	DNSResolver = EnumFlag{
 		Allowed: []string{DNS_GO_NATIVE, DNS_OVER_HTTPS},
@@ -190,7 +190,7 @@ func withFallbackDNS(dialContext DialContextFunc) DialContextFunc {
 	return nativeWithFallback
 }
 
-func GetSupabase() *supabase.ClientWithResponses {
+func GetKhulnasoft() *khulnasoft.ClientWithResponses {
 	clientOnce.Do(func() {
 		token, err := LoadAccessToken()
 		if err != nil {
@@ -199,11 +199,11 @@ func GetSupabase() *supabase.ClientWithResponses {
 		if t, ok := http.DefaultTransport.(*http.Transport); ok {
 			t.DialContext = withFallbackDNS(t.DialContext)
 		}
-		apiClient, err = supabase.NewClientWithResponses(
-			GetSupabaseAPIHost(),
-			supabase.WithRequestEditorFn(func(ctx context.Context, req *http.Request) error {
+		apiClient, err = khulnasoft.NewClientWithResponses(
+			GetKhulnasoftAPIHost(),
+			khulnasoft.WithRequestEditorFn(func(ctx context.Context, req *http.Request) error {
 				req.Header.Set("Authorization", "Bearer "+token)
-				req.Header.Set("User-Agent", "SupabaseCLI/"+Version)
+				req.Header.Set("User-Agent", "KhulnasoftCLI/"+Version)
 				return nil
 			}),
 		)
@@ -215,9 +215,9 @@ func GetSupabase() *supabase.ClientWithResponses {
 }
 
 const (
-	DefaultApiHost = "https://api.supabase.com"
+	DefaultApiHost = "https://api.khulnasoft.com"
 	// DEPRECATED
-	DeprecatedApiHost = "https://api.supabase.io"
+	DeprecatedApiHost = "https://api.khulnasoft.io"
 )
 
 var RegionMap = map[string]string{
@@ -272,7 +272,7 @@ var FlyRegions = map[string]string{
 	"yyz": "Toronto, Canada",
 }
 
-func GetSupabaseAPIHost() string {
+func GetKhulnasoftAPIHost() string {
 	apiHost := viper.GetString("INTERNAL_API_HOST")
 	if apiHost == "" {
 		apiHost = DefaultApiHost
@@ -280,36 +280,36 @@ func GetSupabaseAPIHost() string {
 	return apiHost
 }
 
-func GetSupabaseDashboardURL() string {
-	switch GetSupabaseAPIHost() {
+func GetKhulnasoftDashboardURL() string {
+	switch GetKhulnasoftAPIHost() {
 	case DefaultApiHost, DeprecatedApiHost:
-		return "https://supabase.com/dashboard"
-	case "https://api.supabase.green":
-		return "https://app.supabase.green"
+		return "https://khulnasoft.com/dashboard"
+	case "https://api.khulnasoft.green":
+		return "https://app.khulnasoft.green"
 	default:
 		return "http://127.0.0.1:8082"
 	}
 }
 
-func GetSupabaseDbHost(projectRef string) string {
+func GetKhulnasoftDbHost(projectRef string) string {
 	// TODO: query projects api for db_host
-	switch GetSupabaseAPIHost() {
+	switch GetKhulnasoftAPIHost() {
 	case DefaultApiHost, DeprecatedApiHost:
-		return fmt.Sprintf("db.%s.supabase.co", projectRef)
-	case "https://api.supabase.green":
-		return fmt.Sprintf("db.%s.supabase.red", projectRef)
+		return fmt.Sprintf("db.%s.khulnasoft.co", projectRef)
+	case "https://api.khulnasoft.green":
+		return fmt.Sprintf("db.%s.khulnasoft.red", projectRef)
 	default:
-		return fmt.Sprintf("db.%s.supabase.red", projectRef)
+		return fmt.Sprintf("db.%s.khulnasoft.red", projectRef)
 	}
 }
 
-func GetSupabaseHost(projectRef string) string {
-	switch GetSupabaseAPIHost() {
+func GetKhulnasoftHost(projectRef string) string {
+	switch GetKhulnasoftAPIHost() {
 	case DefaultApiHost, DeprecatedApiHost:
-		return fmt.Sprintf("%s.supabase.co", projectRef)
-	case "https://api.supabase.green":
-		return fmt.Sprintf("%s.supabase.red", projectRef)
+		return fmt.Sprintf("%s.khulnasoft.co", projectRef)
+	case "https://api.khulnasoft.green":
+		return fmt.Sprintf("%s.khulnasoft.red", projectRef)
 	default:
-		return fmt.Sprintf("%s.supabase.red", projectRef)
+		return fmt.Sprintf("%s.khulnasoft.red", projectRef)
 	}
 }

@@ -26,7 +26,7 @@ func TestSecretSetCommand(t *testing.T) {
 		project := apitest.RandomProjectRef()
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 		// Flush pending mocks after test execution
 		defer gock.OffAll()
 		gock.New(utils.DefaultApiHost).
@@ -48,7 +48,7 @@ func TestSecretSetCommand(t *testing.T) {
 		project := apitest.RandomProjectRef()
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 		// Setup dotenv file
 		tmpfile, err := os.CreateTemp("", "secret")
 		require.NoError(t, err)
@@ -76,7 +76,7 @@ func TestSecretSetCommand(t *testing.T) {
 		project := apitest.RandomProjectRef()
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 		// Run test
 		err := Run(context.Background(), project, "", []string{}, fsys)
 		// Check error
@@ -90,7 +90,7 @@ func TestSecretSetCommand(t *testing.T) {
 		project := apitest.RandomProjectRef()
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 		// Run test
 		err := Run(context.Background(), project, "", []string{"malformed"}, fsys)
 		// Check error
@@ -104,7 +104,7 @@ func TestSecretSetCommand(t *testing.T) {
 		project := apitest.RandomProjectRef()
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 		// Flush pending mocks after test execution
 		defer gock.OffAll()
 		gock.New(utils.DefaultApiHost).
@@ -126,7 +126,7 @@ func TestSecretSetCommand(t *testing.T) {
 		project := apitest.RandomProjectRef()
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 		// Flush pending mocks after test execution
 		defer gock.OffAll()
 		gock.New(utils.DefaultApiHost).

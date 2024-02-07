@@ -80,7 +80,7 @@ func ParseDatabaseConfig(flagSet *pflag.FlagSet, fsys afero.Fs) error {
 		if err != nil {
 			return err
 		}
-		DbConfig.Host = utils.GetSupabaseAPIHost()
+		DbConfig.Host = utils.GetKhulnasoftAPIHost()
 		DbConfig.Port = 443
 		DbConfig.User = "postgres"
 		DbConfig.Password = token

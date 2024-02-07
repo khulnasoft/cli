@@ -67,7 +67,7 @@ func Run(ctx context.Context, projectRef, password string, fsys afero.Fs, option
 }
 
 func PostRun(projectRef string, stdout io.Writer, fsys afero.Fs) error {
-	fmt.Fprintln(stdout, "Finished "+utils.Aqua("supabase link")+".")
+	fmt.Fprintln(stdout, "Finished "+utils.Aqua("khulnasoft link")+".")
 	if updatedConfig.IsEmpty() {
 		return nil
 	}
@@ -124,7 +124,7 @@ func linkServices(ctx context.Context, projectRef string, fsys afero.Fs) {
 }
 
 func linkPostgrest(ctx context.Context, projectRef string) error {
-	resp, err := utils.GetSupabase().GetPostgRESTConfigWithResponse(ctx, projectRef)
+	resp, err := utils.GetKhulnasoft().GetPostgRESTConfigWithResponse(ctx, projectRef)
 	if err != nil {
 		return errors.Errorf("failed to get postgrest config: %w", err)
 	}
@@ -220,7 +220,7 @@ func updatePostgresConfig(conn *pgx.Conn) {
 }
 
 func linkPooler(ctx context.Context, projectRef string, fsys afero.Fs) error {
-	resp, err := utils.GetSupabase().V1GetPgbouncerConfigWithResponse(ctx, projectRef)
+	resp, err := utils.GetKhulnasoft().V1GetPgbouncerConfigWithResponse(ctx, projectRef)
 	if err != nil {
 		return errors.Errorf("failed to get pooler config: %w", err)
 	}
@@ -269,7 +269,7 @@ func GetDbConfigNoPassword(projectRef string) pgconn.Config {
 		return *poolerConfig
 	}
 	return pgconn.Config{
-		Host:     utils.GetSupabaseDbHost(projectRef),
+		Host:     utils.GetKhulnasoftDbHost(projectRef),
 		Port:     5432,
 		User:     "postgres",
 		Database: "postgres",

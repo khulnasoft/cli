@@ -26,7 +26,7 @@ func TestProjectCreateCommand(t *testing.T) {
 		fsys := afero.NewMemMapFs()
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 		// Flush pending mocks after test execution
 		defer gock.OffAll()
 		gock.New(utils.DefaultApiHost).
@@ -56,7 +56,7 @@ func TestProjectCreateCommand(t *testing.T) {
 		fsys := afero.NewMemMapFs()
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 		// Flush pending mocks after test execution
 		defer gock.OffAll()
 		gock.New(utils.DefaultApiHost).
@@ -75,7 +75,7 @@ func TestProjectCreateCommand(t *testing.T) {
 		fsys := afero.NewMemMapFs()
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 		// Flush pending mocks after test execution
 		defer gock.OffAll()
 		gock.New(utils.DefaultApiHost).
@@ -95,7 +95,7 @@ func TestProjectCreateCommand(t *testing.T) {
 		fsys := afero.NewMemMapFs()
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 		// Flush pending mocks after test execution
 		defer gock.OffAll()
 		gock.New(utils.DefaultApiHost).

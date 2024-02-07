@@ -74,7 +74,7 @@ const fetchAndParseCheckSumFile = async (packageJson, agent) => {
   }
 };
 
-const errGlobal = `Installing Supabase CLI as a global module is not supported.
+const errGlobal = `Installing Khulnasoft CLI as a global module is not supported.
 Please use one of the supported package managers: https://github.com/khulnasoft/cli#install-the-cli
 `;
 const errChecksum = "Checksum mismatch. Downloaded data might be corrupted.";
@@ -164,7 +164,7 @@ async function main() {
     pkg: { ...pkg, bin: { [pkg.name]: binPath } },
   });
 
-  console.info("Installed Supabase CLI successfully");
+  console.info("Installed Khulnasoft CLI successfully");
 }
 
 await main();

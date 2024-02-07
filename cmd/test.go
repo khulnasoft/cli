@@ -14,7 +14,7 @@ var (
 	testCmd = &cobra.Command{
 		GroupID: groupLocalDev,
 		Use:     "test",
-		Short:   "Run tests on local Supabase containers",
+		Short:   "Run tests on local Khulnasoft containers",
 	}
 
 	testDbCmd = &cobra.Command{

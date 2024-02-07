@@ -75,7 +75,7 @@ func TestImportMapPath(t *testing.T) {
 		Config.Functions = map[string]function{
 			slug: {ImportMap: "import_map.json"},
 		}
-		absPath, err := filepath.Abs("supabase/import_map.json")
+		absPath, err := filepath.Abs("khulnasoft/import_map.json")
 		require.NoError(t, err)
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()

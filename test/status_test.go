@@ -50,7 +50,7 @@ func (suite *StatusTestSuite) TestStatus() {
 	require.Contains(suite.T(), suite.params, gin.Params{
 		gin.Param{
 			Key:   "id",
-			Value: "supabase_db_" + filepath.Base(suite.tempDir),
+			Value: "khulnasoft_db_" + filepath.Base(suite.tempDir),
 		},
 	})
 
@@ -72,7 +72,7 @@ func (suite *StatusTestSuite) SetupTest() {
 	suite.cmd = clicmd.GetRootCmd()
 	suite.tempDir = NewTempDir(Logger, TempDir)
 
-	// init supabase
+	// init khulnasoft
 	init, _, err := suite.cmd.Find([]string{"init"})
 	require.NoError(suite.T(), err)
 	require.NoError(suite.T(), init.RunE(init, []string{}))

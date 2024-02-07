@@ -28,7 +28,7 @@ func Run(ctx context.Context, backup bool, projectId string, fsys afero.Fs) erro
 		return err
 	}
 
-	fmt.Println("Stopped " + utils.Aqua("supabase") + " local development setup.")
+	fmt.Println("Stopped " + utils.Aqua("khulnasoft") + " local development setup.")
 	if resp, err := utils.Docker.VolumeList(ctx, volume.ListOptions{
 		Filters: utils.CliProjectFilter(),
 	}); err == nil && len(resp.Volumes) > 0 {

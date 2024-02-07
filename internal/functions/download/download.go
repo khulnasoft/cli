@@ -51,18 +51,18 @@ func RunLegacy(ctx context.Context, slug string, projectRef string, fsys afero.F
 }
 
 func getFunctionMetadata(ctx context.Context, projectRef, slug string) (*api.FunctionSlugResponse, error) {
-	resp, err := utils.GetSupabase().GetFunctionWithResponse(ctx, projectRef, slug)
+	resp, err := utils.GetKhulnasoft().GetFunctionWithResponse(ctx, projectRef, slug)
 	if err != nil {
 		return nil, errors.Errorf("failed to get function metadata: %w", err)
 	}
 
 	switch resp.StatusCode() {
 	case http.StatusNotFound:
-		return nil, errors.Errorf("Function %s does not exist on the Supabase project.", utils.Aqua(slug))
+		return nil, errors.Errorf("Function %s does not exist on the Khulnasoft project.", utils.Aqua(slug))
 	case http.StatusOK:
 		break
 	default:
-		return nil, errors.Errorf("Failed to download Function %s on the Supabase project: %s", utils.Aqua(slug), string(resp.Body))
+		return nil, errors.Errorf("Failed to download Function %s on the Khulnasoft project: %s", utils.Aqua(slug), string(resp.Body))
 	}
 
 	if resp.JSON200.EntrypointPath == nil {
@@ -86,7 +86,7 @@ func downloadFunction(ctx context.Context, projectRef, slug, extractScriptPath s
 		return err
 	}
 
-	resp, err := utils.GetSupabase().GetFunctionBodyWithResponse(ctx, projectRef, slug)
+	resp, err := utils.GetKhulnasoft().GetFunctionBodyWithResponse(ctx, projectRef, slug)
 	if err != nil {
 		return errors.Errorf("failed to get function body: %w", err)
 	}
@@ -138,7 +138,7 @@ func Run(ctx context.Context, slug string, projectRef string, useLegacyBundle bo
 
 func downloadOne(ctx context.Context, slug string, projectRef string, fsys afero.Fs) (string, error) {
 	fmt.Println("Downloading " + utils.Bold(slug))
-	resp, err := utils.GetSupabase().GetFunctionBodyWithResponse(ctx, projectRef, slug)
+	resp, err := utils.GetKhulnasoft().GetFunctionBodyWithResponse(ctx, projectRef, slug)
 	if err != nil {
 		return "", errors.Errorf("failed to get function body: %w", err)
 	}
@@ -193,5 +193,5 @@ func extractOne(ctx context.Context, hostEszipPath string) error {
 }
 
 func suggestLegacyBundle(slug string) string {
-	return fmt.Sprintf("\nIf your function is deployed using CLI < 1.120.0, trying running %s instead.", utils.Aqua("supabase functions download --legacy-bundle "+slug))
+	return fmt.Sprintf("\nIf your function is deployed using CLI < 1.120.0, trying running %s instead.", utils.Aqua("khulnasoft functions download --legacy-bundle "+slug))
 }

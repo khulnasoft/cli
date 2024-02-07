@@ -28,7 +28,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: installer
-          path: supabase-1.28.0.tgz
+          path: khulnasoft-1.28.0.tgz
 
   npm:
     needs: pack
@@ -43,8 +43,8 @@ jobs:
           name: installer
 
       - run: npm init -y
-      - run: npm i --save-dev ./supabase-1.28.0.tgz
-      - run: npx --no-install supabase --version
+      - run: npm i --save-dev ./khulnasoft-1.28.0.tgz
+      - run: npx --no-install khulnasoft --version
 
   yarn:
     needs: pack
@@ -59,8 +59,8 @@ jobs:
           name: installer
 
       - run: yarn init -y
-      - run: yarn add -D ./supabase-1.28.0.tgz
-      - run: yarn supabase --version
+      - run: yarn add -D ./khulnasoft-1.28.0.tgz
+      - run: yarn khulnasoft --version
 
   yarn_berry:
     needs: pack
@@ -77,13 +77,13 @@ jobs:
       - run: yarn set version berry
       # - run: yarn config set nodeLinker node-modules
       - run: yarn init -y
-      - run: yarn add -D ./supabase-1.28.0.tgz
+      - run: yarn add -D ./khulnasoft-1.28.0.tgz
       - if: ${{ matrix.os != 'windows-latest' }}
-        run: yarn supabase --version
+        run: yarn khulnasoft --version
       # Workaround for running extensionless executable on windows
       - if: ${{ matrix.os == 'windows-latest' }}
         run: |
-          & "$(yarn bin supabase).exe" --version
+          & "$(yarn bin khulnasoft).exe" --version
 
   pnpm:
     needs: pack
@@ -99,8 +99,8 @@ jobs:
 
       - run: npm install -g pnpm
       - run: pnpm init
-      - run: pnpm i --save-dev ./supabase-1.28.0.tgz
-      - run: pnpm supabase --version
+      - run: pnpm i --save-dev ./khulnasoft-1.28.0.tgz
+      - run: pnpm khulnasoft --version
 
   bun:
     needs: pack
@@ -119,6 +119,6 @@ jobs:
         with:
           bun-version: latest
       - run: |
-          echo '{"trustedDependencies": ["supabase"]}' > package.json
-      - run: bun add -D ./supabase-1.28.0.tgz
-      - run: bunx supabase --version
+          echo '{"trustedDependencies": ["khulnasoft"]}' > package.json
+      - run: bun add -D ./khulnasoft-1.28.0.tgz
+      - run: bunx khulnasoft --version

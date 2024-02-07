@@ -23,7 +23,7 @@ func TestCreateCommand(t *testing.T) {
 		ref := apitest.RandomProjectRef()
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
 		require.NoError(t, afero.WriteFile(fsys, utils.ProjectRefPath, []byte(ref), 0644))

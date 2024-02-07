@@ -15,7 +15,7 @@ export PGDATABASE="$PGDATABASE"
 #
 # Explanation of sed substitutions:
 #
-#   - do not alter superuser role "supabase_admin"
+#   - do not alter superuser role "khulnasoft_admin"
 #   - do not include ACL changes on internal schemas
 #   - do not include RLS policies on cron extension schema
 pg_dump \
@@ -30,7 +30,7 @@ pg_dump \
 | sed -E 's/^CREATE VIEW "/CREATE OR REPLACE VIEW "/' \
 | sed -E 's/^CREATE FUNCTION "/CREATE OR REPLACE FUNCTION "/' \
 | sed -E 's/^CREATE TRIGGER "/CREATE OR REPLACE TRIGGER "/' \
-| sed -E 's/^ALTER DEFAULT PRIVILEGES FOR ROLE "supabase_admin"/-- &/' \
+| sed -E 's/^ALTER DEFAULT PRIVILEGES FOR ROLE "khulnasoft_admin"/-- &/' \
 | sed -E "s/^GRANT (.+) ON (.+) \"(${EXCLUDED_SCHEMAS:-})\"/-- &/" \
 | sed -E "s/^REVOKE (.+) ON (.+) \"(${EXCLUDED_SCHEMAS:-})\"/-- &/" \
 | sed -E 's/^CREATE POLICY "cron_job_/-- &/' \

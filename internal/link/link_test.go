@@ -90,7 +90,7 @@ func TestPostRun(t *testing.T) {
 		err := PostRun(project, buf, fsys)
 		// Check error
 		assert.NoError(t, err)
-		assert.Equal(t, "Finished supabase link.\n", buf.String())
+		assert.Equal(t, "Finished khulnasoft link.\n", buf.String())
 	})
 
 	t.Run("prints changed config", func(t *testing.T) {
@@ -112,7 +112,7 @@ func TestLinkCommand(t *testing.T) {
 	project := "test-project"
 	// Setup valid access token
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 	// Mock credentials store
 	keyring.MockInit()
 
@@ -141,21 +141,21 @@ func TestLinkCommand(t *testing.T) {
 			JSON(api.V1PgbouncerConfigResponse{})
 		// Link versions
 		auth := tenant.HealthResponse{Version: "v2.74.2"}
-		gock.New("https://" + utils.GetSupabaseHost(project)).
+		gock.New("https://" + utils.GetKhulnasoftHost(project)).
 			Get("/auth/v1/health").
 			Reply(200).
 			JSON(auth)
 		rest := tenant.SwaggerResponse{Info: tenant.SwaggerInfo{Version: "11.1.0"}}
-		gock.New("https://" + utils.GetSupabaseHost(project)).
+		gock.New("https://" + utils.GetKhulnasoftHost(project)).
 			Get("/rest/v1/").
 			Reply(200).
 			JSON(rest)
-		gock.New("https://" + utils.GetSupabaseHost(project)).
+		gock.New("https://" + utils.GetKhulnasoftHost(project)).
 			Get("/storage/v1/version").
 			Reply(200).
 			BodyString("0.40.4")
 		postgres := api.DatabaseResponse{
-			Host:    utils.GetSupabaseDbHost(project),
+			Host:    utils.GetKhulnasoftDbHost(project),
 			Version: "15.1.0.117",
 		}
 		gock.New(utils.DefaultApiHost).
@@ -224,13 +224,13 @@ func TestLinkCommand(t *testing.T) {
 			Get("/v1/projects/" + project + "/config/database/pgbouncer").
 			ReplyError(errors.New("network error"))
 		// Link versions
-		gock.New("https://" + utils.GetSupabaseHost(project)).
+		gock.New("https://" + utils.GetKhulnasoftHost(project)).
 			Get("/auth/v1/health").
 			ReplyError(errors.New("network error"))
-		gock.New("https://" + utils.GetSupabaseHost(project)).
+		gock.New("https://" + utils.GetKhulnasoftHost(project)).
 			Get("/rest/v1/").
 			ReplyError(errors.New("network error"))
-		gock.New("https://" + utils.GetSupabaseHost(project)).
+		gock.New("https://" + utils.GetKhulnasoftHost(project)).
 			Get("/storage/v1/version").
 			ReplyError(errors.New("network error"))
 		gock.New(utils.DefaultApiHost).
@@ -265,13 +265,13 @@ func TestLinkCommand(t *testing.T) {
 			Get("/v1/projects/" + project + "/config/database/pgbouncer").
 			ReplyError(errors.New("network error"))
 		// Link versions
-		gock.New("https://" + utils.GetSupabaseHost(project)).
+		gock.New("https://" + utils.GetKhulnasoftHost(project)).
 			Get("/auth/v1/health").
 			ReplyError(errors.New("network error"))
-		gock.New("https://" + utils.GetSupabaseHost(project)).
+		gock.New("https://" + utils.GetKhulnasoftHost(project)).
 			Get("/rest/v1/").
 			ReplyError(errors.New("network error"))
-		gock.New("https://" + utils.GetSupabaseHost(project)).
+		gock.New("https://" + utils.GetKhulnasoftHost(project)).
 			Get("/storage/v1/version").
 			ReplyError(errors.New("network error"))
 		gock.New(utils.DefaultApiHost).
@@ -293,7 +293,7 @@ func TestLinkPostgrest(t *testing.T) {
 	project := "test-project"
 	// Setup valid access token
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 
 	t.Run("ignores matching config", func(t *testing.T) {
 		defer teardown()
@@ -420,12 +420,12 @@ func TestLinkDatabase(t *testing.T) {
 		conn.Query(history.CREATE_VERSION_SCHEMA).
 			Reply("CREATE SCHEMA").
 			Query(history.CREATE_VERSION_TABLE).
-			ReplyError(pgerrcode.InsufficientPrivilege, "permission denied for relation supabase_migrations").
+			ReplyError(pgerrcode.InsufficientPrivilege, "permission denied for relation khulnasoft_migrations").
 			Query(history.ADD_STATEMENTS_COLUMN).
 			Query(history.ADD_NAME_COLUMN)
 		// Run test
 		err := linkDatabase(context.Background(), dbConfig, conn.Intercept)
 		// Check error
-		assert.ErrorContains(t, err, "ERROR: permission denied for relation supabase_migrations (SQLSTATE 42501)")
+		assert.ErrorContains(t, err, "ERROR: permission denied for relation khulnasoft_migrations (SQLSTATE 42501)")
 	})
 }

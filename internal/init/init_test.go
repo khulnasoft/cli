@@ -104,7 +104,7 @@ func TestInitCommand(t *testing.T) {
 }
 
 func TestUpdateGitIgnore(t *testing.T) {
-	const ignorePath = "/home/supabase/.gitignore"
+	const ignorePath = "/home/khulnasoft/.gitignore"
 
 	t.Run("appends to git ignore", func(t *testing.T) {
 		// Setup in-memory fs

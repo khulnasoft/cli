@@ -55,7 +55,7 @@ jobs:
       - run: ./main init
       - run: ./main start
         env:
-          SUPABASE_INTERNAL_IMAGE_REGISTRY: ghcr.io
+          KHULNASOFT_INTERNAL_IMAGE_REGISTRY: ghcr.io
 
   codegen:
     name: Codegen

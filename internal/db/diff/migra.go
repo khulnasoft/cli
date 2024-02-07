@@ -50,7 +50,7 @@ func RunMigra(ctx context.Context, schema []string, file string, config pgconn.C
 		return err
 	}
 	branch := keys.GetGitBranch(fsys)
-	fmt.Fprintln(os.Stderr, "Finished "+utils.Aqua("supabase db diff")+" on branch "+utils.Aqua(branch)+".\n")
+	fmt.Fprintln(os.Stderr, "Finished "+utils.Aqua("khulnasoft db diff")+" on branch "+utils.Aqua(branch)+".\n")
 	if err := SaveDiff(out, file, fsys); err != nil {
 		return err
 	}
@@ -99,8 +99,8 @@ func LoadUserSchemas(ctx context.Context, conn *pgx.Conn) ([]string, error) {
 		"storage",
 		"_analytics",
 		// Exclude functions because Webhooks support is early alpha
-		"supabase_functions",
-		"supabase_migrations",
+		"khulnasoft_functions",
+		"khulnasoft_migrations",
 	}, utils.SystemSchemas...)
 	return reset.ListSchemas(ctx, conn, exclude...)
 }

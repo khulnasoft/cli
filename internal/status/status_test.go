@@ -22,17 +22,17 @@ import (
 func TestStatusCommand(t *testing.T) {
 	t.Run("shows service status", func(t *testing.T) {
 		services := []string{
-			"supabase_db_",
-			"supabase_kong_",
-			"supabase_auth_",
-			"supabase_inbucket_",
-			"realtime-dev.supabase_realtime_",
-			"supabase_rest_",
-			"supabase_storage_",
+			"khulnasoft_db_",
+			"khulnasoft_kong_",
+			"khulnasoft_auth_",
+			"khulnasoft_inbucket_",
+			"realtime-dev.khulnasoft_realtime_",
+			"khulnasoft_rest_",
+			"khulnasoft_storage_",
 			"storage_imgproxy_",
-			"supabase_pg_meta_",
-			"supabase_studio_",
-			"supabase_analytics_",
+			"khulnasoft_pg_meta_",
+			"khulnasoft_studio_",
+			"khulnasoft_analytics_",
 		}
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
@@ -77,7 +77,7 @@ func TestStatusCommand(t *testing.T) {
 		require.NoError(t, apitest.MockDocker(utils.Docker))
 		defer gock.OffAll()
 		gock.New(utils.Docker.DaemonHost()).
-			Get("/v" + utils.Docker.ClientVersion() + "/containers/supabase_db_").
+			Get("/v" + utils.Docker.ClientVersion() + "/containers/khulnasoft_db_").
 			ReplyError(errors.New("network error"))
 		// Run test
 		err := Run(context.Background(), CustomName{}, utils.OutputPretty, fsys)
@@ -88,7 +88,7 @@ func TestStatusCommand(t *testing.T) {
 }
 
 func TestServiceHealth(t *testing.T) {
-	services := []string{"supabase_db", "supabase_auth"}
+	services := []string{"khulnasoft_db", "khulnasoft_auth"}
 
 	t.Run("checks all services", func(t *testing.T) {
 		// Setup mock docker
@@ -116,8 +116,8 @@ func TestServiceHealth(t *testing.T) {
 		assert.Empty(t, stopped)
 		lines := strings.Split(strings.TrimSpace(stderr.String()), "\n")
 		assert.ElementsMatch(t, []string{
-			"supabase_db container is not ready: Unhealthy",
-			"supabase_auth container is not running: exited",
+			"khulnasoft_db container is not ready: Unhealthy",
+			"khulnasoft_auth container is not running: exited",
 		}, lines)
 		assert.Empty(t, apitest.ListUnmatchedRequests())
 	})

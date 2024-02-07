@@ -28,7 +28,7 @@ func Run(ctx context.Context, projectRef string, customHostname string, includeR
 
 	// 2. create custom hostname
 	{
-		resp, err := utils.GetSupabase().CreateCustomHostnameConfigWithResponse(ctx, projectRef, api.CreateCustomHostnameConfigJSONRequestBody{
+		resp, err := utils.GetKhulnasoft().CreateCustomHostnameConfigWithResponse(ctx, projectRef, api.CreateCustomHostnameConfigJSONRequestBody{
 			CustomHostname: hostname,
 		})
 		if err != nil {

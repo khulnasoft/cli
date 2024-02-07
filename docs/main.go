@@ -22,7 +22,7 @@ var (
 	examples map[string][]ExampleDoc
 	//go:embed templates/examples.yaml
 	exampleSpec string
-	//go:embed supabase/*
+	//go:embed khulnasoft/*
 	docsDir embed.FS
 )
 
@@ -51,11 +51,11 @@ func generate(version string) error {
 			Id:          "cli",
 			Version:     version,
 			Title:       strings.TrimSpace(root.Short),
-			Description: forceMultiLine("Supabase CLI provides you with tools to develop your application locally, and deploy your application to the Supabase platform."),
+			Description: forceMultiLine("Khulnasoft CLI provides you with tools to develop your application locally, and deploy your application to the Khulnasoft platform."),
 			Language:    "sh",
 			Source:      "https://github.com/khulnasoft/cli",
 			Bugs:        "https://github.com/khulnasoft/cli/issues",
-			Spec:        "https://github.com/supabase/spec/cli_v1_commands.yaml",
+			Spec:        "https://github.com/khulnasoft/spec/cli_v1_commands.yaml",
 			Tags:        getTags(root),
 		},
 	}

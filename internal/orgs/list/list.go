@@ -11,7 +11,7 @@ import (
 )
 
 func Run(ctx context.Context) error {
-	resp, err := utils.GetSupabase().GetOrganizationsWithResponse(ctx)
+	resp, err := utils.GetKhulnasoft().GetOrganizationsWithResponse(ctx)
 	if err != nil {
 		return errors.Errorf("failed to list organizations: %w", err)
 	}

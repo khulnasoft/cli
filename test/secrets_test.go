@@ -16,7 +16,7 @@ import (
 	"github.com/stretchr/testify/suite"
 	clicmd "github.com/khulnasoft/cli/cmd"
 	"github.com/khulnasoft/cli/internal/utils/flags"
-	"github.com/khulnasoft/cli/test/mocks/supabase"
+	"github.com/khulnasoft/cli/test/mocks/khulnasoft"
 )
 
 type SecretsTestSuite struct {
@@ -45,7 +45,7 @@ func (suite *SecretsTestSuite) TestList() {
 	defer func() { os.Stdout = oldStdout }()
 	os.Stdout = tmpfile
 
-	flags.ProjectRef = gonanoid.MustGenerate(supabase.IDAlphabet, supabase.IDLength)
+	flags.ProjectRef = gonanoid.MustGenerate(khulnasoft.IDAlphabet, khulnasoft.IDLength)
 	require.NoError(suite.T(), list.RunE(list, []string{}))
 
 	// check request details
@@ -53,9 +53,9 @@ func (suite *SecretsTestSuite) TestList() {
 	defer suite.mtx.RUnlock()
 	require.Contains(suite.T(), suite.ids, flags.ProjectRef)
 	require.Contains(suite.T(), suite.headers, http.Header{
-		"Authorization":   []string{fmt.Sprintf("Bearer %s", supabase.AccessToken)},
+		"Authorization":   []string{fmt.Sprintf("Bearer %s", khulnasoft.AccessToken)},
 		"Accept-Encoding": []string{"gzip"},
-		"User-Agent":      []string{"SupabaseCLI/"},
+		"User-Agent":      []string{"KhulnasoftCLI/"},
 	})
 
 	contents, err := os.ReadFile(tmpfile.Name())
@@ -70,13 +70,13 @@ func (suite *SecretsTestSuite) SetupTest() {
 	suite.cmd = clicmd.GetRootCmd()
 	suite.tempDir = NewTempDir(Logger, TempDir)
 
-	// init supabase
+	// init khulnasoft
 	init, _, err := suite.cmd.Find([]string{"init"})
 	require.NoError(suite.T(), err)
 	require.NoError(suite.T(), init.RunE(init, []string{}))
 
 	// add `link` dir
-	require.NoError(suite.T(), os.MkdirAll("supabase/.temp", os.FileMode(0755)))
+	require.NoError(suite.T(), os.MkdirAll("khulnasoft/.temp", os.FileMode(0755)))
 
 	// implement mocks
 	SupaMock.SecretsHandler = func(c *gin.Context) {

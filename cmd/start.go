@@ -17,7 +17,7 @@ var (
 	startCmd = &cobra.Command{
 		GroupID: groupLocalDev,
 		Use:     "start",
-		Short:   "Start containers for Supabase local development",
+		Short:   "Start containers for Khulnasoft local development",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return start.Run(cmd.Context(), afero.NewOsFs(), excludedContainers, ignoreHealthCheck)
 		},

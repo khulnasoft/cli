@@ -29,7 +29,7 @@ func (a ApiKey) IsEmpty() bool {
 func GetApiKeys(ctx context.Context, projectRef string) (ApiKey, error) {
 	var errKey error
 	keyOnce.Do(func() {
-		resp, err := utils.GetSupabase().GetProjectApiKeysWithResponse(ctx, projectRef)
+		resp, err := utils.GetKhulnasoft().GetProjectApiKeysWithResponse(ctx, projectRef)
 		if err != nil {
 			errKey = errors.Errorf("failed to get api keys: %w", err)
 			return

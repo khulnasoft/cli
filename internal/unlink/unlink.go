@@ -31,6 +31,6 @@ func Run(ctx context.Context, fsys afero.Fs) error {
 		return err
 	}
 
-	fmt.Fprintln(os.Stdout, "Finished "+utils.Aqua("supabase unlink")+".")
+	fmt.Fprintln(os.Stdout, "Finished "+utils.Aqua("khulnasoft unlink")+".")
 	return nil
 }

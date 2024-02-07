@@ -32,7 +32,7 @@ func Run(ctx context.Context, projectRef string, dbCidrsToAllow []string, bypass
 	}
 
 	// 2. update restrictions
-	resp, err := utils.GetSupabase().ApplyNetworkRestrictionsWithResponse(ctx, projectRef, body)
+	resp, err := utils.GetKhulnasoft().ApplyNetworkRestrictionsWithResponse(ctx, projectRef, body)
 	if err != nil {
 		return errors.Errorf("failed to apply network restrictions: %w", err)
 	}

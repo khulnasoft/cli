@@ -19,7 +19,7 @@ var (
 	branchesCmd = &cobra.Command{
 		GroupID: groupManagementAPI,
 		Use:     "branches",
-		Short:   "Manage Supabase preview branches",
+		Short:   "Manage Khulnasoft preview branches",
 	}
 
 	branchRegion = utils.EnumFlag{

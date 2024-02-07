@@ -21,7 +21,7 @@ func GetGotrueVersion(ctx context.Context, projectRef string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	url := fmt.Sprintf("https://%s/auth/v1/health", utils.GetSupabaseHost(projectRef))
+	url := fmt.Sprintf("https://%s/auth/v1/health", utils.GetKhulnasoftHost(projectRef))
 	data, err := GetJsonResponse[HealthResponse](ctx, url, apiKey.Anon)
 	if err != nil {
 		return "", err

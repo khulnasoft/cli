@@ -35,7 +35,7 @@ func Run(ctx context.Context, fsys afero.Fs) error {
 	if err := utils.LoadConfigFS(fsys); err != nil {
 		return err
 	}
-	if err := utils.AssertSupabaseDbIsRunning(); err == nil {
+	if err := utils.AssertKhulnasoftDbIsRunning(); err == nil {
 		fmt.Fprintln(os.Stderr, "Postgres database is already running.")
 		return nil
 	} else if !errors.Is(err, utils.ErrNotRunning) {
@@ -212,11 +212,11 @@ func initSchema15(ctx context.Context, host string) error {
 		"ANON_KEY=" + utils.Config.Auth.AnonKey,
 		"SERVICE_KEY=" + utils.Config.Auth.ServiceRoleKey,
 		"PGRST_JWT_SECRET=" + utils.Config.Auth.JwtSecret,
-		fmt.Sprintf("DATABASE_URL=postgresql://supabase_storage_admin:%s@%s:5432/postgres", utils.Config.Db.Password, host),
+		fmt.Sprintf("DATABASE_URL=postgresql://khulnasoft_storage_admin:%s@%s:5432/postgres", utils.Config.Db.Password, host),
 		fmt.Sprintf("FILE_SIZE_LIMIT=%v", utils.Config.Storage.FileSizeLimit),
 		"STORAGE_BACKEND=file",
 		"TENANT_ID=stub",
-		// TODO: https://github.com/supabase/storage-api/issues/55
+		// TODO: https://github.com/khulnasoft/storage-api/issues/55
 		"REGION=stub",
 		"GLOBAL_S3_BUCKET=stub",
 	}, []string{"node", "dist/scripts/migrate-call.js"}, io.Discard, os.Stderr); err != nil {
@@ -226,7 +226,7 @@ func initSchema15(ctx context.Context, host string) error {
 		fmt.Sprintf("API_EXTERNAL_URL=http://%s:%d", host, utils.Config.Api.Port),
 		"GOTRUE_LOG_LEVEL=error",
 		"GOTRUE_DB_DRIVER=postgres",
-		fmt.Sprintf("GOTRUE_DB_DATABASE_URL=postgresql://supabase_auth_admin:%s@%s:5432/postgres", utils.Config.Db.Password, host),
+		fmt.Sprintf("GOTRUE_DB_DATABASE_URL=postgresql://khulnasoft_auth_admin:%s@%s:5432/postgres", utils.Config.Db.Password, host),
 		"GOTRUE_SITE_URL=" + utils.Config.Auth.SiteUrl,
 		"GOTRUE_JWT_SECRET=" + utils.Config.Auth.JwtSecret,
 	}, []string{"gotrue", "migrate"}, io.Discard, os.Stderr)

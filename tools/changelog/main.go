@@ -18,8 +18,8 @@ import (
 )
 
 const (
-	SUPABASE_OWNER = "supabase"
-	SUPABASE_REPO  = "cli"
+	KHULNASOFT_OWNER = "khulnasoft"
+	KHULNASOFT_REPO  = "cli"
 )
 
 func main() {
@@ -36,7 +36,7 @@ func main() {
 
 func showChangeLog(ctx context.Context, slackChannel string) error {
 	client := shared.NewGtihubClient(ctx)
-	releases, _, err := client.Repositories.ListReleases(ctx, SUPABASE_OWNER, SUPABASE_REPO, &github.ListOptions{})
+	releases, _, err := client.Repositories.ListReleases(ctx, KHULNASOFT_OWNER, KHULNASOFT_REPO, &github.ListOptions{})
 	if err != nil {
 		return err
 	}
@@ -53,7 +53,7 @@ func showChangeLog(ctx context.Context, slackChannel string) error {
 		opts.TagName = "v1.0.0"
 	}
 	fmt.Fprintln(os.Stderr, "Generating changelog for", opts.TagName)
-	notes, _, err := client.Repositories.GenerateReleaseNotes(ctx, SUPABASE_OWNER, SUPABASE_REPO, &opts)
+	notes, _, err := client.Repositories.GenerateReleaseNotes(ctx, KHULNASOFT_OWNER, KHULNASOFT_REPO, &opts)
 	if err != nil {
 		return err
 	}

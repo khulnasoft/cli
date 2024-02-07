@@ -1,4 +1,4 @@
-package supabase
+package khulnasoft
 
 import (
 	"net/http"

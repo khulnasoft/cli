@@ -22,7 +22,7 @@ func Run(ctx context.Context, projectRef string, desiredSubdomain string, fsys a
 
 	// 2. create vanity subdomain
 	{
-		resp, err := utils.GetSupabase().ActivateVanitySubdomainPleaseWithResponse(ctx, projectRef, api.ActivateVanitySubdomainPleaseJSONRequestBody{
+		resp, err := utils.GetKhulnasoft().ActivateVanitySubdomainPleaseWithResponse(ctx, projectRef, api.ActivateVanitySubdomainPleaseJSONRequestBody{
 			VanitySubdomain: subdomain,
 		})
 		if err != nil {

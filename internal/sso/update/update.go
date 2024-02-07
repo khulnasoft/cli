@@ -31,7 +31,7 @@ type RunParams struct {
 }
 
 func Run(ctx context.Context, params RunParams) error {
-	getResp, err := utils.GetSupabase().GetProviderByIdWithResponse(ctx, params.ProjectRef, params.ProviderID)
+	getResp, err := utils.GetKhulnasoft().GetProviderByIdWithResponse(ctx, params.ProjectRef, params.ProviderID)
 	if err != nil {
 		return errors.Errorf("failed to get sso provider: %w", err)
 	}
@@ -101,7 +101,7 @@ func Run(ctx context.Context, params RunParams) error {
 		body.Domains = &domains
 	}
 
-	putResp, err := utils.GetSupabase().UpdateProviderByIdWithResponse(ctx, params.ProjectRef, params.ProviderID, body)
+	putResp, err := utils.GetKhulnasoft().UpdateProviderByIdWithResponse(ctx, params.ProjectRef, params.ProviderID, body)
 	if err != nil {
 		return errors.Errorf("failed to update sso provider: %w", err)
 	}

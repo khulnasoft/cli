@@ -35,12 +35,12 @@ func Run(ctx context.Context, schema []string, config pgconn.Config, fsys afero.
 		return err
 	}
 
-	fmt.Println("Finished " + utils.Aqua("supabase db remote commit") + ".")
+	fmt.Println("Finished " + utils.Aqua("khulnasoft db remote commit") + ".")
 	return nil
 }
 
 func run(p utils.Program, ctx context.Context, schema []string, config pgconn.Config, fsys afero.Fs) error {
-	// 1. Assert `supabase/migrations` and `schema_migrations` are in sync.
+	// 1. Assert `khulnasoft/migrations` and `schema_migrations` are in sync.
 	p.Send(utils.StatusMsg("Connecting to remote database..."))
 	conn, err := utils.ConnectRemotePostgres(ctx, config)
 	if err != nil {
@@ -104,8 +104,8 @@ func assertRemoteInSync(ctx context.Context, conn *pgx.Conn, fsys afero.Fs) erro
 
 	conflictErr := errors.New("The remote database's migration history is not in sync with the contents of " + utils.Bold(utils.MigrationsDir) + `. Resolve this by:
 - Updating the project from version control to get the latest ` + utils.Bold(utils.MigrationsDir) + `,
-- Pushing unapplied migrations with ` + utils.Aqua("supabase db push") + `,
-- Or failing that, manually editing supabase_migrations.schema_migrations table with ` + utils.Aqua("supabase migration repair") + ".")
+- Pushing unapplied migrations with ` + utils.Aqua("khulnasoft db push") + `,
+- Or failing that, manually editing khulnasoft_migrations.schema_migrations table with ` + utils.Aqua("khulnasoft migration repair") + ".")
 	if len(remoteMigrations) != len(localMigrations) {
 		return conflictErr
 	}

@@ -11,7 +11,7 @@ import (
 )
 
 func Run(ctx context.Context, params api.CreateProjectBody, fsys afero.Fs) error {
-	resp, err := utils.GetSupabase().CreateProjectWithResponse(ctx, params)
+	resp, err := utils.GetKhulnasoft().CreateProjectWithResponse(ctx, params)
 	if err != nil {
 		return errors.Errorf("failed to create project: %w", err)
 	}
@@ -20,7 +20,7 @@ func Run(ctx context.Context, params api.CreateProjectBody, fsys afero.Fs) error
 		return errors.New("Unexpected error creating project: " + string(resp.Body))
 	}
 
-	projectUrl := fmt.Sprintf("%s/project/%s", utils.GetSupabaseDashboardURL(), resp.JSON201.Id)
+	projectUrl := fmt.Sprintf("%s/project/%s", utils.GetKhulnasoftDashboardURL(), resp.JSON201.Id)
 	fmt.Printf("Created a new project %s at %s\n", utils.Aqua(resp.JSON201.Name), projectUrl)
 	return nil
 }

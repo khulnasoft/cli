@@ -28,7 +28,7 @@ var (
 		"The %s and %s schemas are excluded. Run %s again to diff them.",
 		utils.Bold("auth"),
 		utils.Bold("storage"),
-		utils.Aqua("supabase db pull --schema auth,storage"),
+		utils.Aqua("khulnasoft db pull --schema auth,storage"),
 	)
 )
 
@@ -65,7 +65,7 @@ func Run(ctx context.Context, schema []string, config pgconn.Config, name string
 func run(p utils.Program, ctx context.Context, schema []string, path string, conn *pgx.Conn, fsys afero.Fs) error {
 	config := conn.Config().Config
 	defaultSchema := len(schema) == 0
-	// 1. Assert `supabase/migrations` and `schema_migrations` are in sync.
+	// 1. Assert `khulnasoft/migrations` and `schema_migrations` are in sync.
 	if err := assertRemoteInSync(ctx, conn, fsys); errors.Is(err, errMissing) {
 		if !defaultSchema {
 			utils.CmdSuggestion = suggestExtraPull
@@ -169,10 +169,10 @@ func assertRemoteInSync(ctx context.Context, conn *pgx.Conn, fsys afero.Fs) erro
 func suggestMigrationRepair(extraRemote, extraLocal []string) string {
 	result := fmt.Sprintln("\nMake sure your local git repo is up-to-date. If the error persists, try repairing the migration history table:")
 	for _, version := range extraRemote {
-		result += fmt.Sprintln(utils.Bold("supabase migration repair --status reverted " + version))
+		result += fmt.Sprintln(utils.Bold("khulnasoft migration repair --status reverted " + version))
 	}
 	for _, version := range extraLocal {
-		result += fmt.Sprintln(utils.Bold("supabase migration repair --status applied " + version))
+		result += fmt.Sprintln(utils.Bold("khulnasoft migration repair --status applied " + version))
 	}
 	return result
 }

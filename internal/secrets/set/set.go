@@ -47,7 +47,7 @@ func Run(ctx context.Context, projectRef, envFilePath string, args []string, fsy
 			}
 		}
 
-		resp, err := utils.GetSupabase().CreateSecretsWithResponse(ctx, projectRef, secrets)
+		resp, err := utils.GetKhulnasoft().CreateSecretsWithResponse(ctx, projectRef, secrets)
 		if err != nil {
 			return errors.Errorf("failed to set secrets: %w", err)
 		}
@@ -58,6 +58,6 @@ func Run(ctx context.Context, projectRef, envFilePath string, args []string, fsy
 		}
 	}
 
-	fmt.Println("Finished " + utils.Aqua("supabase secrets set") + ".")
+	fmt.Println("Finished " + utils.Aqua("khulnasoft secrets set") + ".")
 	return nil
 }

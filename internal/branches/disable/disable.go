@@ -16,7 +16,7 @@ func Run(ctx context.Context, fsys afero.Fs) error {
 	if err != nil {
 		return err
 	}
-	resp, err := utils.GetSupabase().DisableBranchWithResponse(ctx, ref)
+	resp, err := utils.GetKhulnasoft().DisableBranchWithResponse(ctx, ref)
 	if err != nil {
 		return errors.Errorf("failed to disable preview branching: %w", err)
 	}

@@ -1,8 +1,8 @@
-## supabase-start
+## khulnasoft-start
 
-Starts the Supabase local development stack.
+Starts the Khulnasoft local development stack.
 
-Requires `supabase/config.toml` to be created in your current working directory by running `supabase init`.
+Requires `khulnasoft/config.toml` to be created in your current working directory by running `khulnasoft init`.
 
 All service containers are started by default. You can exclude those not needed by passing in `-x` flag. To exclude multiple containers, either pass in a comma separated string, such as `-x gotrue,imgproxy`, or specify `-x` flag multiple times.
 

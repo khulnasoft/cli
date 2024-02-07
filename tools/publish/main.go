@@ -21,16 +21,16 @@ import (
 )
 
 const (
-	SUPABASE_OWNER = "supabase"
+	KHULNASOFT_OWNER = "khulnasoft"
 	HOMEBREW_REPO  = "homebrew-tap"
 	SCOOP_REPO     = "scoop-bucket"
 )
 
 var (
-	//go:embed templates/supabase.rb
+	//go:embed templates/khulnasoft.rb
 	brewFormula         string
 	brewFormulaTemplate = template.Must(template.New(HOMEBREW_REPO).Parse(brewFormula))
-	//go:embed templates/supabase.json
+	//go:embed templates/khulnasoft.json
 	scoopBucket         string
 	scoopBucketTemplate = template.Must(template.New(SCOOP_REPO).Parse(scoopBucket))
 )
@@ -53,10 +53,10 @@ func publishPackages(ctx context.Context, version string) error {
 		return err
 	}
 	client := shared.NewGtihubClient(ctx)
-	if err := updatePackage(ctx, client, HOMEBREW_REPO, "supabase.rb", brewFormulaTemplate, config); err != nil {
+	if err := updatePackage(ctx, client, HOMEBREW_REPO, "khulnasoft.rb", brewFormulaTemplate, config); err != nil {
 		return err
 	}
-	return updatePackage(ctx, client, SCOOP_REPO, "supabase.json", scoopBucketTemplate, config)
+	return updatePackage(ctx, client, SCOOP_REPO, "khulnasoft.json", scoopBucketTemplate, config)
 }
 
 type PackageConfig struct {
@@ -66,7 +66,7 @@ type PackageConfig struct {
 
 func fetchConfig(ctx context.Context, version string) (PackageConfig, error) {
 	config := PackageConfig{Version: version}
-	url := fmt.Sprintf("https://github.com/khulnasoft/cli/releases/download/v%[1]v/supabase_%[1]v_checksums.txt", config.Version)
+	url := fmt.Sprintf("https://github.com/khulnasoft/cli/releases/download/v%[1]v/khulnasoft_%[1]v_checksums.txt", config.Version)
 	log.Println(url)
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
@@ -113,7 +113,7 @@ func updatePackage(ctx context.Context, client *github.Client, repo, path string
 		return err
 	}
 	// Get file SHA
-	file, _, _, err := client.Repositories.GetContents(ctx, SUPABASE_OWNER, repo, path, nil)
+	file, _, _, err := client.Repositories.GetContents(ctx, KHULNASOFT_OWNER, repo, path, nil)
 	if err != nil {
 		return err
 	}
@@ -126,13 +126,13 @@ func updatePackage(ctx context.Context, client *github.Client, repo, path string
 		return nil
 	}
 	// Update file content
-	message := "Update supabase stable release channel"
+	message := "Update khulnasoft stable release channel"
 	commit := github.RepositoryContentFileOptions{
 		Message: &message,
 		Content: buf.Bytes(),
 		SHA:     file.SHA,
 	}
-	resp, _, err := client.Repositories.UpdateFile(ctx, SUPABASE_OWNER, repo, path, &commit)
+	resp, _, err := client.Repositories.UpdateFile(ctx, KHULNASOFT_OWNER, repo, path, &commit)
 	if err != nil {
 		return err
 	}

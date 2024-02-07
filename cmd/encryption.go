@@ -13,12 +13,12 @@ var (
 	encryptionCmd = &cobra.Command{
 		GroupID: groupManagementAPI,
 		Use:     "encryption",
-		Short:   "Manage encryption keys of Supabase projects",
+		Short:   "Manage encryption keys of Khulnasoft projects",
 	}
 
 	rootKeyGetCmd = &cobra.Command{
 		Use:   "get-root-key",
-		Short: "Get the root encryption key of a Supabase project",
+		Short: "Get the root encryption key of a Khulnasoft project",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return get.Run(cmd.Context(), flags.ProjectRef)
 		},
@@ -26,7 +26,7 @@ var (
 
 	rootKeyUpdateCmd = &cobra.Command{
 		Use:   "update-root-key",
-		Short: "Update root encryption key of a Supabase project",
+		Short: "Update root encryption key of a Khulnasoft project",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return update.Run(cmd.Context(), flags.ProjectRef, os.Stdin)
 		},
@@ -34,7 +34,7 @@ var (
 )
 
 func init() {
-	encryptionCmd.PersistentFlags().StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Supabase project.")
+	encryptionCmd.PersistentFlags().StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Khulnasoft project.")
 	encryptionCmd.AddCommand(rootKeyUpdateCmd)
 	encryptionCmd.AddCommand(rootKeyGetCmd)
 	rootCmd.AddCommand(encryptionCmd)

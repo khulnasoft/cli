@@ -20,7 +20,7 @@ func Run(ctx context.Context, target string, fsys afero.Fs, options ...func(*pgx
 		if err := utils.LoadConfigFS(fsys); err != nil {
 			return err
 		}
-		if err := utils.AssertSupabaseDbIsRunning(); err != nil {
+		if err := utils.AssertKhulnasoftDbIsRunning(); err != nil {
 			return err
 		}
 		if target != "main" && utils.IsBranchNameReserved(target) {

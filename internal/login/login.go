@@ -179,7 +179,7 @@ func Run(ctx context.Context, stdout *os.File, params RunParams) error {
 	}
 
 	if params.OpenBrowser {
-		fmt.Fprint(stdout, "Hello from ", utils.Aqua("Supabase"), "! Press ", utils.Aqua("Enter"), " to open browser and login automatically.\n")
+		fmt.Fprint(stdout, "Hello from ", utils.Aqua("Khulnasoft"), "! Press ", utils.Aqua("Enter"), " to open browser and login automatically.\n")
 		fmt.Scanln()
 	}
 
@@ -188,7 +188,7 @@ func Run(ctx context.Context, stdout *os.File, params RunParams) error {
 
 	createLoginSessionPath := "/cli/login"
 	createLoginSessionQuery := "?session_id=" + params.SessionId + "&token_name=" + tokenName + "&public_key=" + encodedPublicKey
-	createLoginSessionUrl := utils.GetSupabaseDashboardURL() + createLoginSessionPath + createLoginSessionQuery
+	createLoginSessionUrl := utils.GetKhulnasoftDashboardURL() + createLoginSessionPath + createLoginSessionQuery
 
 	if params.OpenBrowser {
 		fmt.Fprintf(stdout, "Here is your login link in case browser did not open %s\n\n", utils.Bold(createLoginSessionUrl))
@@ -203,7 +203,7 @@ func Run(ctx context.Context, stdout *os.File, params RunParams) error {
 	err := utils.RunProgram(ctx, func(p utils.Program, ctx context.Context) error {
 		p.Send(utils.StatusMsg("Your token is now being generated and securely encrypted. Waiting for it to arrive..."))
 
-		sessionPollingUrl := utils.GetSupabaseAPIHost() + "/platform/cli/login/" + params.SessionId
+		sessionPollingUrl := utils.GetKhulnasoftAPIHost() + "/platform/cli/login/" + params.SessionId
 		accessTokenResponse, err := pollForAccessToken(ctx, sessionPollingUrl)
 		if err != nil {
 			return err
@@ -229,7 +229,7 @@ func Run(ctx context.Context, stdout *os.File, params RunParams) error {
 
 func PromptAccessToken(stdin *os.File) string {
 	fmt.Fprintf(os.Stderr, `You can generate an access token from %s/account/tokens
-Enter your access token: `, utils.GetSupabaseDashboardURL())
+Enter your access token: `, utils.GetKhulnasoftDashboardURL())
 	input := credentials.PromptMasked(stdin)
 	return strings.TrimSpace(input)
 }

@@ -24,7 +24,7 @@ func PreRun(ref string) error {
 }
 
 func Run(ctx context.Context, ref string, fsys afero.Fs) error {
-	resp, err := utils.GetSupabase().DeleteProjectWithResponse(ctx, ref)
+	resp, err := utils.GetKhulnasoft().DeleteProjectWithResponse(ctx, ref)
 	if err != nil {
 		return errors.Errorf("failed to delete project: %w", err)
 	}

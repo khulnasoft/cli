@@ -27,12 +27,12 @@ func Run(ctx context.Context, useLocal bool, useLinked bool, projectId string, d
 		return []string{}
 	}
 
-	// Generating types on `projectId` and `dbUrl` should work without `supabase
+	// Generating types on `projectId` and `dbUrl` should work without `khulnasoft
 	// init` - i.e. we shouldn't try to load the config for these cases.
 
 	if projectId != "" {
 		included := strings.Join(coalesce(schemas, []string{"public"}), ",")
-		resp, err := utils.GetSupabase().GetTypescriptTypesWithResponse(ctx, projectId, &api.GetTypescriptTypesParams{
+		resp, err := utils.GetKhulnasoft().GetTypescriptTypesWithResponse(ctx, projectId, &api.GetTypescriptTypesParams{
 			IncludedSchemas: &included,
 		})
 		if err != nil {
@@ -50,7 +50,7 @@ func Run(ctx context.Context, useLocal bool, useLinked bool, projectId string, d
 	if dbUrl != "" {
 		config, err := pgconn.ParseConfig(dbUrl)
 		if err != nil {
-			return errors.New("URL is not a valid Supabase connection string: " + err.Error())
+			return errors.New("URL is not a valid Khulnasoft connection string: " + err.Error())
 		}
 		escaped := fmt.Sprintf(
 			"postgresql://%s@%s:%d/%s",
@@ -89,7 +89,7 @@ func Run(ctx context.Context, useLocal bool, useLinked bool, projectId string, d
 	}
 
 	if useLocal {
-		if err := utils.AssertSupabaseDbIsRunning(); err != nil {
+		if err := utils.AssertKhulnasoftDbIsRunning(); err != nil {
 			return err
 		}
 
@@ -119,7 +119,7 @@ func Run(ctx context.Context, useLocal bool, useLinked bool, projectId string, d
 		}
 
 		included := strings.Join(coalesce(schemas, utils.Config.Api.Schemas, []string{"public"}), ",")
-		resp, err := utils.GetSupabase().GetTypescriptTypesWithResponse(ctx, projectId, &api.GetTypescriptTypesParams{
+		resp, err := utils.GetKhulnasoft().GetTypescriptTypesWithResponse(ctx, projectId, &api.GetTypescriptTypesParams{
 			IncludedSchemas: &included,
 		})
 		if err != nil {

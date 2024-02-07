@@ -68,7 +68,7 @@ func Run(ctx context.Context, config pgconn.Config, fsys afero.Fs, options ...fu
 
 	if matches := utils.ProjectHostPattern.FindStringSubmatch(config.Host); len(matches) == 4 {
 		fmt.Println("Go to the dashboard for more here:")
-		fmt.Printf("https://app.supabase.com/project/%s/database/roles\n", matches[2])
+		fmt.Printf("https://app.khulnasoft.com/project/%s/database/roles\n", matches[2])
 	}
 
 	return nil

@@ -25,7 +25,7 @@ var (
 	projectsCmd = &cobra.Command{
 		GroupID: groupManagementAPI,
 		Use:     "projects",
-		Short:   "Manage Supabase projects",
+		Short:   "Manage Khulnasoft projects",
 	}
 
 	interactive bool
@@ -43,9 +43,9 @@ var (
 
 	projectsCreateCmd = &cobra.Command{
 		Use:     "create [project name]",
-		Short:   "Create a project on Supabase",
+		Short:   "Create a project on Khulnasoft",
 		Args:    cobra.MaximumNArgs(1),
-		Example: `supabase projects create my-project --org-id cool-green-pqdr0qc --db-password ******** --region us-east-1`,
+		Example: `khulnasoft projects create my-project --org-id cool-green-pqdr0qc --db-password ******** --region us-east-1`,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if !term.IsTerminal(int(os.Stdin.Fd())) || !interactive {
 				cobra.CheckErr(cmd.MarkFlagRequired("org-id"))
@@ -73,8 +73,8 @@ var (
 
 	projectsListCmd = &cobra.Command{
 		Use:   "list",
-		Short: "List all Supabase projects",
-		Long:  "List all Supabase projects the logged-in user can access.",
+		Short: "List all Khulnasoft projects",
+		Long:  "List all Khulnasoft projects the logged-in user can access.",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return list.Run(cmd.Context(), afero.NewOsFs())
 		},
@@ -82,7 +82,7 @@ var (
 
 	projectsApiKeysCmd = &cobra.Command{
 		Use:   "api-keys",
-		Short: "List all API keys for a Supabase project",
+		Short: "List all API keys for a Khulnasoft project",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return apiKeys.Run(cmd.Context(), flags.ProjectRef, afero.NewOsFs())
 		},
@@ -90,7 +90,7 @@ var (
 
 	projectsDeleteCmd = &cobra.Command{
 		Use:   "delete <ref>",
-		Short: "Delete a Supabase project",
+		Short: "Delete a Khulnasoft project",
 		Args:  cobra.MaximumNArgs(1),
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if !term.IsTerminal(int(os.Stdin.Fd())) {
@@ -133,7 +133,7 @@ func init() {
 	cobra.CheckErr(viper.BindPFlag("DB_PASSWORD", createFlags.Lookup("db-password")))
 
 	apiKeysFlags := projectsApiKeysCmd.Flags()
-	apiKeysFlags.StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Supabase project.")
+	apiKeysFlags.StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Khulnasoft project.")
 
 	// Add commands to root
 	projectsCmd.AddCommand(projectsCreateCmd)
@@ -159,7 +159,7 @@ func PromptCreateFlags(cmd *cobra.Command) error {
 	}
 	if !cmd.Flags().Changed("org-id") {
 		title := "Which organisation do you want to create the project for?"
-		resp, err := utils.GetSupabase().GetOrganizationsWithResponse(ctx)
+		resp, err := utils.GetKhulnasoft().GetOrganizationsWithResponse(ctx)
 		if err != nil {
 			return err
 		}

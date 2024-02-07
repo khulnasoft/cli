@@ -42,7 +42,7 @@ func IsManagementAPI(cmd *cobra.Command) bool {
 
 func PromptLogin(ctx context.Context, fsys afero.Fs) error {
 	if _, err := utils.LoadAccessTokenFS(fsys); err == utils.ErrMissingToken {
-		utils.CmdSuggestion = fmt.Sprintf("Run %s first.", utils.Aqua("supabase login"))
+		utils.CmdSuggestion = fmt.Sprintf("Run %s first.", utils.Aqua("khulnasoft login"))
 		return errors.New("You need to be logged-in in order to use Management API commands.")
 	} else {
 		return err
@@ -83,8 +83,8 @@ var (
 	createTicket bool
 
 	rootCmd = &cobra.Command{
-		Use:     "supabase",
-		Short:   "Supabase CLI " + utils.Version,
+		Use:     "khulnasoft",
+		Short:   "Khulnasoft CLI " + utils.Version,
 		Version: utils.Version,
 		PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 			if IsExperimental(cmd) && !viper.GetBool("EXPERIMENTAL") {
@@ -121,7 +121,7 @@ var (
 			}
 			cmd.SetContext(ctx)
 			// Setup sentry last to ignore errors from parsing cli flags
-			apiHost, err := url.Parse(utils.GetSupabaseAPIHost())
+			apiHost, err := url.Parse(utils.GetKhulnasoftAPIHost())
 			if err != nil {
 				return err
 			}
@@ -185,14 +185,14 @@ func init() {
 		cobra.CheckErr(err)
 		cobra.CheckErr(dec.Decode(utils.Config))
 		cobra.CheckErr(viper.MergeConfigMap(envKeysMap))
-		viper.SetEnvPrefix("SUPABASE")
+		viper.SetEnvPrefix("KHULNASOFT")
 		viper.SetEnvKeyReplacer(strings.NewReplacer("-", "_", ".", "_"))
 		viper.AutomaticEnv()
 	})
 
 	flags := rootCmd.PersistentFlags()
 	flags.Bool("debug", false, "output debug logs to stderr")
-	flags.String("workdir", "", "path to a Supabase project directory")
+	flags.String("workdir", "", "path to a Khulnasoft project directory")
 	flags.Bool("experimental", false, "enable experimental features")
 	flags.Var(&utils.DNSResolver, "dns-resolver", "lookup domain names using the specified resolver")
 	flags.BoolVar(&createTicket, "create-ticket", false, "create a support ticket for any CLI error")

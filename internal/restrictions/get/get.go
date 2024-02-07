@@ -9,7 +9,7 @@ import (
 )
 
 func Run(ctx context.Context, projectRef string) error {
-	resp, err := utils.GetSupabase().GetNetworkRestrictionsWithResponse(ctx, projectRef)
+	resp, err := utils.GetKhulnasoft().GetNetworkRestrictionsWithResponse(ctx, projectRef)
 	if err != nil {
 		return errors.Errorf("failed to retrieve network restrictions: %w", err)
 	}

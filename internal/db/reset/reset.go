@@ -62,7 +62,7 @@ func Run(ctx context.Context, version string, config pgconn.Config, fsys afero.F
 		if err := utils.LoadConfigFS(fsys); err != nil {
 			return err
 		}
-		if err := utils.AssertSupabaseDbIsRunning(); err != nil {
+		if err := utils.AssertKhulnasoftDbIsRunning(); err != nil {
 			return err
 		}
 	}
@@ -73,7 +73,7 @@ func Run(ctx context.Context, version string, config pgconn.Config, fsys afero.F
 	}
 
 	branch := keys.GetGitBranch(fsys)
-	fmt.Fprintln(os.Stderr, "Finished "+utils.Aqua("supabase db reset")+" on branch "+utils.Aqua(branch)+".")
+	fmt.Fprintln(os.Stderr, "Finished "+utils.Aqua("khulnasoft db reset")+" on branch "+utils.Aqua(branch)+".")
 	return nil
 }
 
@@ -158,7 +158,7 @@ func resetDatabase15(ctx context.Context, version string, fsys afero.Fs, options
 }
 
 func initDatabase(ctx context.Context, options ...func(*pgx.ConnConfig)) error {
-	conn, err := utils.ConnectLocalPostgres(ctx, pgconn.Config{User: "supabase_admin"}, options...)
+	conn, err := utils.ConnectLocalPostgres(ctx, pgconn.Config{User: "khulnasoft_admin"}, options...)
 	if err != nil {
 		return err
 	}
@@ -168,7 +168,7 @@ func initDatabase(ctx context.Context, options ...func(*pgx.ConnConfig)) error {
 
 // Recreate postgres database by connecting to template1
 func recreateDatabase(ctx context.Context, options ...func(*pgx.ConnConfig)) error {
-	conn, err := utils.ConnectLocalPostgres(ctx, pgconn.Config{User: "supabase_admin", Database: "template1"}, options...)
+	conn, err := utils.ConnectLocalPostgres(ctx, pgconn.Config{User: "khulnasoft_admin", Database: "template1"}, options...)
 	if err != nil {
 		return err
 	}
@@ -271,7 +271,7 @@ func resetRemote(ctx context.Context, version string, config pgconn.Config, fsys
 	// List user defined schemas
 	excludes := []string{"public"}
 	for _, schema := range utils.InternalSchemas {
-		if schema != "supabase_migrations" {
+		if schema != "khulnasoft_migrations" {
 			excludes = append(excludes, schema)
 		}
 	}

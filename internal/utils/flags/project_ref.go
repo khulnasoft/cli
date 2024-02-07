@@ -36,7 +36,7 @@ func ParseProjectRef(fsys afero.Fs) error {
 
 func promptProjectRef(stdin io.Reader) (err error) {
 	title := fmt.Sprintf(`You can find your project ref from the project's dashboard home page, e.g. %s/project/<project-ref>.
-Enter your project ref: `, utils.GetSupabaseDashboardURL())
+Enter your project ref: `, utils.GetKhulnasoftDashboardURL())
 	if ProjectRef, err = utils.PromptText(title, stdin); err != nil {
 		return err
 	}

@@ -86,7 +86,7 @@ func UpdateMigrationTable(ctx context.Context, conn *pgx.Conn, version []string,
 	if !repairAll {
 		fmt.Fprintf(os.Stderr, "Repaired migration history: %v => %s\n", version, status)
 	}
-	utils.CmdSuggestion = fmt.Sprintf("Run %s to show the updated migration history.", utils.Aqua("supabase migration list"))
+	utils.CmdSuggestion = fmt.Sprintf("Run %s to show the updated migration history.", utils.Aqua("khulnasoft migration list"))
 	return nil
 }
 

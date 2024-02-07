@@ -19,7 +19,7 @@ func TestVerifyCNAME(t *testing.T) {
 		Reply(http.StatusOK).
 		JSON(&map[string]interface{}{"Answer": []map[string]interface{}{
 			{
-				"Type": 5, "Data": "foobarbaz.supabase.co.",
+				"Type": 5, "Data": "foobarbaz.khulnasoft.co.",
 			},
 		}})
 	err := VerifyCNAME(context.Background(), "foobarbaz", "hello.custom-domain.com")
@@ -40,5 +40,5 @@ func TestVerifyCNAMEFailures(t *testing.T) {
 			},
 		}})
 	err := VerifyCNAME(context.Background(), "foobarbaz", "hello.custom-domain.com")
-	assert.ErrorContains(t, err, "expected custom hostname 'hello.custom-domain.com' to have a CNAME record pointing to your project at 'foobarbaz.supabase.co.', but it failed to resolve: failed to locate appropriate CNAME record for hello.custom-domain.com")
+	assert.ErrorContains(t, err, "expected custom hostname 'hello.custom-domain.com' to have a CNAME record pointing to your project at 'foobarbaz.khulnasoft.co.', but it failed to resolve: failed to locate appropriate CNAME record for hello.custom-domain.com")
 }

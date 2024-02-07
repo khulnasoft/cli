@@ -53,8 +53,8 @@ func TestStartDatabase(t *testing.T) {
 	t.Run("initialize main branch", func(t *testing.T) {
 		utils.Config.Db.MajorVersion = 15
 		utils.Config.Db.Image = utils.Pg15Image
-		utils.DbId = "supabase_db_test"
-		utils.ConfigId = "supabase_config_test"
+		utils.DbId = "khulnasoft_db_test"
+		utils.ConfigId = "khulnasoft_config_test"
 		utils.Config.Db.Port = 5432
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
@@ -104,8 +104,8 @@ func TestStartDatabase(t *testing.T) {
 	t.Run("recover from backup volume", func(t *testing.T) {
 		utils.Config.Db.MajorVersion = 14
 		utils.Config.Db.Image = utils.Pg15Image
-		utils.DbId = "supabase_db_test"
-		utils.ConfigId = "supabase_config_test"
+		utils.DbId = "khulnasoft_db_test"
+		utils.ConfigId = "khulnasoft_config_test"
 		utils.Config.Db.Port = 5432
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
@@ -140,7 +140,7 @@ func TestStartDatabase(t *testing.T) {
 	t.Run("throws error on start failure", func(t *testing.T) {
 		utils.Config.Db.MajorVersion = 15
 		utils.Config.Db.Image = utils.Pg15Image
-		utils.DbId = "supabase_db_test"
+		utils.DbId = "khulnasoft_db_test"
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
 		// Setup mock docker

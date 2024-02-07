@@ -31,18 +31,18 @@ ALTER ROLE pgbouncer WITH NOSUPERUSER INHERIT NOCREATEROLE NOCREATEDB LOGIN NORE
 -- ALTER ROLE postgres WITH NOSUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION BYPASSRLS;
 CREATE ROLE service_role;
 ALTER ROLE service_role WITH NOSUPERUSER NOINHERIT NOCREATEROLE NOCREATEDB NOLOGIN NOREPLICATION BYPASSRLS;
-CREATE ROLE supabase_admin;
-ALTER ROLE supabase_admin WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION BYPASSRLS PASSWORD 'postgres';
-CREATE ROLE supabase_auth_admin;
-ALTER ROLE supabase_auth_admin WITH NOSUPERUSER NOINHERIT CREATEROLE NOCREATEDB LOGIN NOREPLICATION NOBYPASSRLS PASSWORD 'postgres';
-CREATE ROLE supabase_functions_admin;
-ALTER ROLE supabase_functions_admin WITH NOSUPERUSER NOINHERIT CREATEROLE NOCREATEDB LOGIN NOREPLICATION NOBYPASSRLS PASSWORD 'postgres';
-CREATE ROLE supabase_read_only_user;
-ALTER ROLE supabase_read_only_user WITH NOSUPERUSER INHERIT NOCREATEROLE NOCREATEDB LOGIN NOREPLICATION BYPASSRLS PASSWORD 'postgres';
-CREATE ROLE supabase_replication_admin;
-ALTER ROLE supabase_replication_admin WITH NOSUPERUSER INHERIT NOCREATEROLE NOCREATEDB LOGIN REPLICATION NOBYPASSRLS PASSWORD 'postgres';
-CREATE ROLE supabase_storage_admin;
-ALTER ROLE supabase_storage_admin WITH NOSUPERUSER NOINHERIT CREATEROLE NOCREATEDB LOGIN NOREPLICATION NOBYPASSRLS PASSWORD 'postgres';
+CREATE ROLE khulnasoft_admin;
+ALTER ROLE khulnasoft_admin WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION BYPASSRLS PASSWORD 'postgres';
+CREATE ROLE khulnasoft_auth_admin;
+ALTER ROLE khulnasoft_auth_admin WITH NOSUPERUSER NOINHERIT CREATEROLE NOCREATEDB LOGIN NOREPLICATION NOBYPASSRLS PASSWORD 'postgres';
+CREATE ROLE khulnasoft_functions_admin;
+ALTER ROLE khulnasoft_functions_admin WITH NOSUPERUSER NOINHERIT CREATEROLE NOCREATEDB LOGIN NOREPLICATION NOBYPASSRLS PASSWORD 'postgres';
+CREATE ROLE khulnasoft_read_only_user;
+ALTER ROLE khulnasoft_read_only_user WITH NOSUPERUSER INHERIT NOCREATEROLE NOCREATEDB LOGIN NOREPLICATION BYPASSRLS PASSWORD 'postgres';
+CREATE ROLE khulnasoft_replication_admin;
+ALTER ROLE khulnasoft_replication_admin WITH NOSUPERUSER INHERIT NOCREATEROLE NOCREATEDB LOGIN REPLICATION NOBYPASSRLS PASSWORD 'postgres';
+CREATE ROLE khulnasoft_storage_admin;
+ALTER ROLE khulnasoft_storage_admin WITH NOSUPERUSER NOINHERIT CREATEROLE NOCREATEDB LOGIN NOREPLICATION NOBYPASSRLS PASSWORD 'postgres';
 
 --
 -- User Configurations
@@ -74,29 +74,29 @@ ALTER ROLE authenticator SET statement_timeout TO '8s';
 ALTER ROLE postgres SET search_path TO E'\\$user', 'public', 'extensions';
 
 --
--- User Config "supabase_admin"
+-- User Config "khulnasoft_admin"
 --
 
-ALTER ROLE supabase_admin SET search_path TO E'\\$user', 'public', 'auth', 'extensions';
+ALTER ROLE khulnasoft_admin SET search_path TO E'\\$user', 'public', 'auth', 'extensions';
 
 --
--- User Config "supabase_auth_admin"
+-- User Config "khulnasoft_auth_admin"
 --
 
-ALTER ROLE supabase_auth_admin SET search_path TO 'auth';
-ALTER ROLE supabase_auth_admin SET idle_in_transaction_session_timeout TO '60000';
+ALTER ROLE khulnasoft_auth_admin SET search_path TO 'auth';
+ALTER ROLE khulnasoft_auth_admin SET idle_in_transaction_session_timeout TO '60000';
 
 --
--- User Config "supabase_functions_admin"
+-- User Config "khulnasoft_functions_admin"
 --
 
-ALTER ROLE supabase_functions_admin SET search_path TO 'supabase_functions';
+ALTER ROLE khulnasoft_functions_admin SET search_path TO 'khulnasoft_functions';
 
 --
--- User Config "supabase_storage_admin"
+-- User Config "khulnasoft_storage_admin"
 --
 
-ALTER ROLE supabase_storage_admin SET search_path TO 'storage';
+ALTER ROLE khulnasoft_storage_admin SET search_path TO 'storage';
 
 
 --
@@ -104,13 +104,13 @@ ALTER ROLE supabase_storage_admin SET search_path TO 'storage';
 --
 
 GRANT anon TO authenticator GRANTED BY postgres;
-GRANT anon TO postgres GRANTED BY supabase_admin;
-GRANT anon TO supabase_storage_admin GRANTED BY supabase_admin;
+GRANT anon TO postgres GRANTED BY khulnasoft_admin;
+GRANT anon TO khulnasoft_storage_admin GRANTED BY khulnasoft_admin;
 GRANT authenticated TO authenticator GRANTED BY postgres;
-GRANT authenticated TO postgres GRANTED BY supabase_admin;
-GRANT authenticated TO supabase_storage_admin GRANTED BY supabase_admin;
-GRANT pg_monitor TO postgres GRANTED BY supabase_admin;
--- GRANT pg_read_all_data TO supabase_read_only_user GRANTED BY postgres;
+GRANT authenticated TO postgres GRANTED BY khulnasoft_admin;
+GRANT authenticated TO khulnasoft_storage_admin GRANTED BY khulnasoft_admin;
+GRANT pg_monitor TO postgres GRANTED BY khulnasoft_admin;
+-- GRANT pg_read_all_data TO khulnasoft_read_only_user GRANTED BY postgres;
 -- GRANT pgsodium_keyholder TO pgsodium_keymaker GRANTED BY postgres;
 -- GRANT pgsodium_keyholder TO postgres WITH ADMIN OPTION GRANTED BY postgres;
 -- GRANT pgsodium_keyiduser TO pgsodium_keyholder GRANTED BY postgres;
@@ -118,11 +118,11 @@ GRANT pg_monitor TO postgres GRANTED BY supabase_admin;
 -- GRANT pgsodium_keyiduser TO postgres WITH ADMIN OPTION GRANTED BY postgres;
 -- GRANT pgsodium_keymaker TO postgres WITH ADMIN OPTION GRANTED BY postgres;
 GRANT service_role TO authenticator GRANTED BY postgres;
-GRANT service_role TO postgres GRANTED BY supabase_admin;
-GRANT service_role TO supabase_storage_admin GRANTED BY supabase_admin;
-GRANT supabase_auth_admin TO postgres GRANTED BY supabase_admin;
-GRANT supabase_functions_admin TO postgres GRANTED BY supabase_admin;
-GRANT supabase_storage_admin TO postgres GRANTED BY supabase_admin;
+GRANT service_role TO postgres GRANTED BY khulnasoft_admin;
+GRANT service_role TO khulnasoft_storage_admin GRANTED BY khulnasoft_admin;
+GRANT khulnasoft_auth_admin TO postgres GRANTED BY khulnasoft_admin;
+GRANT khulnasoft_functions_admin TO postgres GRANTED BY khulnasoft_admin;
+GRANT khulnasoft_storage_admin TO postgres GRANTED BY khulnasoft_admin;
 
 
 
@@ -138,7 +138,7 @@ BEGIN
         SELECT FROM pg_catalog.pg_roles
         WHERE rolname = 'pg_read_all_data'
     ) THEN
-        GRANT pg_read_all_data TO supabase_read_only_user GRANTED BY postgres;
+        GRANT pg_read_all_data TO khulnasoft_read_only_user GRANTED BY postgres;
     END IF;
 END
 $$;

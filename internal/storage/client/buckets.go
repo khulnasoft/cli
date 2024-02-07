@@ -21,7 +21,7 @@ type BucketResponse struct {
 }
 
 func ListStorageBuckets(ctx context.Context, projectRef string) ([]BucketResponse, error) {
-	url := fmt.Sprintf("https://%s/storage/v1/bucket", utils.GetSupabaseHost(projectRef))
+	url := fmt.Sprintf("https://%s/storage/v1/bucket", utils.GetKhulnasoftHost(projectRef))
 	apiKey, err := tenant.GetApiKeys(ctx, projectRef)
 	if err != nil {
 		return nil, err
@@ -46,7 +46,7 @@ type CreateBucketResponse struct {
 }
 
 func CreateStorageBucket(ctx context.Context, projectRef, bucketName string) (*CreateBucketResponse, error) {
-	url := fmt.Sprintf("https://%s/storage/v1/bucket", utils.GetSupabaseHost(projectRef))
+	url := fmt.Sprintf("https://%s/storage/v1/bucket", utils.GetKhulnasoftHost(projectRef))
 	apiKey, err := tenant.GetApiKeys(ctx, projectRef)
 	if err != nil {
 		return nil, err
@@ -60,7 +60,7 @@ type DeleteBucketResponse struct {
 }
 
 func DeleteStorageBucket(ctx context.Context, projectRef, bucketId string) (*DeleteBucketResponse, error) {
-	url := fmt.Sprintf("https://%s/storage/v1/bucket/%s", utils.GetSupabaseHost(projectRef), bucketId)
+	url := fmt.Sprintf("https://%s/storage/v1/bucket/%s", utils.GetKhulnasoftHost(projectRef), bucketId)
 	apiKey, err := tenant.GetApiKeys(ctx, projectRef)
 	if err != nil {
 		return nil, err

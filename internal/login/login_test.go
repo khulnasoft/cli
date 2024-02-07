@@ -56,7 +56,7 @@ func TestLoginCommand(t *testing.T) {
 
 		defer gock.OffAll()
 
-		gock.New(utils.GetSupabaseAPIHost()).
+		gock.New(utils.GetKhulnasoftAPIHost()).
 			Get("/platform/cli/login/" + sessionId).
 			Reply(200).
 			JSON(map[string]any{
@@ -80,7 +80,7 @@ func TestLoginCommand(t *testing.T) {
 		var out bytes.Buffer
 		_, _ = io.Copy(&out, r)
 
-		expectedBrowserUrl := fmt.Sprintf("%s/cli/login?session_id=%s&token_name=%s&public_key=%s", utils.GetSupabaseDashboardURL(), sessionId, tokenName, publicKey)
+		expectedBrowserUrl := fmt.Sprintf("%s/cli/login?session_id=%s&token_name=%s&public_key=%s", utils.GetKhulnasoftDashboardURL(), sessionId, tokenName, publicKey)
 		assert.Contains(t, out.String(), expectedBrowserUrl)
 
 		saved, err := credentials.Get(utils.AccessTokenKey)

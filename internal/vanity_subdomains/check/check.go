@@ -22,7 +22,7 @@ func Run(ctx context.Context, projectRef string, desiredSubdomain string, fsys a
 
 	// 2. check if the subdomain is available
 	{
-		resp, err := utils.GetSupabase().CheckVanitySubdomainAvailabilityWithResponse(ctx, projectRef, api.CheckVanitySubdomainAvailabilityJSONRequestBody{
+		resp, err := utils.GetKhulnasoft().CheckVanitySubdomainAvailabilityWithResponse(ctx, projectRef, api.CheckVanitySubdomainAvailabilityJSONRequestBody{
 			VanitySubdomain: subdomain,
 		})
 		if err != nil {

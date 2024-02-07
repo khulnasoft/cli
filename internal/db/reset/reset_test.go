@@ -37,7 +37,7 @@ func TestResetCommand(t *testing.T) {
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
 		// Run test
-		err := Run(context.Background(), "", pgconn.Config{Host: "db.supabase.co"}, fsys)
+		err := Run(context.Background(), "", pgconn.Config{Host: "db.khulnasoft.co"}, fsys)
 		// Check error
 		assert.ErrorContains(t, err, "invalid port (outside range)")
 	})
@@ -298,7 +298,7 @@ func TestRestartDatabase(t *testing.T) {
 
 func TestResetRemote(t *testing.T) {
 	dbConfig := pgconn.Config{
-		Host:     "db.supabase.co",
+		Host:     "db.khulnasoft.co",
 		Port:     5432,
 		User:     "admin",
 		Password: "password",
@@ -311,7 +311,7 @@ func TestResetRemote(t *testing.T) {
 		// Setup mock postgres
 		conn := pgtest.NewConn()
 		defer conn.Close(t)
-		conn.Query(strings.ReplaceAll(LIST_SCHEMAS, "$1", `'{public,auth,extensions,pgbouncer,realtime,"\\_realtime",storage,"\\_analytics","supabase\\_functions","information\\_schema","pg\\_%",cron,graphql,"graphql\\_public",net,pgsodium,"pgsodium\\_masks",pgtle,repack,tiger,"tiger\\_data","timescaledb\\_%","\\_timescaledb\\_%",topology,vault}'`)).
+		conn.Query(strings.ReplaceAll(LIST_SCHEMAS, "$1", `'{public,auth,extensions,pgbouncer,realtime,"\\_realtime",storage,"\\_analytics","khulnasoft\\_functions","information\\_schema","pg\\_%",cron,graphql,"graphql\\_public",net,pgsodium,"pgsodium\\_masks",pgtle,repack,tiger,"tiger\\_data","timescaledb\\_%","\\_timescaledb\\_%",topology,vault}'`)).
 			Reply("SELECT 1", []interface{}{"private"}).
 			Query("DROP SCHEMA IF EXISTS private CASCADE").
 			Reply("DROP SCHEMA").
@@ -338,7 +338,7 @@ func TestResetRemote(t *testing.T) {
 		// Setup mock postgres
 		conn := pgtest.NewConn()
 		defer conn.Close(t)
-		conn.Query(strings.ReplaceAll(LIST_SCHEMAS, "$1", `'{public,auth,extensions,pgbouncer,realtime,"\\_realtime",storage,"\\_analytics","supabase\\_functions","information\\_schema","pg\\_%",cron,graphql,"graphql\\_public",net,pgsodium,"pgsodium\\_masks",pgtle,repack,tiger,"tiger\\_data","timescaledb\\_%","\\_timescaledb\\_%",topology,vault}'`)).
+		conn.Query(strings.ReplaceAll(LIST_SCHEMAS, "$1", `'{public,auth,extensions,pgbouncer,realtime,"\\_realtime",storage,"\\_analytics","khulnasoft\\_functions","information\\_schema","pg\\_%",cron,graphql,"graphql\\_public",net,pgsodium,"pgsodium\\_masks",pgtle,repack,tiger,"tiger\\_data","timescaledb\\_%","\\_timescaledb\\_%",topology,vault}'`)).
 			ReplyError(pgerrcode.InsufficientPrivilege, "permission denied for relation information_schema")
 		// Run test
 		err := resetRemote(context.Background(), "", dbConfig, fsys, conn.Intercept)
@@ -352,13 +352,13 @@ func TestResetRemote(t *testing.T) {
 		// Setup mock postgres
 		conn := pgtest.NewConn()
 		defer conn.Close(t)
-		conn.Query(strings.ReplaceAll(LIST_SCHEMAS, "$1", `'{public,auth,extensions,pgbouncer,realtime,"\\_realtime",storage,"\\_analytics","supabase\\_functions","information\\_schema","pg\\_%",cron,graphql,"graphql\\_public",net,pgsodium,"pgsodium\\_masks",pgtle,repack,tiger,"tiger\\_data","timescaledb\\_%","\\_timescaledb\\_%",topology,vault}'`)).
+		conn.Query(strings.ReplaceAll(LIST_SCHEMAS, "$1", `'{public,auth,extensions,pgbouncer,realtime,"\\_realtime",storage,"\\_analytics","khulnasoft\\_functions","information\\_schema","pg\\_%",cron,graphql,"graphql\\_public",net,pgsodium,"pgsodium\\_masks",pgtle,repack,tiger,"tiger\\_data","timescaledb\\_%","\\_timescaledb\\_%",topology,vault}'`)).
 			Reply("SELECT 0").
 			Query(dropObjects).
-			ReplyError(pgerrcode.InsufficientPrivilege, "permission denied for relation supabase_migrations")
+			ReplyError(pgerrcode.InsufficientPrivilege, "permission denied for relation khulnasoft_migrations")
 		// Run test
 		err := resetRemote(context.Background(), "", dbConfig, fsys, conn.Intercept)
 		// Check error
-		assert.ErrorContains(t, err, "ERROR: permission denied for relation supabase_migrations (SQLSTATE 42501)")
+		assert.ErrorContains(t, err, "ERROR: permission denied for relation khulnasoft_migrations (SQLSTATE 42501)")
 	})
 }

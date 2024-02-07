@@ -48,7 +48,7 @@ func GetDenoPath() (string, error) {
 	if runtime.GOOS == "windows" {
 		denoBinName = "deno.exe"
 	}
-	denoPath := filepath.Join(home, ".supabase", denoBinName)
+	denoPath := filepath.Join(home, ".khulnasoft", denoBinName)
 	return denoPath, nil
 }
 
@@ -319,7 +319,7 @@ func AbsImportMapPath(importMapPath, slug string, fsys afero.Fs) (string, error)
 		if functionConfig, ok := Config.Functions[slug]; ok && functionConfig.ImportMap != "" {
 			importMapPath = functionConfig.ImportMap
 			if !filepath.IsAbs(importMapPath) {
-				importMapPath = filepath.Join(SupabaseDirPath, importMapPath)
+				importMapPath = filepath.Join(KhulnasoftDirPath, importMapPath)
 			}
 		} else if exists, _ := afero.Exists(fsys, FallbackImportMapPath); exists {
 			importMapPath = FallbackImportMapPath

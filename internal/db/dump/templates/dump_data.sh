@@ -25,7 +25,7 @@ pg_dump \
     --exclude-schema "${EXCLUDED_SCHEMAS:-}" \
     --exclude-table "auth.schema_migrations" \
     --exclude-table "storage.migrations" \
-    --exclude-table "supabase_functions.migrations" \
+    --exclude-table "khulnasoft_functions.migrations" \
     --schema "$INCLUDED_SCHEMAS" \
     ${EXTRA_FLAGS:-}
 

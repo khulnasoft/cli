@@ -20,7 +20,7 @@ func TestUpdateRootKey(t *testing.T) {
 		project := apitest.RandomProjectRef()
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 		// Setup root key
 		r, w, err := os.Pipe()
 		require.NoError(t, err)
@@ -46,7 +46,7 @@ func TestUpdateRootKey(t *testing.T) {
 		project := apitest.RandomProjectRef()
 		// Setup valid access token
 		token := apitest.RandomAccessToken(t)
-		t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+		t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 		// Flush pending mocks after test execution
 		defer gock.OffAll()
 		gock.New(utils.DefaultApiHost).

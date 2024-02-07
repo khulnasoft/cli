@@ -1,14 +1,14 @@
 import { serve } from "https://deno.land/std@0.182.0/http/server.ts";
 import * as jose from "https://deno.land/x/jose@v4.13.1/index.ts";
 
-const JWT_SECRET = Deno.env.get("SUPABASE_INTERNAL_JWT_SECRET")!;
-const HOST_PORT = Deno.env.get("SUPABASE_INTERNAL_HOST_PORT")!;
+const JWT_SECRET = Deno.env.get("KHULNASOFT_INTERNAL_JWT_SECRET")!;
+const HOST_PORT = Deno.env.get("KHULNASOFT_INTERNAL_HOST_PORT")!;
 // OS stuff - we don't want to expose these to the functions.
 const EXCLUDED_ENVS = ["HOME", "HOSTNAME", "PATH", "PWD"];
-const FUNCTIONS_PATH = Deno.env.get("SUPABASE_INTERNAL_FUNCTIONS_PATH")!;
-const DEBUG = Deno.env.get("SUPABASE_INTERNAL_DEBUG") === "true";
+const FUNCTIONS_PATH = Deno.env.get("KHULNASOFT_INTERNAL_FUNCTIONS_PATH")!;
+const DEBUG = Deno.env.get("KHULNASOFT_INTERNAL_DEBUG") === "true";
 const FUNCTIONS_CONFIG_STRING = Deno.env.get(
-  "SUPABASE_INTERNAL_FUNCTIONS_CONFIG",
+  "KHULNASOFT_INTERNAL_FUNCTIONS_CONFIG",
 )!;
 
 interface FunctionConfig {
@@ -124,7 +124,7 @@ serve(async (req: Request) => {
   const envVarsObj = Deno.env.toObject();
   const envVars = Object.entries(envVarsObj)
     .filter(([name, _]) =>
-      !EXCLUDED_ENVS.includes(name) && !name.startsWith("SUPABASE_INTERNAL_")
+      !EXCLUDED_ENVS.includes(name) && !name.startsWith("KHULNASOFT_INTERNAL_")
     );
   const forceCreate = true;
   const customModuleRoot = ""; // empty string to allow any local path

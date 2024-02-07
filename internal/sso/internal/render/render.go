@@ -163,17 +163,17 @@ func InfoMarkdown(ref string) error {
 
 	markdownTable = append(markdownTable, fmt.Sprintf(
 		"|Single sign-on URL (ACS URL) |`%s`|",
-		fmt.Sprintf("https://%s.supabase.co/auth/v1/sso/saml/acs", ref),
+		fmt.Sprintf("https://%s.khulnasoft.co/auth/v1/sso/saml/acs", ref),
 	))
 
 	markdownTable = append(markdownTable, fmt.Sprintf(
 		"|Audience URI (SP Entity ID)|`%s`|",
-		fmt.Sprintf("https://%s.supabase.co/auth/v1/sso/saml/metadata", ref),
+		fmt.Sprintf("https://%s.khulnasoft.co/auth/v1/sso/saml/metadata", ref),
 	))
 
 	markdownTable = append(markdownTable, fmt.Sprintf(
 		"|Default Relay State|`%s`|",
-		fmt.Sprintf("https://%s.supabase.co", ref),
+		fmt.Sprintf("https://%s.khulnasoft.co", ref),
 	))
 
 	return list.RenderTable(strings.Join(markdownTable, "\n"))

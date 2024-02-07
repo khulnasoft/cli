@@ -89,7 +89,7 @@ func TestRemoteMigrations(t *testing.T) {
 		conn := pgtest.NewConn()
 		defer conn.Close(t)
 		conn.Query(LIST_MIGRATION_VERSION).
-			ReplyError(pgerrcode.UndefinedTable, "relation \"supabase_migrations.schema_migrations\" does not exist")
+			ReplyError(pgerrcode.UndefinedTable, "relation \"khulnasoft_migrations.schema_migrations\" does not exist")
 		// Run test
 		versions, err := loadRemoteVersions(context.Background(), dbConfig, conn.Intercept)
 		// Check error

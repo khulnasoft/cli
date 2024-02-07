@@ -81,10 +81,10 @@ var (
 			ctx, _ := signal.NotifyContext(cmd.Context(), os.Interrupt)
 			return typescript.Run(ctx, local, linked, projectId, dbUrl, schemas, postgrestV9Compat, afero.NewOsFs())
 		},
-		Example: `  supabase gen types typescript --local
-  supabase gen types typescript --linked
-  supabase gen types typescript --project-id abc-def-123 --schema public --schema private
-  supabase gen types typescript --db-url 'postgresql://...' --schema public --schema auth`,
+		Example: `  khulnasoft gen types typescript --local
+  khulnasoft gen types typescript --linked
+  khulnasoft gen types typescript --project-id abc-def-123 --schema public --schema private
+  khulnasoft gen types typescript --db-url 'postgresql://...' --schema public --schema auth`,
 	}
 )
 
@@ -100,7 +100,7 @@ func init() {
 	genTypesCmd.AddCommand(genTypesTypescriptCmd)
 	genCmd.AddCommand(genTypesCmd)
 	keyFlags := genKeysCmd.Flags()
-	keyFlags.StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Supabase project.")
+	keyFlags.StringVar(&flags.ProjectRef, "project-ref", "", "Project ref of the Khulnasoft project.")
 	keyFlags.VarP(&keyOutput, "output", "o", "Output format of key variables.")
 	keyFlags.StringSliceVar(&override, "override-name", []string{}, "Override specific variable names.")
 	genCmd.AddCommand(genKeysCmd)

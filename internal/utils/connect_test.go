@@ -17,7 +17,7 @@ import (
 )
 
 var dbConfig = pgconn.Config{
-	Host:     GetSupabaseDbHost(apitest.RandomProjectRef()),
+	Host:     GetKhulnasoftDbHost(apitest.RandomProjectRef()),
 	Port:     6543,
 	User:     "admin",
 	Password: "password",
@@ -73,7 +73,7 @@ func TestConnectRemotePostgres(t *testing.T) {
 	})
 
 	t.Run("no retry on connecting successfully with pooler", func(t *testing.T) {
-		Config.Db.Pooler.ConnectionString = "postgres://postgres.nlhaskwsizylhnffaqkd:[YOUR-PASSWORD]@fly-0-sin.pooler.supabase.green:6543/postgres"
+		Config.Db.Pooler.ConnectionString = "postgres://postgres.nlhaskwsizylhnffaqkd:[YOUR-PASSWORD]@fly-0-sin.pooler.khulnasoft.green:6543/postgres"
 		DNSResolver.Value = DNS_GO_NATIVE
 		// Setup mock postgres
 		conn := pgtest.NewConn()
@@ -87,7 +87,7 @@ func TestConnectRemotePostgres(t *testing.T) {
 	})
 
 	t.Run("fallback to postgres port on dial error", func(t *testing.T) {
-		Config.Db.Pooler.ConnectionString = "postgres://postgres.nlhaskwsizylhnffaqkd:[YOUR-PASSWORD]@fly-0-sin.pooler.supabase.green:6543/postgres"
+		Config.Db.Pooler.ConnectionString = "postgres://postgres.nlhaskwsizylhnffaqkd:[YOUR-PASSWORD]@fly-0-sin.pooler.khulnasoft.green:6543/postgres"
 		DNSResolver.Value = DNS_OVER_HTTPS
 		netErr := errors.New("network error")
 		// Setup http mock
@@ -99,7 +99,7 @@ func TestConnectRemotePostgres(t *testing.T) {
 			ReplyError(&net.OpError{Op: "dial", Err: netErr})
 		gock.New("https://1.1.1.1").
 			Get("/dns-query").
-			MatchParam("name", "fly-0-sin.pooler.supabase.green").
+			MatchParam("name", "fly-0-sin.pooler.khulnasoft.green").
 			MatchHeader("accept", "application/dns-json").
 			ReplyError(&net.OpError{Op: "dial", Err: netErr})
 		// Run test

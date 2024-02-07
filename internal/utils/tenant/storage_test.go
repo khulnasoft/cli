@@ -17,7 +17,7 @@ import (
 func TestStorageVersion(t *testing.T) {
 	projectRef := apitest.RandomProjectRef()
 	token := apitest.RandomAccessToken(t)
-	t.Setenv("SUPABASE_ACCESS_TOKEN", string(token))
+	t.Setenv("KHULNASOFT_ACCESS_TOKEN", string(token))
 
 	t.Run("appends prefix v", func(t *testing.T) {
 		// Setup mock api
@@ -26,7 +26,7 @@ func TestStorageVersion(t *testing.T) {
 			Get("/v1/projects/" + projectRef + "/api-keys").
 			Reply(http.StatusOK).
 			JSON([]api.ApiKeyResponse{{Name: "anon", ApiKey: "anon-key"}})
-		gock.New(fmt.Sprintf("https://%s.supabase.co", projectRef)).
+		gock.New(fmt.Sprintf("https://%s.khulnasoft.co", projectRef)).
 			Get("/storage/v1/version").
 			Reply(http.StatusOK).
 			BodyString("0.40.4")
@@ -44,7 +44,7 @@ func TestStorageVersion(t *testing.T) {
 			Get("/v1/projects/" + projectRef + "/api-keys").
 			Reply(http.StatusOK).
 			JSON([]api.ApiKeyResponse{{Name: "anon", ApiKey: "anon-key"}})
-		gock.New(fmt.Sprintf("https://%s.supabase.co", projectRef)).
+		gock.New(fmt.Sprintf("https://%s.khulnasoft.co", projectRef)).
 			Get("/storage/v1/version").
 			ReplyError(errors.New("network error"))
 		// Run test
@@ -61,7 +61,7 @@ func TestStorageVersion(t *testing.T) {
 			Get("/v1/projects/" + projectRef + "/api-keys").
 			Reply(http.StatusOK).
 			JSON([]api.ApiKeyResponse{{Name: "anon", ApiKey: "anon-key"}})
-		gock.New(fmt.Sprintf("https://%s.supabase.co", projectRef)).
+		gock.New(fmt.Sprintf("https://%s.khulnasoft.co", projectRef)).
 			Get("/storage/v1/version").
 			Reply(http.StatusOK).
 			BodyString("0.0.0")

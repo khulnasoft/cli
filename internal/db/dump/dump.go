@@ -89,7 +89,7 @@ func dumpData(ctx context.Context, config pgconn.Config, schema, excludeTable []
 		"_timescaledb_*",
 		"topology",
 		// "vault",
-		// Managed by Supabase
+		// Managed by Khulnasoft
 		// "auth",
 		"extensions",
 		"pgbouncer",
@@ -97,8 +97,8 @@ func dumpData(ctx context.Context, config pgconn.Config, schema, excludeTable []
 		"_realtime",
 		// "storage",
 		"_analytics",
-		// "supabase_functions",
-		"supabase_migrations",
+		// "khulnasoft_functions",
+		"khulnasoft_migrations",
 	}
 	var env []string
 	if len(schema) > 0 {

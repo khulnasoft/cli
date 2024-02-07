@@ -74,7 +74,7 @@ func TestMigrationPush(t *testing.T) {
 			ReplyError(pgerrcode.InvalidCatalogName, `database "target" does not exist`)
 		// Run test
 		err := Run(context.Background(), false, false, false, false, pgconn.Config{
-			Host:     "db.supabase.co",
+			Host:     "db.khulnasoft.co",
 			Port:     5432,
 			User:     "admin",
 			Password: "password",

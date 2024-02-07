@@ -1,15 +1,15 @@
-## supabase-migration-repair
+## khulnasoft-migration-repair
 
 Repairs the remote migration history table.
 
-Requires your local project to be linked to a remote database by running `supabase link`.
+Requires your local project to be linked to a remote database by running `khulnasoft link`.
 
 If your local and remote migration history goes out of sync, you can repair the remote history by marking specific migrations as `--status applied` or `--status reverted`. Marking as `reverted` will delete an existing record from the migration history table while marking as `applied` will insert a new record.
 
 For example, your migration history table may look like this after running `db pull` for the first time.
 
 ```bash
-$ supabase migration list
+$ khulnasoft migration list
         LOCAL      │     REMOTE     │     TIME (UTC)
   ─────────────────┼────────────────┼──────────────────────
     20230103054303 │ 20230103054303 │ 2023-01-03 05:43:03
@@ -18,8 +18,8 @@ $ supabase migration list
 To reset your migration history to a clean state, first delete your local migration file.
 
 ```bash
-$ rm supabase/migrations/20230103054303_remote_commit.sql
-$ supabase migration list
+$ rm khulnasoft/migrations/20230103054303_remote_commit.sql
+$ khulnasoft migration list
         LOCAL      │     REMOTE     │     TIME (UTC)
   ─────────────────┼────────────────┼──────────────────────
                    │ 20230103054303 │ 2023-01-03 05:43:03
@@ -28,9 +28,9 @@ $ supabase migration list
 Then mark the remote migration `20230103054303` as reverted.
 
 ```bash
-$ supabase migration repair 20230103054303 --status reverted
+$ khulnasoft migration repair 20230103054303 --status reverted
 Repaired migration history: 20230103054303 => reverted
-$ supabase migration list
+$ khulnasoft migration list
         LOCAL      │     REMOTE     │     TIME (UTC)
   ─────────────────┼────────────────┼──────────────────────
 ```

@@ -30,7 +30,7 @@ func TestBranchValidation(t *testing.T) {
 	t.Run("branch not a directory", func(t *testing.T) {
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
-		path := "/supabase/.branches/test-branch"
+		path := "/khulnasoft/.branches/test-branch"
 		_, err := fsys.Create(path)
 		require.NoError(t, err)
 		// Run test
@@ -40,7 +40,7 @@ func TestBranchValidation(t *testing.T) {
 	t.Run("branch already exists", func(t *testing.T) {
 		// Setup in-memory fs
 		fsys := afero.NewMemMapFs()
-		path := "/supabase/.branches/test-branch"
+		path := "/khulnasoft/.branches/test-branch"
 		require.NoError(t, fsys.MkdirAll(path, 0755))
 		// Run test
 		assert.Error(t, assertNewBranchIsValid(path, fsys))

@@ -74,10 +74,10 @@ func GetPendingMigrations(ctx context.Context, includeAll bool, conn *pgx.Conn, 
 func suggestRevertHistory(versions []string) string {
 	result := fmt.Sprintln("\nMake sure your local git repo is up-to-date. If the error persists, try repairing the migration history table:")
 	for _, ver := range versions {
-		result += fmt.Sprintln(utils.Bold("supabase migration repair --status reverted " + ver))
+		result += fmt.Sprintln(utils.Bold("khulnasoft migration repair --status reverted " + ver))
 	}
 	result += fmt.Sprintln("\nAnd update local migrations to match remote database:")
-	result += fmt.Sprintln(utils.Bold("supabase db pull"))
+	result += fmt.Sprintln(utils.Bold("khulnasoft db pull"))
 	return result
 }
 

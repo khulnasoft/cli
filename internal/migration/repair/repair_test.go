@@ -21,7 +21,7 @@ import (
 )
 
 var dbConfig = pgconn.Config{
-	Host:     "db.supabase.com",
+	Host:     "db.khulnasoft.com",
 	Port:     5432,
 	User:     "admin",
 	Password: "password",
@@ -38,7 +38,7 @@ func TestRepairCommand(t *testing.T) {
 		conn := pgtest.NewConn()
 		defer conn.Close(t)
 		pgtest.MockMigrationHistory(conn)
-		conn.Query("INSERT INTO supabase_migrations.schema_migrations(version, name, statements) VALUES('0', 'test', null)").
+		conn.Query("INSERT INTO khulnasoft_migrations.schema_migrations(version, name, statements) VALUES('0', 'test', null)").
 			Reply("INSERT 0 1")
 		// Run test
 		err := Run(context.Background(), dbConfig, []string{"0"}, Applied, fsys, conn.Intercept)
@@ -53,7 +53,7 @@ func TestRepairCommand(t *testing.T) {
 		conn := pgtest.NewConn()
 		defer conn.Close(t)
 		pgtest.MockMigrationHistory(conn)
-		conn.Query("DELETE FROM supabase_migrations.schema_migrations WHERE version = ANY('{0}')").
+		conn.Query("DELETE FROM khulnasoft_migrations.schema_migrations WHERE version = ANY('{0}')").
 			Reply("DELETE 1")
 		// Run test
 		err := Run(context.Background(), dbConfig, []string{"0"}, Reverted, fsys, conn.Intercept)
@@ -79,12 +79,12 @@ func TestRepairCommand(t *testing.T) {
 		conn := pgtest.NewConn()
 		defer conn.Close(t)
 		pgtest.MockMigrationHistory(conn)
-		conn.Query("INSERT INTO supabase_migrations.schema_migrations(version, name, statements) VALUES('0', 'test', null)").
-			ReplyError(pgerrcode.DuplicateObject, `relation "supabase_migrations.schema_migrations" does not exist`)
+		conn.Query("INSERT INTO khulnasoft_migrations.schema_migrations(version, name, statements) VALUES('0', 'test', null)").
+			ReplyError(pgerrcode.DuplicateObject, `relation "khulnasoft_migrations.schema_migrations" does not exist`)
 		// Run test
 		err := Run(context.Background(), dbConfig, []string{"0"}, Applied, fsys, conn.Intercept)
 		// Check error
-		assert.ErrorContains(t, err, `ERROR: relation "supabase_migrations.schema_migrations" does not exist (SQLSTATE 42710)`)
+		assert.ErrorContains(t, err, `ERROR: relation "khulnasoft_migrations.schema_migrations" does not exist (SQLSTATE 42710)`)
 	})
 }
 

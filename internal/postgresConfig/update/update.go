@@ -53,13 +53,13 @@ func Run(ctx context.Context, projectRef string, values []string, replaceOverrid
 		if err != nil {
 			return errors.Errorf("failed to serialize config overrides: %w", err)
 		}
-		resp, err := utils.GetSupabase().UpdateConfigWithBodyWithResponse(ctx, projectRef, "application/json", bytes.NewReader(bts))
+		resp, err := utils.GetKhulnasoft().UpdateConfigWithBodyWithResponse(ctx, projectRef, "application/json", bytes.NewReader(bts))
 		if err != nil {
 			return errors.Errorf("failed to update config overrides: %w", err)
 		}
 		if resp.JSON200 == nil {
 			if resp.StatusCode() == 400 {
-				return errors.Errorf("failed to update config overrides: %s (%s). This usually indicates that an unsupported or invalid config override was attempted. Please refer to https://supabase.com/docs/guides/platform/custom-postgres-config", resp.Status(), string(resp.Body))
+				return errors.Errorf("failed to update config overrides: %s (%s). This usually indicates that an unsupported or invalid config override was attempted. Please refer to https://khulnasoft.com/docs/guides/platform/custom-postgres-config", resp.Status(), string(resp.Body))
 			}
 			return errors.Errorf("failed to update config overrides: %s (%s)", resp.Status(), string(resp.Body))
 		}
