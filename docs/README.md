@@ -1,21 +1,36 @@
-## Extended man pages for CLI commands
+# The non-reference docs have been moved!
 
-### Build
+<!-- This file is maintained within the docker/cli GitHub
+     repository at https://github.com/khulnasoft/cli/. Make all
+     pull requests against that repo. If you see this file in
+     another repository, consider it read-only there, as it will
+     periodically be overwritten by the definitive file. Pull
+     requests which include edits to this file in other repositories
+     will be rejected.
+-->
 
-Update [version string](https://github.com/khulnasoft/cli/blob/main/docs/main.go#L33) to match latest release.
+The documentation for Docker Engine has been merged into
+[the general documentation repo](https://github.com/docker/docker.github.io).
 
-```bash
-go run docs/main.go > cli_v1_commands.yaml
+See the [README](https://github.com/docker/docker.github.io/blob/master/README.md)
+for instructions on contributing to and building the documentation.
+
+If you'd like to edit the current published version of the Engine docs,
+do it in the master branch here:
+https://github.com/docker/docker.github.io/tree/master/engine
+
+If you need to document the functionality of an upcoming Engine release,
+use the `vnext-engine` branch:
+https://github.com/docker/docker.github.io/tree/vnext-engine/engine
+
+The reference docs have been left in docker/docker (this repo), which remains
+the place to edit them.
+
+The docs in the general repo are open-source and we appreciate
+your feedback and pull requests!
+
+# Generate docs
+
+```shell
+$ make -f docker.Makefile yamldocs
 ```
-
-### Release
-
-1. Clone the [khulnasoft/khulnasoft](https://github.com/khulnasoft/khulnasoft) repo
-2. Copy over the CLI reference and reformat using khulnasoft config
-
-```bash
-mv ../cli/cli_v1_commands.yaml specs/
-npx prettier -w specs/cli_v1_commands.yaml
-```
-
-3. If there are new commands added, update [common-cli-sections.json](https://github.com/khulnasoft/khulnasoft/blob/master/spec/common-cli-sections.json) manually

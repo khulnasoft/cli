@@ -1,175 +1,84 @@
-# Khulnasoft CLI (v1)
+# Docker CLI
 
-[![Coverage Status](https://coveralls.io/repos/github/khulnasoft/cli/badge.svg?branch=main)](https://coveralls.io/github/khulnasoft/cli?branch=main)
+[![PkgGoDev](https://img.shields.io/badge/go.dev-docs-007d9c?logo=go&logoColor=white)](https://pkg.go.dev/github.com/khulnasoft/cli)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/docker/cli/build.yml?branch=master&label=build&logo=github)](https://github.com/khulnasoft/cli/actions?query=workflow%3Abuild)
+[![Test Status](https://img.shields.io/github/actions/workflow/status/docker/cli/test.yml?branch=master&label=test&logo=github)](https://github.com/khulnasoft/cli/actions?query=workflow%3Atest)
+[![Go Report Card](https://goreportcard.com/badge/github.com/khulnasoft/cli)](https://goreportcard.com/report/github.com/khulnasoft/cli)
+[![Codecov](https://img.shields.io/codecov/c/github/docker/cli?logo=codecov)](https://codecov.io/gh/docker/cli)
 
-[Khulnasoft](https://khulnasoft.com) is an open source Firebase alternative. We're building the features of Firebase using enterprise-grade open source tools.
+## About
 
-This repository contains all the functionality for Khulnasoft CLI.
+This repository is the home of the Docker CLI.
 
-- [x] Running Khulnasoft locally
-- [x] Managing database migrations
-- [x] Pushing your local changes to production
-- [x] Create and Deploy Khulnasoft Functions
-- [ ] Manage your Khulnasoft Account
-- [x] Manage your Khulnasoft Projects
-- [x] Generating types directly from your database schema
-- [ ] Generating API and validation schemas from your database
+## Development
 
-## Getting started
+`docker/cli` is developed using Docker.
 
-### Install the CLI
+Build CLI from source:
 
-Available via [NPM](https://www.npmjs.com) as dev dependency. To install:
-
-```bash
-npm i khulnasoft --save-dev
+```shell
+docker buildx bake
 ```
 
-To install the beta release channel:
+Build binaries for all supported platforms:
 
-```bash
-npm i khulnasoft@beta --save-dev
+```shell
+docker buildx bake cross
 ```
 
-> **Note**
-For Bun versions below v1.0.17, you must add `khulnasoft` as a [trusted dependency](https://bun.sh/guides/install/trusted) before running `bun add -D khulnasoft`.
+Build for a specific platform:
 
-<details>
-  <summary><b>macOS</b></summary>
-
-  Available via [Homebrew](https://brew.sh). To install:
-
-  ```sh
-  brew install khulnasoft/tap/khulnasoft
-  ```
-
-  To install the beta release channel:
-  
-  ```sh
-  brew install khulnasoft/tap/khulnasoft-beta
-  brew link --overwrite khulnasoft-beta
-  ```
-  
-  To upgrade:
-
-  ```sh
-  brew upgrade khulnasoft
-  ```
-</details>
-
-<details>
-  <summary><b>Windows</b></summary>
-
-  Available via [Scoop](https://scoop.sh). To install:
-
-  ```powershell
-  scoop bucket add khulnasoft https://github.com/khulnasoft/scoop-bucket.git
-  scoop install khulnasoft
-  ```
-
-  To upgrade:
-
-  ```powershell
-  scoop update khulnasoft
-  ```
-</details>
-
-<details>
-  <summary><b>Linux</b></summary>
-
-  Available via [Homebrew](https://brew.sh) and Linux packages.
-
-  #### via Homebrew
-
-  To install:
-
-  ```sh
-  brew install khulnasoft/tap/khulnasoft
-  ```
-
-  To upgrade:
-
-  ```sh
-  brew upgrade khulnasoft
-  ```
-
-  #### via Linux packages
-
-  Linux packages are provided in [Releases](https://github.com/khulnasoft/cli/releases). To install, download the `.apk`/`.deb`/`.rpm`/`.pkg.tar.zst` file depending on your package manager and run the respective commands.
-
-  ```sh
-  sudo apk add --allow-untrusted <...>.apk
-  ```
-
-  ```sh
-  sudo dpkg -i <...>.deb
-  ```
-
-  ```sh
-  sudo rpm -i <...>.rpm
-  ```
-
-  ```sh
-  sudo pacman -U <...>.pkg.tar.zst
-  ```
-</details>
-
-<details>
-  <summary><b>Other Platforms</b></summary>
-
-  You can also install the CLI via [go modules](https://go.dev/ref/mod#go-install) without the help of package managers.
-
-  ```sh
-  go install github.com/khulnasoft/cli@latest
-  ```
-
-  Add a symlink to the binary in `$PATH` for easier access:
-
-  ```sh
-  ln -s "$(go env GOPATH)/cli" /usr/bin/khulnasoft
-  ```
-
-  This works on other non-standard Linux distros.
-</details>
-
-<details>
-  <summary><b>Community Maintained Packages</b></summary>
-
-  Available via [pkgx](https://pkgx.sh/). Package script [here](https://github.com/pkgxdev/pantry/blob/main/projects/khulnasoft.com/cli/package.yml).
-  To install in your working directory:
-
-  ```bash
-  pkgx install khulnasoft
-  ```
-
-  Available via [Nixpkgs](https://nixos.org/). Package script [here](https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/tools/khulnasoft-cli/default.nix).
-</details>
-
-### Run the CLI
-
-```bash
-khulnasoft help
+```shell
+docker buildx bake --set binary.platform=linux/arm64 
 ```
 
-Or using npx:
+Build dynamic binary for glibc or musl:
 
-```bash
-npx khulnasoft help
+```shell
+USE_GLIBC=1 docker buildx bake dynbinary 
 ```
 
-## Docs
+Run all linting:
 
-Command & config reference can be found [here](https://khulnasoft.com/docs/reference/cli/about).
-
-## Breaking changes
-
-The CLI is a WIP and we're still exploring the design, so expect a lot of breaking changes. We try to document migration steps in [Releases](https://github.com/khulnasoft/cli/releases). Please file an issue if these steps don't work!
-
-## Developing
-
-To run from source:
-
-```sh
-# Go >= 1.20
-go run . help
+```shell
+docker buildx bake lint shellcheck
 ```
+
+Run test:
+
+```shell
+docker buildx bake test
+```
+
+List all the available targets:
+
+```shell
+make help
+```
+
+### In-container development environment
+
+Start an interactive development environment:
+
+```shell
+make -f docker.Makefile shell
+```
+
+## Legal
+
+*Brought to you courtesy of our legal counsel. For more context,
+please see the [NOTICE](https://github.com/khulnasoft/cli/blob/master/NOTICE) document in this repo.*
+
+Use and transfer of Docker may be subject to certain restrictions by the
+United States and other governments.
+
+It is your responsibility to ensure that your use and/or transfer does not
+violate applicable laws.
+
+For more information, please see https://www.bis.doc.gov
+
+## Licensing
+
+docker/cli is licensed under the Apache License, Version 2.0. See
+[LICENSE](https://github.com/docker/docker/blob/master/LICENSE) for the full
+license text.
