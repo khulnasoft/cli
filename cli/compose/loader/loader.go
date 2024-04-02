@@ -15,8 +15,8 @@ import (
 
 	"github.com/docker/docker/api/types/versions"
 	"github.com/docker/go-connections/nat"
-	units "github.com/docker/go-units"
 	"github.com/google/shlex"
+	units "github.com/khulnasoft-lab/go-units"
 	interp "github.com/khulnasoft/cli/cli/compose/interpolation"
 	"github.com/khulnasoft/cli/cli/compose/schema"
 	"github.com/khulnasoft/cli/cli/compose/template"

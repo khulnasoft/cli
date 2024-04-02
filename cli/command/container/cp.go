@@ -15,7 +15,7 @@ import (
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/pkg/archive"
 	"github.com/docker/docker/pkg/system"
-	units "github.com/docker/go-units"
+	units "github.com/khulnasoft-lab/go-units"
 	"github.com/khulnasoft/cli/cli"
 	"github.com/khulnasoft/cli/cli/command"
 	"github.com/khulnasoft/cli/cli/streams"

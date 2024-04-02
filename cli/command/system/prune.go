@@ -8,8 +8,8 @@ import (
 	"text/template"
 
 	"github.com/docker/docker/api/types/versions"
-	"github.com/docker/go-units"
 	"github.com/fvbommel/sortorder"
+	"github.com/khulnasoft-lab/go-units"
 	"github.com/khulnasoft/cli/cli"
 	"github.com/khulnasoft/cli/cli/command"
 	"github.com/khulnasoft/cli/cli/command/builder"

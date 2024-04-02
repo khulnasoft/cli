@@ -14,7 +14,7 @@ import (
 	"github.com/docker/docker/api/types/swarm"
 	"github.com/docker/docker/api/types/system"
 	"github.com/docker/docker/registry"
-	"github.com/docker/go-units"
+	"github.com/khulnasoft-lab/go-units"
 	"github.com/khulnasoft/cli/cli"
 	pluginmanager "github.com/khulnasoft/cli/cli-plugins/manager"
 	"github.com/khulnasoft/cli/cli/command"

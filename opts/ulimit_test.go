@@ -3,7 +3,7 @@ package opts
 import (
 	"testing"
 
-	"github.com/docker/go-units"
+	"github.com/khulnasoft-lab/go-units"
 	"gotest.tools/v3/assert"
 )
 

@@ -11,7 +11,7 @@ import (
 	"github.com/docker/docker/api/types/swarm"
 	"github.com/docker/docker/api/types/versions"
 	"github.com/docker/docker/client"
-	"github.com/docker/go-units"
+	"github.com/khulnasoft-lab/go-units"
 	servicecli "github.com/khulnasoft/cli/cli/command/service"
 	composetypes "github.com/khulnasoft/cli/cli/compose/types"
 	"github.com/khulnasoft/cli/opts"

@@ -13,7 +13,7 @@ import (
 	"github.com/distribution/reference"
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/pkg/stringid"
-	"github.com/docker/go-units"
+	"github.com/khulnasoft-lab/go-units"
 )
 
 const (

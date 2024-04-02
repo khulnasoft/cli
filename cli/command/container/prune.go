@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	units "github.com/docker/go-units"
+	units "github.com/khulnasoft-lab/go-units"
 	"github.com/khulnasoft/cli/cli"
 	"github.com/khulnasoft/cli/cli/command"
 	"github.com/khulnasoft/cli/cli/command/completion"

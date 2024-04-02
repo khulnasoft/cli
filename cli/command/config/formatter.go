@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/docker/docker/api/types/swarm"
-	units "github.com/docker/go-units"
+	units "github.com/khulnasoft-lab/go-units"
 	"github.com/khulnasoft/cli/cli/command"
 	"github.com/khulnasoft/cli/cli/command/formatter"
 	"github.com/khulnasoft/cli/cli/command/inspect"

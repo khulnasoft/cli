@@ -7,7 +7,7 @@ import (
 
 	"github.com/docker/docker/api/types/image"
 	"github.com/docker/docker/pkg/stringid"
-	units "github.com/docker/go-units"
+	units "github.com/khulnasoft-lab/go-units"
 	"github.com/khulnasoft/cli/cli/command/formatter"
 )
 
