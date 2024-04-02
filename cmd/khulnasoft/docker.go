@@ -17,7 +17,7 @@ import (
 	"github.com/khulnasoft/cli/cli/command/commands"
 	cliflags "github.com/khulnasoft/cli/cli/flags"
 	"github.com/khulnasoft/cli/cli/version"
-	platformsignals "github.com/khulnasoft/cli/cmd/docker/internal/signals"
+	platformsignals "github.com/khulnasoft/cli/cmd/khulnasoft/internal/signals"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
