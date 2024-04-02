@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 
 	"github.com/docker/docker/client"
-	"github.com/docker/go-connections/tlsconfig"
+	"github.com/khulnasoft-lab/go-connections/tlsconfig"
 	"github.com/khulnasoft/cli/cli/config"
 	"github.com/khulnasoft/cli/opts"
 	"github.com/sirupsen/logrus"

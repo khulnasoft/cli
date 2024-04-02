@@ -66,8 +66,8 @@ To use a credential store, you need an external helper program to interact
 with a specific keychain or external store. Docker requires the helper
 program to be in the client's host `$PATH`.
 
-You can download the helpers from the `docker-credential-helpers`
-[releases page](https://github.com/docker/docker-credential-helpers/releases).
+You can download the helpers from the `khulnasoft-credential-helpers`
+[releases page](https://github.com/khulnasoft-lab/khulnasoft-credential-helpers/releases).
 Helpers are available for the following credential stores:
 
 - D-Bus Secret Service

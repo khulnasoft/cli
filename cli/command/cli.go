@@ -19,7 +19,7 @@ import (
 	"github.com/docker/docker/api/types/registry"
 	"github.com/docker/docker/api/types/swarm"
 	"github.com/docker/docker/client"
-	"github.com/docker/go-connections/tlsconfig"
+	"github.com/khulnasoft-lab/go-connections/tlsconfig"
 	"github.com/khulnasoft/cli/cli/config"
 	"github.com/khulnasoft/cli/cli/config/configfile"
 	dcontext "github.com/khulnasoft/cli/cli/context"

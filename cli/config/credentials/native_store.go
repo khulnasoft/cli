@@ -1,8 +1,8 @@
 package credentials
 
 import (
-	"github.com/docker/docker-credential-helpers/client"
-	"github.com/docker/docker-credential-helpers/credentials"
+	"github.com/khulnasoft-lab/khulnasoft-credential-helpers/client"
+	"github.com/khulnasoft-lab/khulnasoft-credential-helpers/credentials"
 	"github.com/khulnasoft/cli/cli/config/types"
 )
 

@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/distribution/reference"
-	"github.com/docker/distribution/manifest/manifestlist"
+	"github.com/khulnasoft-lab/distribution/manifest/manifestlist"
 	"github.com/khulnasoft/cli/cli/manifest/types"
 	"github.com/opencontainers/go-digest"
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"

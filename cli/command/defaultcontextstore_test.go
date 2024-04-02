@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	"github.com/docker/docker/errdefs"
-	"github.com/docker/go-connections/tlsconfig"
+	"github.com/khulnasoft-lab/go-connections/tlsconfig"
 	"github.com/khulnasoft/cli/cli/config/configfile"
 	"github.com/khulnasoft/cli/cli/context/docker"
 	"github.com/khulnasoft/cli/cli/context/store"

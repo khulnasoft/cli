@@ -14,8 +14,8 @@ import (
 	"time"
 
 	"github.com/docker/docker/api/types/versions"
-	"github.com/docker/go-connections/nat"
 	"github.com/google/shlex"
+	"github.com/khulnasoft-lab/go-connections/nat"
 	units "github.com/khulnasoft-lab/go-units"
 	interp "github.com/khulnasoft/cli/cli/compose/interpolation"
 	"github.com/khulnasoft/cli/cli/compose/schema"

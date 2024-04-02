@@ -11,7 +11,7 @@ import (
 
 	"github.com/docker/docker/api/types/container"
 	networktypes "github.com/docker/docker/api/types/network"
-	"github.com/docker/go-connections/nat"
+	"github.com/khulnasoft-lab/go-connections/nat"
 	"github.com/pkg/errors"
 	"github.com/spf13/pflag"
 	"gotest.tools/v3/assert"

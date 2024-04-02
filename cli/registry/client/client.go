@@ -7,9 +7,9 @@ import (
 	"strings"
 
 	"github.com/distribution/reference"
-	"github.com/docker/distribution"
-	distributionclient "github.com/docker/distribution/registry/client"
 	registrytypes "github.com/docker/docker/api/types/registry"
+	"github.com/khulnasoft-lab/distribution"
+	distributionclient "github.com/khulnasoft-lab/distribution/registry/client"
 	manifesttypes "github.com/khulnasoft/cli/cli/manifest/types"
 	"github.com/khulnasoft/cli/cli/trust"
 	"github.com/opencontainers/go-digest"

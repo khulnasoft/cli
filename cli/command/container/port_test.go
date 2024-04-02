@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/docker/docker/api/types"
-	"github.com/docker/go-connections/nat"
+	"github.com/khulnasoft-lab/go-connections/nat"
 	"github.com/khulnasoft/cli/internal/test"
 	"gotest.tools/v3/assert"
 	"gotest.tools/v3/golden"

@@ -7,8 +7,8 @@ import (
 	"fmt"
 
 	"github.com/distribution/reference"
-	"github.com/docker/distribution/manifest/manifestlist"
 	"github.com/docker/docker/registry"
+	"github.com/khulnasoft-lab/distribution/manifest/manifestlist"
 	"github.com/khulnasoft/cli/cli"
 	"github.com/khulnasoft/cli/cli/command"
 	"github.com/khulnasoft/cli/cli/manifest/types"

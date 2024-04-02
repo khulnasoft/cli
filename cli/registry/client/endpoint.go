@@ -7,10 +7,10 @@ import (
 	"time"
 
 	"github.com/distribution/reference"
-	"github.com/docker/distribution/registry/client/auth"
-	"github.com/docker/distribution/registry/client/transport"
 	registrytypes "github.com/docker/docker/api/types/registry"
 	"github.com/docker/docker/registry"
+	"github.com/khulnasoft-lab/distribution/registry/client/auth"
+	"github.com/khulnasoft-lab/distribution/registry/client/transport"
 	"github.com/khulnasoft/cli/cli/trust"
 	"github.com/pkg/errors"
 )

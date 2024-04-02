@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/docker/docker/api/types/swarm"
-	"github.com/docker/go-connections/nat"
+	"github.com/khulnasoft-lab/go-connections/nat"
 	"github.com/sirupsen/logrus"
 )
 

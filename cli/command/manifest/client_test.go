@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/distribution/reference"
-	"github.com/docker/distribution"
+	"github.com/khulnasoft-lab/distribution"
 	manifesttypes "github.com/khulnasoft/cli/cli/manifest/types"
 	"github.com/khulnasoft/cli/cli/registry/client"
 	"github.com/opencontainers/go-digest"

@@ -6,8 +6,8 @@ import (
 	"testing"
 
 	"github.com/distribution/reference"
-	"github.com/docker/distribution"
-	"github.com/docker/distribution/manifest/schema2"
+	"github.com/khulnasoft-lab/distribution"
+	"github.com/khulnasoft-lab/distribution/manifest/schema2"
 	"github.com/khulnasoft/cli/cli/manifest/store"
 	"github.com/khulnasoft/cli/cli/manifest/types"
 	"github.com/khulnasoft/cli/internal/test"

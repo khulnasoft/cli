@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/docker/go-connections/nat"
 	"github.com/fvbommel/sortorder"
+	"github.com/khulnasoft-lab/go-connections/nat"
 	"github.com/khulnasoft/cli/cli"
 	"github.com/khulnasoft/cli/cli/command"
 	"github.com/khulnasoft/cli/cli/command/completion"

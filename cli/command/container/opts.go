@@ -18,7 +18,7 @@ import (
 	networktypes "github.com/docker/docker/api/types/network"
 	"github.com/docker/docker/api/types/strslice"
 	"github.com/docker/docker/errdefs"
-	"github.com/docker/go-connections/nat"
+	"github.com/khulnasoft-lab/go-connections/nat"
 	"github.com/khulnasoft/cli/cli/command"
 	"github.com/khulnasoft/cli/cli/compose/loader"
 	"github.com/khulnasoft/cli/opts"

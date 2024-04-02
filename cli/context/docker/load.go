@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/docker/docker/client"
-	"github.com/docker/go-connections/tlsconfig"
+	"github.com/khulnasoft-lab/go-connections/tlsconfig"
 	"github.com/khulnasoft/cli/cli/connhelper"
 	"github.com/khulnasoft/cli/cli/context"
 	"github.com/khulnasoft/cli/cli/context/store"
