@@ -7,7 +7,7 @@ require (
 	github.com/containerd/containerd v1.7.14
 	github.com/creack/pty v1.1.21
 	github.com/distribution/reference v0.6.0
-	github.com/docker/docker v26.0.0+incompatible
+	github.com/docker/docker v26.0.2+incompatible
 	github.com/fvbommel/sortorder v1.1.0
 	github.com/gogo/protobuf v1.3.2
 	github.com/google/go-cmp v0.6.0
