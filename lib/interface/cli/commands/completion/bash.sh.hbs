@@ -1,0 +1,27 @@
+###-begin-{{app_name}}-completions-###
+#
+# khulnasoft command completion script
+#
+# Installation: {{app_path}} {{completion_command}} >> ~/.bashrc
+#    or {{app_path}} {{completion_command}} >> ~/.bash_profile on OSX.
+#
+_khulnasoft_completions()
+{
+    local cur args type_list
+
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    args=("${COMP_WORDS[@]}")
+
+    # ask khulnasoft to generate completions.
+    type_list=$(khulnasoft --get-yargs-completions "${args[@]}")
+
+    if [[ ${type_list} == '__files_completion__' ]]; then
+        _filedir "@(yaml|yml|json)"
+    else
+        COMPREPLY=( $(compgen -W "${type_list}" -- ${cur}) )
+    fi
+
+    return 0
+}
+complete -F _khulnasoft_completions {{app_name}}
+###-end-{{app_name}}-completions-###

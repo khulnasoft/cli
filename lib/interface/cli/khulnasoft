@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+
+const Output = require('../../output/Output');
+
+process.on('uncaughtException', (err) => {
+    Output.printError(err);
+    process.exit(1);
+});
+
+process.on('unhandledRejection', (err) => {
+    Output.printError(err);
+    process.exit(1);
+});
+
+if (process.argv.includes('--get-yargs-completions')) {
+    const completionInterface = require('./completion');
+    completionInterface().argv; // eslint-disable-line
+} else {
+    const { startCommandLine } = require('./commad-line-interface');
+    startCommandLine().catch((err) => {
+        Output.printError(err);
+        process.exit(1);
+    });
+}

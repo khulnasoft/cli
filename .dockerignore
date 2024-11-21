@@ -1,0 +1,15 @@
+.env
+.git
+.gitignore
+.vscode
+coverage
+logs
+node_modules
+*.log
+*.md
+docker-compose.yml
+khulnasoft.yml
+.coveralls.yml
+examples
+dist
+e2e
